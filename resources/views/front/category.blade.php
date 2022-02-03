@@ -5,6 +5,16 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="description"
+            content="List of contacts in Phone Number List's database for names starting with A"
+        />
+        <meta
+            name="keywords"
+            content="phone number list, mobile number list, sales leads, mobile leads, data prospect, sales crm, contact database, contact details"
+        />
+        <title>People Directory: A | Phone List</title>
+
 
         <!-- Bootstrap CSS -->
         <link
@@ -56,42 +66,48 @@
                             alt="logo"
                         />
                     </a>
-                    <button
-                        class="navbar-toggler"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation"
-                    >
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul
-                            class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center py-2 mx-5 px-5"
-                        >
-                            <li class="nav-item">
-                                <a class="nav-link pe-4" aria-current="page" href="#"
-                                >Product</a
-                                >
+                    <nav class="navbar navbar--center d-lg-flex d-none">
+                        <ul class="navbar__ul">
+                            <li class="navbar__li">
+                                <a href="../../product.html" class="navbar__a"> Product </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link pe-4" href="#">About</a>
+                            <li class="navbar__li">
+                                <a href="../../packages.html" class="navbar__a"> Pricing </a>
+                            </li>
+                            <li class="navbar__li">
+                                <a href="https://blog.phonelist.io" class="navbar__a"> Blog </a>
+                            </li>
+                            <li class="navbar__li">
+                                <a href="../../careers.html" class="navbar__a"> Careers </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <nav class="navbar navbar--right d-lg-flex d-none">
+                        <ul class="navbar__ul align-items-center">
+                            <li class="navbar__li">
+                                <a href="../../login.html" class="navbar__a" id="login">
+                                    Login
+                                </a>
                             </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link py-0">
-                                    <button type="button" class="btn btn-grad px-4">
-                                        Create Free Account
-                                    </button>
+                            <li class="navbar__li">
+                                <a
+                                    href="../../signup.html"
+                                    class="btn btn-grad rounded-pill text-white"
+                                >
+                                    Sign up for free
                                 </a>
                             </li>
                         </ul>
-                    </div>
+                    </nav>
                 </div>
             </nav>
             <!-- END NAVBAR -->
+
+
+        </header>
+
+        <main>
 
             <!-- START SECTION PEOPLE CARDS -->
             <section class="section-people-cards u-padding-lg mt-5">
@@ -181,25 +197,25 @@
                                         @forelse ($data as $allData)
                                             <a href="{{ route('user', ['id' => $allData->id]) }}" class="user-link"
                                             >{{$allData->first_name." ".$allData->last_name }}</a>
-                                        @empty
-                                            <h2 class="card-text no-data">
-                                                No Person pages found for:
-                                                <span class="text-secondary">{{ $dataId }}</span>
-                                            </h2>
+                                    @empty
+                                        <h2 class="card-text no-data">
+                                            No Person pages found for:
+                                            <span class="text-secondary">{{ $dataId }}</span>
+                                        </h2>
                                         @endforelse
-                                    </p>
+                                        </p>
 
-                                    <div class="card-footer bg-transparent border-0">
-                                        <nav aria-label="Page navigation example">
-                                            <ul class="pagination justify-content-end">
-                                                <li class="page-item">
-                                                    <div class="d-flex justify-content-center">
-                                                        {!! $data->links() !!}
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                    </div>
+                                        <div class="card-footer bg-transparent border-0">
+                                            <nav aria-label="Page navigation example">
+                                                <ul class="pagination justify-content-end">
+                                                    <li class="page-item">
+                                                        <div class="d-flex justify-content-center">
+                                                            {!! $data->links() !!}
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </nav>
+                                        </div>
                                 </div>
                             </div>
                         </div>
@@ -207,9 +223,8 @@
                 </div>
             </section>
             <!-- END SECTION MESSAGE -->
-        </header>
 
-        <main></main>
+        </main>
 
         <!-- Custom JS -->
 

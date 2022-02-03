@@ -39,7 +39,34 @@ Route::get('/country/{id}',[
     'uses' => '\App\Http\Controllers\PublicController@country',
     'as'   => 'country',
 ]);
-
+Route::get('/phonelistUserRegister',[
+    'uses' => 'App\Http\Controllers\User\UserController@userRegister',
+    'as' => '/phonelistUserRegister',
+]);
+Route::post('/phonelistUserRegisterAdd',[
+    'uses' => 'App\Http\Controllers\User\UserController@newUser',
+    'as' => '/phonelistUserRegisterAdd',
+]);
+Route::get('/phonelistUserLogin',[
+    'uses' => 'App\Http\Controllers\User\UserController@userLogin',
+    'as' => '/phonelistUserLogin',
+]);
+Route::post('/phonelistUserLoginAuth',[
+    'uses' => 'App\Http\Controllers\User\UserController@userAuth',
+    'as' => '/phonelistUserLoginAuth',
+]);
+Route::get('/auth/google',[
+    'uses' => 'App\Http\Controllers\User\GoogleController@redirectToGoogle',
+    'as' => '/auth/google',
+]);
+Route::get('/auth/google/callback',[
+    'uses' => 'App\Http\Controllers\User\GoogleController@handleGoogleCallback',
+    'as' => '/auth/google',
+]);
+Route::get('/auth/google/register{userArray}',[
+    'uses' => 'App\Http\Controllers\User\UserController@handleGoogleRegister',
+    'as' => '/auth/google/register',
+]);
 
 
             //import-export Admin Dashboard

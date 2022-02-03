@@ -40,8 +40,6 @@
     </head>
     <body>
         <div id="app">
-
-
             <main class="d-flex" >
                 <!-- START LOGIN LEFT SIDE -->
                 <section class="section-login--left">
@@ -194,7 +192,7 @@
                                                             <span id="reset-password">
                                                             @if (Route::has('password.request'))
                                                                 <a href="{{ route('password.request') }}">
-                                                                    {{ __('Reset It Here') }}
+                                                                    <span id="reset-password">Reset It Here</span>
                                                                 </a>
                                                             @endif
                                                             </span>

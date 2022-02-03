@@ -7,10 +7,157 @@ $query2 = "SELECT location FROM phone_lists WHERE location IS NOT NULL";
 $result2 = mysqli_query($connect, $query2);
 $rowcount2 = mysqli_num_rows( $result2 );
 ?>
-@extends('front.master')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
 
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+        crossorigin="anonymous"
+    />
 
-@section('main')
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"
+    />
+
+    <!-- Font awesome Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700;800;900&display=swap"
+        rel="stylesheet"
+    />
+
+    <!-- Animate CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+    <!-- SwiperJS CSS-->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/swiper@7/swiper-bundle.min.css"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ asset('/') }}adminAsset/assets/css/style.css" />
+
+    <title>Find Mobile Numbers | Phone List </title>
+
+    <link rel="shortcut icon" href="{{ asset('/') }}adminAsset/assets/images/icons/favicon.ico" />
+</head>
+
+<body id="home">
+<header>
+    <!-- START NAVBAR -->
+    <div class="container">
+        <div class="row" id="home-navbar">
+            <div class="navbar__logo">
+                <a class="navbar-brand d-lg-flex" href="index.html">
+                    <img src="{{ asset('/') }}adminAsset/assets/images/logo--company-name-dark.png" alt="logo" />
+                </a>
+            </div>
+
+            <nav class="navbar navbar--center d-lg-flex d-none">
+                <ul class="navbar__ul">
+                    <li class="navbar__li">
+                        <a href="product.html" class="navbar__a"> Product </a>
+                    </li>
+                    <li class="navbar__li">
+                        <a href="packages.html" class="navbar__a"> Pricing </a>
+                    </li>
+                    <li class="navbar__li">
+                        <a href="https://blog.phonelist.io" class="navbar__a"> Blog </a>
+                    </li>
+                    <li class="navbar__li">
+                        <a href="careers.html" class="navbar__a"> Careers </a>
+                    </li>
+                </ul>
+            </nav>
+            <nav class="navbar navbar--right d-lg-flex d-none">
+                <ul class="navbar__ul align-items-center">
+                    <li class="navbar__li">
+                        <a href="login.html" class="navbar__a" id="login"> Login </a>
+                    </li>
+
+                    <li class="navbar__li">
+                        <a
+                            href="signup.html"
+                            class="btn btn-grad rounded-pill text-white"
+                        >
+                            Sign up for free
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- END NAVBAR -->
+</header>
+
+<!-- START NAVBAR FOR SMALL SCREEN -->
+<div class="d-lg-none d-flex">
+    <div class="navbar__logo ms-md-5 ms-2 ps-5">
+        <a class="navbar-brand d-flex" href="index.html">
+            <img src="{{ asset('/') }}adminAsset/assets/images/logo--company-name-dark.png" alt="logo" />
+        </a>
+    </div>
+    <div class="navigation">
+        <input type="checkbox" class="navigation__checkbox" id="navi-toggle" />
+
+        <label for="navi-toggle" class="navigation__button">
+            <span class="navigation__icon">&nbsp;</span>
+        </label>
+
+        <div class="navigation__background">&nbsp;</div>
+
+        <nav class="navigation__nav">
+            <ul class="navigation__list">
+                <li class="navigation__item">
+                    <a href="product.html" class="navigation__link">Product</a>
+                </li>
+                <li class="navigation__item">
+                    <a href="packages.html" class="navigation__link">Pricing</a>
+                </li>
+                <li class="navigation__item">
+                    <a href="https://blog.phonelist.io" class="navigation__link"
+                    >Blog</a
+                    >
+                </li>
+                <li class="navigation__item">
+                    <a href="#" class="navigation__link">Careers</a>
+                </li>
+                <li class="navigation__item">
+                    <a href="login.html" class="navigation__link">Login</a>
+                </li>
+                <li class="navigation__item d-flex justify-content-center mt-5">
+                    <a href="signup.html" class="btn btn-grad rounded-pill">
+                        Sign up for free
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<!-- END NAVBAR FOR SMALL SCREEN -->
+
+<main>
     <!-- START BANNER -->
     <section class="section-banner u-padding-lg">
         <div class="container">
@@ -19,22 +166,19 @@ $rowcount2 = mysqli_num_rows( $result2 );
                 <div class="col-lg-6 text-lg-start text-center">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="d-flex align-items-center pb-3">
-                                <span class="heading--sub">Get</span>
-                                <h1 class="heading--sub mb-0">
-                                    <strong>&nbsp;phone number list&nbsp;</strong>
-                                </h1>
-                                <span class="heading--sub">to</span>
-                            </div>
-                            <p class="heading--main pb-4" id="bannerText">
+                            <h1 class="heading--sub pb-3">
+                                The
+                                <strong>sales intelligence and engagement</strong> platform
+                                to
+                            </h1>
+                            <h2 class="heading--main pb-4" id="bannerText">
                                 Crush your sales numbers every quarter
-                            </p>
-                            <p class="d-flex m-0 p-0">
-                                Find and engage your future customers at the right time with
-                                the right message using our 100% accurate and active
-                            <h2 style="color: #7a7e8b; font-weight: 600; line-height: 1.5;">
-                                mobile number list
                             </h2>
+
+                            <p>
+                                Use our data of over 220 million contacts and 30 million
+                                companies to find and engage your future customers at the
+                                right time with the right message in our all-in-one platform
                             </p>
                         </div>
                     </div>
@@ -42,9 +186,18 @@ $rowcount2 = mysqli_num_rows( $result2 );
                     <div class="row">
                         <div class="col-lg-10 col-md-6 col-12 mx-lg-0 mx-auto">
                             <div class="input-group py-4 mx-lg-0 mx-auto">
-                                <input type="email" class="form-control form-control--signup" placeholder="Enter your email"
-                                       aria-label="Enter your email..." aria-describedby="button-signup" />
-                                <button class="btn btn-grad rounded-end-pill px-md-4 px-2" type="button" id="button-signup">
+                                <input
+                                    type="email"
+                                    class="form-control form-control--signup"
+                                    placeholder="Enter your email"
+                                    aria-label="Enter your email..."
+                                    aria-describedby="button-signup"
+                                />
+                                <button
+                                    class="btn btn-grad rounded-end-pill px-md-4 px-2"
+                                    type="button"
+                                    id="button-signup"
+                                >
                                     Sign up for free
                                 </button>
                             </div>
@@ -53,7 +206,7 @@ $rowcount2 = mysqli_num_rows( $result2 );
 
                     <div class="row">
                         <div class="col-lg-10 col-md-6 col-7 mx-auto mx-lg-0">
-                            <div class="divider mt-3 mb-3 mx-lg-0 mx-auto">
+                            <div class="divider mt-4 mb-3 mx-lg-0 mx-auto">
                                 <div class="divider--line me-5"></div>
                                 <span>OR</span>
                                 <div class="divider--line ms-5"></div>
@@ -64,22 +217,28 @@ $rowcount2 = mysqli_num_rows( $result2 );
                     <div class="row">
                         <div class="col-lg-10 col-md-6 col-8 mx-auto mx-lg-0">
                             <div class="google-signup mx-lg-0 mx-auto">
-                                <a type="button" class="btn btn-google-login u-box-shadow-2" href="{{ route('/auth/google') }}">
-                                    <img src="{{ asset('/') }}/adminAsset/assets/images/icons/google.svg" alt="google logo" class="me-2" />
+                                <a
+                                    type="button"
+                                    class="btn btn-google-login u-box-shadow-2"
+                                    href="#"
+                                >
+                                    <img
+                                        src="{{ asset('/') }}adminAsset/assets/images/icons/google.svg"
+                                        alt="google logo"
+                                        class="me-2"
+                                    />
                                     Sign up with google
-                                </a>
-                            </div>
-                            <div class="facebook-signup mx-lg-0 mx-auto mt-4">
-                                <a type="button" class="btn btn-facebook-login u-box-shadow-2" href="signup__facebook.html">
-                                    <img src="{{ asset('/') }}/adminAsset/assets/images/icons/facebook.svg" alt="facebook logo" class="me-2" />
-                                    Sign up with facebook
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 d-lg-flex banner-bg d-none">
-                    <img src="{{ asset('/') }}/adminAsset/assets/images/banner.svg" alt="banner" class="banner-bg--img" />
+                    <img
+                        src="{{ asset('/') }}adminAsset/assets/images/banner.svg"
+                        alt="banner"
+                        class="banner-bg--img"
+                    />
                 </div>
             </div>
         </div>
@@ -90,53 +249,58 @@ $rowcount2 = mysqli_num_rows( $result2 );
     <section class="section-services bg-light u-padding-lg">
         <div class="container">
             <div class="row">
-                <div class="col-md-12 pb-5 mb-4">
-                    <h3 class="section-title text-center text-uppercase" data-aos="fade-up" data-aos-duration="1000">
+                <div class="col-md-12 py-5 mb-4">
+                    <h3
+                        class="section-title text-center text-uppercase"
+                        data-aos="fade-up"
+                        data-aos-duration="1000"
+                    >
                         Our Services
                     </h3>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4 px-5">
-                    <div class="card border-0 h-100">
+                <div class="col-md-4 px-lg-5 px-5">
+                    <div class="card border-0">
                         <div class="card-body">
-                            <i class="bi bi-clipboard-check"></i>
-                            <h4 class="card-title mb-3 px-5">
-                                Find updated and active data
-                            </h4>
+                            <i class="bi bi-currency-exchange"></i>
+                            <h4 class="card-title mb-3">Target with laser precision</h4>
                             <p class="card-text">
-                                Get all active database with 100% accurate data. <br />
-
-                                All leads are double verified which keeps you away from
-                                wasting precious time.
+                                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                                Praesentium molestiae, veritatis in iusto consequuntur
+                                corporis, eaque minima provident eveniet obcaecati fugiat.
+                                Fugit delectus in voluptates vel saepe, beatae voluptate
+                                eum.
                             </p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 px-5 mt-md-0 mt-5">
-                    <div class="card border-0 h-100">
+                <div class="col-md-4 px-lg-5 px-5 mt-md-0 mt-5">
+                    <div class="card border-0">
                         <div class="card-body">
-                            <i class="bi bi-clock-history"></i>
-                            <h4 class="card-title mb-3 px-3">Save months of research</h4>
-                            <p class="card-text py-3">
-                                Use our filters to find the database that suits you the
-                                best. <br />
-
-                                Stop wasting time looking for the right category and find
-                                the phone number list that your company needs.
+                            <i class="bi bi-currency-exchange"></i>
+                            <h4 class="card-title mb-3">Target with laser precision</h4>
+                            <p class="card-text">
+                                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                                Praesentium molestiae, veritatis in iusto consequuntur
+                                corporis, eaque minima provident eveniet obcaecati fugiat.
+                                Fugit delectus in voluptates vel saepe, beatae voluptate
+                                eum.
                             </p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 px-5 mt-md-0 mt-5">
-                    <div class="card border-0 h-100">
+                <div class="col-md-4 px-lg-5 px-5 mt-md-0 mt-5">
+                    <div class="card border-0">
                         <div class="card-body">
-                            <i class="bi bi-hand-thumbs-up"></i>
-                            <h4 class="card-title mb-3 px-5">Get started for FREE</h4>
-                            <p class="card-text py-3">
-                                100% free starter plan with more than 50K phone numbers for
-                                you to get started. <br />
-                                Check-out the accuracy of our database now!
+                            <i class="bi bi-currency-exchange"></i>
+                            <h4 class="card-title mb-3">Target with laser precision</h4>
+                            <p class="card-text">
+                                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                                Praesentium molestiae, veritatis in iusto consequuntur
+                                corporis, eaque minima provident eveniet obcaecati fugiat.
+                                Fugit delectus in voluptates vel saepe, beatae voluptate
+                                eum.
                             </p>
                         </div>
                     </div>
@@ -150,75 +314,40 @@ $rowcount2 = mysqli_num_rows( $result2 );
     <section class="section-analyze u-padding-lg">
         <div class="container">
             <div class="row" style="overflow-x: hidden">
-                <div class="col-md-8 pe-5 d-flex flex-column justify-content-center" data-aos="fade-left"
-                     data-aos-duration="1000">
-                    <h3 class="section-title mb-5">
-                        100% accuracy guaranteed
-                    </h3>
+                <div
+                    class="col-md-6 pe-5 d-flex flex-column justify-content-center"
+                    data-aos="fade-left"
+                    data-aos-duration="1000"
+                >
+                    <h2 class="section-title mb-5">
+                        Make data-driven sales engagement decisions
+                    </h2>
                     <p class="section-text">
-                        Phone Number List has experts who are collecting data from all over the world. We are collecting information from reliable sources and after a lot of research, we are putting the data onto the website. This contact database will surely increase your sales leads. Again, every detail of a person like a person’s name, address, gender, postal code, etc that you will get is 100% accurate and active. If you get any of our data to be inaccurate or if it bounces back, we will provide credits for that data and that’s a promise we keep.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Perspiciatis nam doloribus quisquam vero illum odit voluptas,
+                        commodi cum minima libero et culpa porro sapiente officiis nihil
+                        dolor, quae corrupti facere.
                     </p>
                     <a href="signup.html" class="btn-txt mt-3">
                         Sign up for free →
                     </a>
                 </div>
-                <div class="col-md-4 p-5 mt-5 mt-md-0" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="300">
-                    <img src="{{ asset('/') }}/adminAsset/assets/images/service01.svg" class="img-fluid" alt="service illustration" />
+                <div
+                    class="col-md-6 p-5 mt-5 mt-md-0"
+                    data-aos="fade-left"
+                    data-aos-duration="1000"
+                    data-aos-delay="300"
+                >
+                    <img
+                        src="{{ asset('/') }}adminAsset/assets/images/service01.svg"
+                        class="img-fluid"
+                        alt="service illustration"
+                    />
                 </div>
             </div>
         </div>
     </section>
     <!-- END SERVICE01 DETAILS -->
-
-    <!-- START SERVICE02 DETAILS -->
-    <section class="section-analyze u-padding-lg">
-        <div class="container">
-            <div class="row" style="overflow-x: hidden">
-                <div class="col-md-4 p-5 mt-5 mt-md-0" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="300">
-                    <img src="{{ asset('/') }}/adminAsset/assets/images/service02.svg" class="img-fluid" alt="service illustration" />
-                </div>
-                <div class="col-md-8 pe-5 d-flex flex-column justify-content-center" data-aos="fade-right"
-                     data-aos-duration="1000">
-                    <h3 class="section-title mb-5">
-                        Affordable Buying Price
-                    </h3>
-                    <p class="section-text">
-                        Phone Number List understands the value of your money. Therefore, we are giving you the mobile number list at a very low price as we can afford it. All our mobile number list packages are very affordable so anyone can buy this contact database from Phone Number List. By doing that Phone Number List is showing the world that we are a business-friendly website. Overall, you are getting high-quality contact details at an amazingly cheap price. This bulk price proves that we are very keen to support others in their financial journey.
-                    </p>
-                    <a href="signup.html" class="btn-txt mt-3">
-                        Sign up for free →
-                    </a>
-                </div>
-
-            </div>
-        </div>
-    </section>
-    <!-- END SERVICE02 DETAILS -->
-
-    <!-- START SERVICE03 DETAILS -->
-    <section class="section-analyze u-padding-lg">
-        <div class="container">
-            <div class="row" style="overflow-x: hidden">
-                <div class="col-md-8 pe-5 d-flex flex-column justify-content-center" data-aos="fade-left"
-                     data-aos-duration="1000">
-                    <h3 class="section-title mb-5">
-                        Customizable Service
-                    </h3>
-                    <p class="section-text">
-                        Phone Number List is allowing you to customize any contact details according to your business needs. Hence, you are getting the opportunity to choose whatever mobile number list you want to buy. Here you have the options to maximize or minimize the data and also that will come with your budget price. You can also choose a database based on your personal preference. For example, you can buy any profession's database or any state's database from our website.
-
-                    </p>
-                    <a href="signup.html" class="btn-txt mt-3">
-                        Sign up for free →
-                    </a>
-                </div>
-                <div class="col-md-4 p-5 mt-5 mt-md-0" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="300">
-                    <img src="{{ asset('/') }}/adminAsset/assets/images/service03.svg" class="img-fluid" alt="service illustration" />
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- END SERVICE03 DETAILS -->
 
     <!-- START COUNTER -->
     <section class="section-counter bg-light u-padding-lg">
@@ -227,18 +356,20 @@ $rowcount2 = mysqli_num_rows( $result2 );
                 <div class="card border-0 bg-transparent">
                     <div class="card-body text-md-start mb-md-0 mb-5">
                         <h4 class="card-title">
-                            Trusted by over hundreds of sales users worldwide
+                            Trusted by over 1M sales users worldwide
                         </h4>
                     </div>
                 </div>
             </div>
-            <div class="col-md-7 d-flex align-items-center justify-content-center">
+            <div
+                class="col-md-7 d-flex align-items-center justify-content-center"
+            >
                 <div class="row">
                     <div class="col-lg-4 col-6">
                         <div class="card border-0 bg-transparent">
                             <div class="card-body">
                                 <h4 class="card-title">
-                                    <span class="counter" data-count="{{ $rowcount }}"> 0 </span>
+                                    <span class="counter" data-count="{{ $rowcount }}">0</span>
                                 </h4>
                                 <p class="card-text">mobile numbers</p>
                             </div>
@@ -271,69 +402,36 @@ $rowcount2 = mysqli_num_rows( $result2 );
     </section>
     <!-- END COUNTER -->
 
-    <!-- START SERVICE04 DETAILS -->
+    <!-- START SERVICE02 DETAILS -->
     <section class="section-analyze u-padding-lg">
         <div class="container">
             <div class="row" style="overflow-x: hidden">
-                <div class="col-md-4 p-5" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="300">
-                    <img src="{{ asset('/') }}/adminAsset/assets/images/service04.svg" class="img-fluid" alt="service illustration" />
+                <div
+                    class="col-md-6 p-5"
+                    data-aos="fade-left"
+                    data-aos-duration="1000"
+                    data-aos-delay="300"
+                >
+                    <img
+                        src="{{ asset('/') }}adminAsset/assets/images/service01.svg"
+                        class="img-fluid"
+                        alt="service illustration"
+                    />
                 </div>
-                <div class="col-md-8 ps-5 d-flex flex-column justify-content-center" data-aos="fade-right"
-                     data-aos-duration="1000" data-aos-delay="300">
-                    <h3 class="section-title mb-5">
-                        Easy to Search, Buy and Download
-                    </h3>
+                <div
+                    class="col-md-6 ps-5 d-flex flex-column justify-content-center"
+                    data-aos="fade-left"
+                    data-aos-duration="1000"
+                    data-aos-delay="300"
+                >
+                    <h2 class="section-title mb-5">
+                        Automatically enrich your CRM with the most accurate data
+                    </h2>
                     <p class="section-text">
-                        From the Phone Number List website, you can easily find the expecting contact details you are looking after as our search engine is very accurate. Again all the mobile number lists are very easy to buy, you can purchase any service within a minute. In the end, the contact database is also simple to download. So any unfamiliar and inexperienced person can easily follow the process and get the contact list from Phone Number List.
-                    </p>
-
-                    <a href="signup.html" class="btn-txt mt-3">
-                        Sign up for free →
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- END SERVICE04 DETAILS -->
-
-    <!-- START SERVICE05 DETAILS -->
-    <section class="section-analyze u-padding-lg">
-        <div class="container">
-            <div class="row" style="overflow-x: hidden">
-                <div class="col-md-8 pe-5 d-flex flex-column justify-content-center" data-aos="fade-left"
-                     data-aos-duration="1000">
-                    <h3 class="section-title mb-5">
-                        International Product
-                    </h3>
-                    <p class="section-text">
-                        Through these contact details, you can go beyond borders. By purchasing this you can get connected with high-profile people. Purchasing these mobile leads will provide you with the latest and active contact number list from all over the world. From here you can get more publicity for your business or company and it will enhance your company image. Because of this contact number product, people from all over the world can see your business. In conclusion, it will help you to build your company as a multinational company.
-                    </p>
-                    <a href="signup.html" class="btn-txt mt-3">
-                        Sign up for free →
-                    </a>
-                </div>
-                <div class="col-md-4 p-5 mt-5 mt-md-0" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="300">
-                    <img src="{{ asset('/') }}/adminAsset/assets/images/service05.svg" class="img-fluid" alt="service illustration" />
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- END SERVICE05 DETAILS -->
-
-    <!-- START SERVICE06 DETAILS -->
-    <section class="section-analyze u-padding-lg">
-        <div class="container">
-            <div class="row" style="overflow-x: hidden">
-                <div class="col-md-4 p-5 mt-5 mt-md-0" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="300">
-                    <img src="{{ asset('/') }}/adminAsset/assets/images/service06.svg" class="img-fluid" alt="service illustration" />
-                </div>
-                <div class="col-md-8 pe-5 d-flex flex-column justify-content-center" data-aos="fade-right"
-                     data-aos-duration="1000">
-                    <h3 class="section-title mb-5">
-                        Usable on any CRM platform
-                    </h3>
-                    <p class="section-text">
-                        Phone Number List works so exquisitely whenever it comes to collecting contact details. After download, you will receive the data as a CSV file. Fuse the file into your sales CRM. Therefore, you can use the database on any CRM platform. So you can say that CRM sales are very much possible with this data prospect. By doing this you can generate an extensive network for your business. The larger you can create your network the more sales leads you will get.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Perspiciatis nam doloribus quisquam vero illum odit voluptas,
+                        commodi cum minima libero et culpa porro sapiente officiis nihil
+                        dolor, quae corrupti facere.
                     </p>
                     <a href="signup.html" class="btn-txt mt-3">
                         Sign up for free →
@@ -342,14 +440,18 @@ $rowcount2 = mysqli_num_rows( $result2 );
             </div>
         </div>
     </section>
-    <!-- END SERVICE06 DETAILS -->
+    <!-- END SERVICE02 DETAILS -->
 
     <!-- START TESTIMONIAL -->
     <section class="section-testimonial bg-light u-padding-lg">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h3 class="section-title text-center text-uppercase" data-aos="fade-up" data-aos-duration="1000">
+                    <h3
+                        class="section-title text-center text-uppercase"
+                        data-aos="fade-up"
+                        data-aos-duration="1000"
+                    >
                         Customers love the ease <br />
                         and simplicity
                     </h3>
@@ -365,50 +467,65 @@ $rowcount2 = mysqli_num_rows( $result2 );
                             <!-- Slides -->
                             <div class="swiper-slide">
                                 <div class="card">
-                                    <img class="card-img-top img-fluid rounded-circle" src="{{ asset('/') }}/adminAsset/assets/images/user01.jpg"
-                                         alt="User01 Image" />
+                                    <img
+                                        class="card-img-top img-fluid rounded-circle"
+                                        src="{{ asset('/') }}adminAsset/assets/images/user01.jpg"
+                                        alt="User01 Image"
+                                    />
 
                                     <div class="card-body">
                                         <blockquote class="card-text">
-                                            Extremely reliable, high quality service, and very competitive prices. Excellent! The very best
-                                            data firm we’ve ever worked with.
+                                            Lorem ipsum dolor, sit amet consectetur adipisicing
+                                            elit. Delectus labore reiciendis eveniet optio
+                                            corrupti.
                                         </blockquote>
                                         <blockquote class="card-text">
-                                            - Donna R. Fuentes
+                                            - Maliha Mustafa
                                         </blockquote>
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="card">
-                                    <img class="card-img-top img-fluid rounded-circle" src="{{ asset('/') }}/adminAsset/assets/images/user02.jpg"
-                                         alt="User01 Image" />
+                                    <img
+                                        class="card-img-top img-fluid rounded-circle"
+                                        src="{{ asset('/') }}adminAsset/assets/images/user02.jpg"
+                                        alt="User01 Image"
+                                    />
 
                                     <div class="card-body">
                                         <blockquote class="card-text">
-                                            Good data, which we have successfully used for our campaigns.
+                                            Lorem ipsum dolor, sit amet consectetur adipisicing
+                                            elit. Delectus labore reiciendis eveniet optio
+                                            corrupti.
                                         </blockquote>
                                         <blockquote class="card-text">
-                                            - Matthew L. McNulty
+                                            - Shawn Mendes
                                         </blockquote>
                                     </div>
                                 </div>
                             </div>
                             <div class="swiper-slide">
                                 <div class="card">
-                                    <img class="card-img-top img-fluid rounded-circle" src="{{ asset('/') }}/adminAsset/assets/images/user03.jpg"
-                                         alt="User01 Image" />
+                                    <img
+                                        class="card-img-top img-fluid rounded-circle"
+                                        src="{{ asset('/') }}adminAsset/assets/images/user03.jpg"
+                                        alt="User01 Image"
+                                    />
 
                                     <div class="card-body">
                                         <blockquote class="card-text">
-                                            Positive feedbacks and response on the mobile number list data received from Phone Number List.
+                                            Lorem ipsum dolor, sit amet consectetur adipisicing
+                                            elit. Delectus labore reiciendis eveniet optio
+                                            corrupti.
                                         </blockquote>
                                         <blockquote class="card-text">
-                                            - Kimberly E. Scott
+                                            - Maliha Mustafa
                                         </blockquote>
                                     </div>
                                 </div>
                             </div>
+                            ...
                         </div>
 
                         <!-- If we need navigation buttons -->
@@ -428,10 +545,14 @@ $rowcount2 = mysqli_num_rows( $result2 );
                 <div class="offset-lg-3 col-lg-6 text-center">
                     <div class="row">
                         <div class="offset-lg-0 col-lg-12 col-md-8 offset-md-2">
-                            <h3 class="section-title pb-4" data-aos="fade-up" data-aos-duration="1000">
+                            <h2
+                                class="section-title pb-4"
+                                data-aos="fade-up"
+                                data-aos-duration="1000"
+                            >
                                 Reach the right person with the right message at the right
                                 time.
-                            </h3>
+                            </h2>
 
                             <p>
                                 Get started for free, then add your whole team. You can
@@ -443,9 +564,18 @@ $rowcount2 = mysqli_num_rows( $result2 );
                     <div class="row d-flex justify-content-center">
                         <div class="col-lg-10 col-md-6 col-10 mx-lg-0 mx-auto">
                             <div class="input-group py-4 mx-lg-0 mx-auto">
-                                <input type="email" class="form-control form-control--signup" placeholder="Enter your email"
-                                       aria-label="Enter your email..." aria-describedby="button-signup" />
-                                <button class="btn btn-grad rounded-end-pill px-md-4 px-2" type="button" id="button-signup">
+                                <input
+                                    type="email"
+                                    class="form-control form-control--signup"
+                                    placeholder="Enter your email"
+                                    aria-label="Enter your email..."
+                                    aria-describedby="button-signup"
+                                />
+                                <button
+                                    class="btn btn-grad rounded-end-pill px-md-4 px-2"
+                                    type="button"
+                                    id="button-signup"
+                                >
                                     Sign up for free
                                 </button>
                             </div>
@@ -465,15 +595,17 @@ $rowcount2 = mysqli_num_rows( $result2 );
                     <div class="row d-flex justify-content-center">
                         <div class="col-lg-10 col-md-6 col-8 mx-auto mx-lg-0">
                             <div class="google-signup mx-lg-0 mx-auto">
-                                <a type="button" class="btn btn-google-login u-box-shadow-2" href="signup__google.html">
-                                    <img src="{{ asset('/') }}/adminAsset/assets/images/icons/google.svg" alt="google logo" class="me-2" />
+                                <a
+                                    type="button"
+                                    class="btn btn-google-login u-box-shadow-2"
+                                    href="#"
+                                >
+                                    <img
+                                        src="{{ asset('/') }}adminAsset/assets/images/icons/google.svg"
+                                        alt="google logo"
+                                        class="me-2"
+                                    />
                                     Sign up with google
-                                </a>
-                            </div>
-                            <div class="facebook-signup mx-lg-0 mx-auto mt-4">
-                                <a type="button" class="btn btn-facebook-login u-box-shadow-2" href="signup__facebook.html">
-                                    <img src="{{ asset('/') }}/adminAsset/assets/images/icons/facebook.svg" alt="facebook logo" class="me-2" />
-                                    Sign up with facebook
                                 </a>
                             </div>
                         </div>
@@ -529,6 +661,7 @@ $rowcount2 = mysqli_num_rows( $result2 );
                         <a href="{{ route('category', ['id' => 'X'])  }}" class="blue-link">X</a>
                         <a href="{{ route('category', ['id' => 'Y'])  }}" class="blue-link">Y</a>
                         <a href="{{ route('category', ['id' => 'Z'])  }}" class="blue-link">Z</a>
+
                     </div>
                 </div>
                 <div class="col-md-6 ps-md-4 mt-md-0 mt-5">
@@ -872,16 +1005,193 @@ $rowcount2 = mysqli_num_rows( $result2 );
                             <option value="{{ route('country', ['id' => 'Zambia']) }}" >Zambia</option>
                             <option value="{{ route('country', ['id' => 'Zimbabwe']) }}"  >Zimbabwe</option>
                         </select>
+                        </select>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     <!-- END CATAGORIES -->
-@endsection
+</main>
 
+<!-- START FOOTER -->
+<footer class="footer pt-5 bg-light">
+    <div class="container">
+        <div class="row pt-3">
+            <div class="col-lg-3 pl-5 mb-lg-0 mb-5">
+                <a href="index.html">
+                    <img
+                        class="img-fluid footer__logo"
+                        src="{{ asset('/') }}adminAsset/assets/images/logo--company-name-dark.png"
+                        alt="logo"
+                    />
+                </a>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6 pl-md-0 pb-3 ps-md-0 ps-4">
+                <h5 class="footer-title">ABOUT</h5>
+                <ul class="pt-3">
+                    <li><a href="about.html">About us</a></li>
+                    <li><a href="contact.html">Contact us</a></li>
+                    <li><a href="http://phonelist.io/forum/">Forum</a></li>
+                    <li><a href="http://help.phonelist.io/">Help</a></li>
+                </ul>
+            </div>
+            <div
+                class="col-lg-4 col-md-4 col-sm-6 p-md-0 pb-3 ps-md-0 ps-4 mt-md-0 mt-4"
+            >
+                <h5 class="footer-title">OUR PARTNERS</h5>
 
+                <div class="row pe-5">
+                    <div class="col-md-5 col-6 mt-3">
+                        <a href="https://www.latestdatabase.com/">
+                            <img
+                                src="{{ asset('/') }}adminAsset/assets/images/latest-database--logo.png"
+                                class="img-fluid partner-logo"
+                                alt="latestdatabase logo"
+                            />
+                        </a>
+                    </div>
+                    <div class="col-md-5 col-6 mt-3">
+                        <a href="https://www.bcellphonelist.com/">
+                            <img
+                                src="{{ asset('/') }}adminAsset/assets/images/Brother Phone Number List--logo.png"
+                                class="img-fluid partner-logo"
+                                alt="latestdatabase logo"
+                            />
+                        </a>
+                    </div>
+                    <div class="col-md-5 col-6 mt-3">
+                        <a href="http://www.photoeditorph.com/">
+                            <img
+                                src="{{ asset('/') }}adminAsset/assets/images/phollipines-photo-editor--logo.png"
+                                class="img-fluid partner-logo"
+                                alt="Philippines Photo Editor logo"
+                            />
+                        </a>
+                    </div>
+                    <div class="col-md-5 col-6 mt-3">
+                        <a href="https://www.mplists.com/">
+                            <img
+                                src="{{ asset('/') }}adminAsset/assets/images/mplists--logo.png"
+                                class="img-fluid partner-logo"
+                                alt="Mp List logo"
+                            />
+                        </a>
+                    </div>
+                    <div class="col-md-5 col-6 mx-md-auto mt-3">
+                        <a href="http://www.seoexpartebd.com/">
+                            <img
+                                src="{{ asset('/') }}adminAsset/assets/images/seo-exparte-logo.png"
+                                class="img-fluid partner-logo"
+                                alt="SEO Exparte Bangladesh logo"
+                            />
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="col-lg-3 col-md-4 col-sm-6 pb-lg-5 pb-3 ps-md-0 ps-4 mt-md-0 mt-4"
+            >
+                <div class="span pb-3">
+                    <h5 class="footer-title">SOCIAL MEDIA</h5>
+                </div>
+                <div class="span fsocial">
+                    Follow us on social media to find out the latest updates on our
+                    progress.
+                </div>
+                <div class="social-media pt-3">
+                    <a href="https://www.facebook.com/Phonelistio-111559994765583">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://twitter.com/Phonelistio">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a
+                        href="https://www.youtube.com/channel/UCIYmVIkqTG1oi79AWTeVLDQ"
+                    >
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/phone-list-05b32a230/">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://www.instagram.com/phonelist.io/">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <hr class="line" />
+        </div>
+        <div class="row bottom-line">
+            <div class="col-md-4 text-md-left text-center">
+            <span class="copy"
+            >&#169;2022 Phonelist.io All rights reserved.</span
+            >
+            </div>
 
+            <div class="col-md-8 mt-md-0 mt-4">
+                <ul class="text-center m-auto terms">
+                    <li><a href="terms.html">Terms of service</a></li>
+                    <li><a href="privacy_policy.html">Privacy Policy</a></li>
+                    <li><a href="refund.html">Refund Policy</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- END FOOTER -->
 
+<!-- Bootstrap JS -->
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"
+></script>
 
+<!-- jQuery -->
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+></script>
 
+<!-- ANIMATION JS -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<!-- Swiper JS -->
+<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+
+<!-- Custom JS -->
+<script src="{{ asset('/') }}adminAsset/assets/js/typewriter.js"></script>
+<script src="{{ asset('/') }}adminAsset/assets/js/counter.js"></script>
+<script src="{{ asset('/') }}adminAsset/assets/js/testimonial.js"></script>
+<script src="{{ asset('/') }}adminAsset/assets/js/navbar.js"></script>
+<script src="{{ asset('/') }}adminAsset/assets/js/script.js"></script>
+
+<!-- TYPEWRITER JS -->
+<script>
+    let bannerText = document.getElementById('bannerText');
+
+    let typewriter = new Typewriter(bannerText, {
+        loop: false,
+        delay: 50,
+        cursor: ' ',
+    });
+
+    typewriter
+        .typeString('Crush your sales numbers every quarter')
+        .pauseFor(1500)
+        // .deleteAll()
+        .start();
+</script>
+
+<!-- ANIMATION JS -->
+<script>
+    AOS.init({
+        once: true,
+    });
+</script>
+</body>
+</html>
