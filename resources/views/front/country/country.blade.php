@@ -1,114 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+@extends('front.master')
 
-    <!-- Bootstrap CSS -->
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-        crossorigin="anonymous"
-    />
+@section('metaDescription')
+    List of contacts in Phone Number List's database for contacts living in '{{ $dataId }}'
+@endsection
 
-    <!-- Bootstrap Icons -->
-    <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"
-    />
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+@section('title')
+    Country Search: {{ $dataId }} | Phone List
+@endsection
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-        rel="stylesheet"
-    />
-
-    <!-- Animate CSS -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-    />
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ asset('/') }}adminAsset/assets/css/style.css" />
-
-    <title>Phone Number List</title>
-    <link rel="shortcut icon" href="{{ asset('/') }}adminAsset/assets/images/icons/favicon.ico" />
-</head>
-
-<body>
-<header>
-    <!-- START NAVBAR -->
-    <nav
-        class="navbar navbar--category fixed-top navbar-expand-lg navbar-light border-bottom bg-white"
-        id="sticky-nav"
-    >
-        <div class="container-fluid px-5 py-2">
-            <a class="navbar-brand d-block ms-5 ps-5" href="../../index.html">
-                <img
-                    src="{{ asset('/') }}adminAsset/assets/images/logo--company-name-dark.png"
-                    alt="logo"
-                />
-            </a>
-            <button
-                class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-            >
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul
-                    class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center py-2 mx-5 px-5"
-                >
-                    <li class="nav-item">
-                        <a class="nav-link pe-4" aria-current="page" href="#"
-                        >Product</a
-                        >
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link pe-4" href="#">About</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link py-0">
-                            <button type="button" class="btn btn-grad px-4">
-                                Create Free Account
-                            </button>
-                        </a>
-                    </li>
-                </ul>
+@section('main')
+    <!-- START SEARCH BARS -->
+    <section class="section-searchbar pt-md-5 pb-md-4 py-2 mt-md-0 mt-5 ">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-6 ms-auto">
+                    <input type="text" name="search" id="searchPeople"
+                           class="searchBar w-100 bg-white border-5 text-dark fw-normal" onkeyup="searchPeople()"
+                           placeholder="Search Person by Name..." />
+                </div>
+                <div class="col-md-3 col-6">
+                    <input type="text" name="search" id="searchPeopleCountry"
+                           class="searchBar w-100 bg-white border-5 text-dark fw-normal" onkeyup="searchPeople()"
+                           placeholder="Search Person by Country..." />
+                </div>
             </div>
         </div>
-    </nav>
-    <!-- END NAVBAR -->
-</header>
-
-<main>
+    </section>
+    <!-- END SEARCH BARS -->
     <!-- START SECTION PEOPLE CARDS -->
-    <section class="section-people-cards u-padding-lg mt-5">
-        <div class="container mt-5 pt-4">
+    <section class="section-people-cards mt-4 mb-5">
+        <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <div
-                        class="card u-box-shadow-1 border-0 u-border-radius h-100 bg-light"
-                    >
+                    <div class="card u-box-shadow-1 border-0 u-border-radius h-100 bg-light">
                         <div class="card-body p-5">
                             <h4 class="card-title">
                                 <div class="d-flex align-items-center">
                                     <div class="circle-element circle-element--person">
                                         <i class="bi bi-people-fill"></i>
                                     </div>
-                                    <span class="sub-heading">People Search per Country</span>
+                                    <h1 class="sub-heading">People Search per Country</h1>
                                 </div>
 
                                 <select
@@ -450,23 +382,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 mt-md-0 mt-5">
                     <div class="card bg-transparent u-border-radius h-100">
-                        <div class="card-body d-flex align-items-center px-5 mx-5">
-                            <div class="col-md-4 px-4 mx-3">
-                                <img
-                                    src="{{ asset('/') }}adminAsset/assets/images/data.svg"
-                                    class="img-fluid"
-                                    alt="illustration"
-                                />
+                        <div class="card-body d-flex align-items-center p-5 mx-lg-5">
+                            <div class="col-4 pe-lg-5 pe-4">
+                                <img src="{{ asset('/') }}adminAsset/assets/images/data.svg" class="img-fluid" alt="illustration" />
                             </div>
                             <div class="col-md-8">
-                                <h1 class="heading--sub mb-4">
-                                    Reach your target contacts faster with Apollo
-                                </h1>
-                                <button type="button" class="btn btn-grad px-4">
-                                    Sign Up For Free
-                                </button>
+                                <h2 class="heading--sub mb-4">
+                                    Reach your target contacts faster with Phone Number List
+                                    </h1>
+                                    <a href="{{ route('/phonelistUserRegister') }}" type="button" class="btn btn-grad px-4">
+                                        Sign Up For Free
+                                    </a>
+                                </h2>
                             </div>
                         </div>
                     </div>
@@ -523,25 +452,5 @@
         </div>
     </section>
     <!-- END SECTION MESSAGE -->
-</main>
 
-<!-- Custom JS -->
-
-<script src="{{ asset('/') }}adminAsset/assets/js/script.js"></script>
-
-<!-- Bootstrap JS -->
-<script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"
-></script>
-
-<!-- jQuery -->
-<script
-    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-></script>
-</body>
-</html>
+@endsection

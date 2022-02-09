@@ -1,106 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+@extends('front.master')
 
-    <!-- Bootstrap CSS -->
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-        crossorigin="anonymous"
-    />
+@section('metaDescription')
+    {{ $data->first_name.' '.$data->last_name }}'s Contact Details with mobile number and address from Phone List
+@endsection
 
-    <!-- Bootstrap Icons -->
-    <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"
-    />
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-    />
+@section('title')
+    {{ $data->first_name.' '.$data->last_name }}'s Contact Details | Phone List
+@endsection
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ asset('/') }}adminAsset/assets/css/style.css" />
-
-    <title>Phone Number List</title>
-    <link rel="shortcut icon" href="{{ asset('/') }}adminAsset/assets/images/icons/favicon.ico" />
-</head>
-
-<body>
-<header>
-    <!-- START NAVBAR -->
-    <nav
-        class="navbar navbar--category fixed-top navbar-expand-lg navbar-light border-bottom bg-white"
-        id="sticky-nav"
-    >
-        <div class="container-fluid px-5 py-2">
-            <a class="navbar-brand d-block ms-5 ps-5" href="../../index.html">
-                <img
-                    src="{{ asset('/') }}adminAsset/assets/images/logo--company-name-dark.png"
-                    alt="logo"
-                />
-            </a>
-            <button
-                class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-            >
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul
-                    class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center py-2 mx-5 px-5"
-                >
-                    <li class="nav-item">
-                        <a class="nav-link pe-4" aria-current="page" href="#"
-                        >Product</a
-                        >
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link pe-4" href="#">About</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link py-0">
-                            <button type="button" class="btn btn-grad px-4">
-                                Create Free Account
-                            </button>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!-- END NAVBAR -->
-</header>
-
-<main>
-    <div class="container">
-        <!-- START PERSON SHORT DETAILS -->
-        <section
-            class="section-person-details user-div m-4 mt-md-5 u-padding-lg px-0 pb-0 mt-5"
-        >
-            <div class="card u-box-shadow-1 mt-5">
-                <div class="card-body">
-                    <h1 class="card-title">{{ $data->first_name.' '.$data->last_name }}</h1>
-                    <h2 class="card-text">{{ $data->location.' '.$data->country }}</h2>
+@section('main')
+    <!-- START SEARCH BARS -->
+    <section class="section-searchbar pt-md-5 pb-md-4 py-2 mt-md-0 mt-5 ">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-6 ms-auto">
+                    <input type="text" name="search" id="searchPeople"
+                           class="searchBar w-100 bg-white border-5 text-dark fw-normal" onkeyup="searchPeople()"
+                           placeholder="Search Person by Name..." />
+                </div>
+                <div class="col-md-3 col-6">
+                    <input type="text" name="search" id="searchPeopleCountry"
+                           class="searchBar w-100 bg-white border-5 text-dark fw-normal" onkeyup="searchPeople()"
+                           placeholder="Search Person by Country..." />
                 </div>
             </div>
-        </section>
-        <!-- END PERSON SHORT DETAILS -->
+        </div>
+    </section>
+    <!-- END SEARCH BARS -->
 
+    <!-- START PERSON SHORT DETAILS -->
+    <section class="section-person-details user-div mt-4 px-0 pb-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card u-box-shadow-1">
+                        <div class="card-body">
+                            <h1 class="card-title">{{ $data->first_name.' '.$data->last_name }}</h1>
+                            <p class="card-text">{{ $data->location.' '.$data->country }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END PERSON SHORT DETAILS -->
+    <div class="container">
         <div class="row">
             <div class="col-lg-8">
                 <!-- START PERSON Contact Details -->
@@ -209,7 +154,7 @@
                                         <span>Gender</span>
                                         <p style="color: #5d6a7e">
                                             @if(!empty($data->gender))
-                                            {{ $data->gender}}
+                                                {{ $data->gender}}
                                             @else
                                                 N/A
                                             @endif
@@ -383,13 +328,13 @@
                                         class="contact-details--text col-lg-5 col-md-7 col-sm-6 mb-2"
                                     >
                                         <span>Country</span>
-                                            <a href="{{ route('country', ['id' => $data->country]) }}">
-                                                @if(!empty( $data->country ))
-                                                    {{ $data->country }}
-                                                @else
-                                                    N/A
-                                                @endif
-                                            </a>
+                                        <a href="{{ route('country', ['id' => $data->country]) }}">
+                                            @if(!empty( $data->country ))
+                                                {{ $data->country }}
+                                            @else
+                                                N/A
+                                            @endif
+                                        </a>
 
                                     </div>
 
@@ -549,25 +494,4 @@
             </div>
         </div>
     </div>
-</main>
-
-<!-- Bootstrap JS -->
-<script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"
-></script>
-
-<!-- jQuery -->
-<script
-    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-></script>
-
-<!-- Custom JS -->
-<script src="{{ asset('/') }}adminAsset/assets/js/navbar.js"></script>
-<script src="{{ asset('/') }}adminAsset/assets/js/script.js"></script>
-</body>
-</html>
+@endsection

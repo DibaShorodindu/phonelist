@@ -3,58 +3,74 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Socialite;
-use Auth;
+use App\Models\PhoneListUserModel;
+use App\Models\User;
 use Exception;
-use App\PhoneListUserModel;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Laravel\Jetstream\Events\AddingTeam;
+use Laravel\Socialite\Facades\Socialite;
 
 class GoogleController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function redirectToGoogle()
+    CONST DRIVER_TYPE = 'google';
+    public function handleGoogleRedirect()
     {
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver(static::DRIVER_TYPE)->redirect();
     }
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function handleGoogleCallback()
     {
+        //echo 'hello';
+        //return redirect()->route('/');
         try {
 
-            $user = Socialite::driver('google')->user();
+            $user = Socialite::driver(static::DRIVER_TYPE)->user();
 
-            $finduser = PhoneListUserModel::where('google_id', $user->id)->first();
+            $userExisted = PhoneListUserModel::where('id', $user->id)->first();
 
-            if($finduser){
+            if( $userExisted ) {
 
-                //Auth::login($finduser);
+                Auth::login($userExisted);
 
-                return redirect('/');
+                return redirect()->route('/');
 
-            }else{
-                /*$newUser = PhoneListUserModel::create([
+            }else {
+
+                /*$newUser = User::create([
                     'name' => $user->name,
                     'email' => $user->email,
-                    'google_id'=> $user->id,
-                    'password' => encrypt('123456dummy')
-                ]);*/
+                    'oauth_id' => $user->id,
+                    'oauth_type' => static::DRIVER_TYPE,
+                    'password' => Hash::make($user->id)
+                ]);
 
-                //Auth::login($newUser);
+                AddingTeam::dispatch($newUser);
 
-                return redirect('/');
+                $newUser->switchTeam($team = $newUser->ownedTeams()->create([
+                    'name' => $newUser->name . "'s Team",
+                    'personal_team' => false
+                ]));
+
+                $newUser->update([
+                    'current_team_id' => $newUser->id
+                ]);
+
+                Auth::login($newUser);*/
+                return view('user.userGoogleRegister', ['newUserData'=>$user]);
+
+                //return redirect()->route('/loginWithGoogle', ['user' => $user]);
             }
 
+
         } catch (Exception $e) {
-            dd($e->getMessage());
+            dd($e);
         }
+
+    }
+    public function handleGoogleCallbackRegister()
+    {
+        return view('user.userGoogleRegister');
     }
 }

@@ -22,7 +22,12 @@ class UserController extends Controller
     public function newUser(Request $request)
     {
         PhoneListUserModel::newPhoneListUserModel($request);
-        return redirect()->back()->with('message', 'Product Created Successfully');
+        return redirect()->back()->with('message', 'Created Successfully');
+    }
+    public function newUserByGoogle(Request $request)
+    {
+        PhoneListUserModel::newPhoneListUserModelByGoogle($request);
+        return redirect()->back()->with('message', 'Created Successfully');
     }
     public function userLogin()
     {

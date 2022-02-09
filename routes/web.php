@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\User\SocialController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,6 +48,10 @@ Route::post('/phonelistUserRegisterAdd',[
     'uses' => 'App\Http\Controllers\User\UserController@newUser',
     'as' => '/phonelistUserRegisterAdd',
 ]);
+Route::post('/phonelistUserRegisterAddByGoogle',[
+    'uses' => 'App\Http\Controllers\User\UserController@newUserByGoogle',
+    'as' => '/phonelistUserRegisterAddByGoogle',
+]);
 Route::get('/phonelistUserLogin',[
     'uses' => 'App\Http\Controllers\User\UserController@userLogin',
     'as' => '/phonelistUserLogin',
@@ -55,18 +60,28 @@ Route::post('/phonelistUserLoginAuth',[
     'uses' => 'App\Http\Controllers\User\UserController@userAuth',
     'as' => '/phonelistUserLoginAuth',
 ]);
-Route::get('/auth/google',[
-    'uses' => 'App\Http\Controllers\User\GoogleController@redirectToGoogle',
-    'as' => '/auth/google',
-]);
-Route::get('/auth/google/callback',[
-    'uses' => 'App\Http\Controllers\User\GoogleController@handleGoogleCallback',
-    'as' => '/auth/google',
-]);
-Route::get('/auth/google/register{userArray}',[
+/*Route::get('/auth/google/register{userArray}',[
     'uses' => 'App\Http\Controllers\User\UserController@handleGoogleRegister',
     'as' => '/auth/google/register',
+]);*/
+/** Google OAuth routes */
+Route::get('/auth/google',[
+    'uses' => 'App\Http\Controllers\User\GoogleController@handleGoogleRedirect',
+    'as' => '/auth/google',
 ]);
+Route::get('user/google/callback',[
+    'uses' => 'App\Http\Controllers\User\GoogleController@handleGoogleCallback',
+    'as' => 'user/google/callback',
+]);
+Route::get('/loginWithGoogle{id}',[
+    'uses' => 'App\Http\Controllers\User\GoogleController@handleGoogleCallbackRegister',
+    'as' => '/loginWithGoogle',
+]);
+
+/** Facebook OAuth routes */
+Route::get('auth/facebook', [SocialController::class, 'facebookRedirect']);
+Route::get('auth/facebook/callback', [SocialController::class, 'loginWithFacebook']);
+
 
 
             //import-export Admin Dashboard

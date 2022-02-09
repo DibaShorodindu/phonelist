@@ -22,7 +22,7 @@
 
 <script src="{{ asset('/') }}adminAsset/assets/js/chart.js"></script>
 <script src="{{ asset('/') }}adminAsset/assets/js/script.js"></script>
-<script src="{ asset('/') }}adminAsset/assets/js/dashboard.js"></script>
+<script src="{{ asset('/') }}adminAsset/assets/js/dashboard.js"></script>
 
 <script>
     $(document).ready(function () {

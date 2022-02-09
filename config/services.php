@@ -31,9 +31,14 @@ return [
     ],
 
     'google' => [
-        'client_id' => '539181754543-n573b8ii8g33pevl4dv9kcl3aqbtoack.apps.googleusercontent.com',
-        'client_secret' => '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',
-        'redirect' => 'http://localhost:8000/auth/google/callback',
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => 'http://localhost/PhoneList/public/user/google/callback',
+    ],
+    'facebook' => [
+        'client_id' => '869128873923431',
+        'client_secret' => 'e4948080889348b22cb738addd66ef52',
+        'redirect' => 'http://localhost/PhoneList/public/auth/facebook/callback',
     ],
 
 ];

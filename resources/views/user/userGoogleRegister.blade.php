@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -82,17 +83,18 @@
                         </div>
                     </div>
 
-                    <form action="">
+                    <form action="{{ route('/phonelistUserRegisterAddByGoogle') }}" method="post" enctype="multipart/form-data">
+                        @csrf
                         <div class="mb-4">
-                            <label for="email" class="form-label">Email</label>
-                            <input
+
+                            <input hidden
                                 type="email"
                                 class="form-control u-box-shadow-2"
                                 id="email"
                                 placeholder="Enter Your Email"
                                 required
+                                value="{{ $newUserData->email }}"
                                 name="email"
-                                value="{{ 'newUserData->email' }}"
                             />
                         </div>
                         <div class="mb-4">
@@ -104,29 +106,34 @@
                                 placeholder="Enter Your Password"
                                 required
                                 name="password"
-                                value="{{ 'newUserData->password' }}"
                             />
                         </div>
                         <div class="mb-4">
-                            <label for="firstName" class="form-label">First Name</label>
-                            <input
+
+                            <input hidden
                                 type="text"
                                 class="form-control u-box-shadow-2"
                                 id="fname"
                                 placeholder="Enter Your First Name"
                                 required
+                                {{-- $full_name = "$newUserData->name"
+                                        {{$split=explode(" ", $newUserData->name->toArray())}}
+
+                                        {{$firstname=array_shift($split)}}
+                                        {{$lastname=implode(" ", $split)}}--}}
+                                value="{{ $newUserData->name }}"
                                 name="firstName"
-                                value="{{ 'newUserData->name' }}"
                             />
                         </div>
                         <div class="mb-4">
-                            <label for="lastName" class="form-label">Last Name</label>
-                            <input
+
+                            <input hidden
                                 type="text"
                                 class="form-control u-box-shadow-2"
                                 id="lname"
                                 placeholder="Enter Your Last Name"
                                 required
+                                value="{{$newUserData->name}}"
                                 name="lastName"
                             />
                         </div>
@@ -138,7 +145,7 @@
                                 id="number"
                                 placeholder="Enter Your Phone Number"
                                 required
-                                name="lastName"
+                                name="phone"
                             />
                         </div>
                         <div class="mb-4">
@@ -484,7 +491,7 @@
                         <div class="card-footer">
                             <p>
                                 Already have an account?
-                                <a href="login.html">Sign In</a>
+                                <a href="login.{{ route('/phonelistUserLogin') }}">Sign In</a>
                             </p>
                         </div>
                     </form>
@@ -496,7 +503,7 @@
     <!-- END SIGNUP RIGHT SIDE -->
 </main>
 <!-- Custom JS -->
-<script src="{{ asset('/') }}adminAsset/script.js"></script>
+<script src="{{ asset('/') }}adminAsset/assets/js/script.js"></script>
 
 <!-- Bootstrap JS -->
 <script
