@@ -22,12 +22,7 @@ class UserController extends Controller
     public function newUser(Request $request)
     {
         PhoneListUserModel::newPhoneListUserModel($request);
-        return redirect()->back()->with('message', 'Created Successfully');
-    }
-    public function newUserByGoogle(Request $request)
-    {
-        PhoneListUserModel::newPhoneListUserModelByGoogle($request);
-        return redirect()->back()->with('message', 'Created Successfully');
+        return redirect('/')->with('message', 'Created Successfully');
     }
     public function userLogin()
     {
@@ -39,6 +34,7 @@ class UserController extends Controller
     }
     public function userAuth(Request $request)
     {
+
         $connect = mysqli_connect("localhost", "root", "", "phonelist");
         session_start();
             $email = mysqli_real_escape_string($connect,$_POST['email']);
@@ -52,9 +48,9 @@ class UserController extends Controller
                 $_SESSION['email'] = $email;
                 $_SESSION['login_user'] = $email;
 
-                return redirect()->back()->with('message', 'login Successfully');
+                return redirect('/')->with('message', 'login Successfully');
             }else {
-                return redirect()->back()->with('message', 'email or password invalid');
+                return redirect()->back()->with('message', 'Email and/or password do not match with any of our records.');
             }
     }
 

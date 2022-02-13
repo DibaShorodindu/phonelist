@@ -28,39 +28,14 @@ class GoogleController extends Controller
 
             $user = Socialite::driver(static::DRIVER_TYPE)->user();
 
-            $userExisted = PhoneListUserModel::where('id', $user->id)->first();
+            $userExisted = PhoneListUserModel::where('email', $user->email)->first();
 
             if( $userExisted ) {
-
-                Auth::login($userExisted);
 
                 return redirect()->route('/');
 
             }else {
-
-                /*$newUser = User::create([
-                    'name' => $user->name,
-                    'email' => $user->email,
-                    'oauth_id' => $user->id,
-                    'oauth_type' => static::DRIVER_TYPE,
-                    'password' => Hash::make($user->id)
-                ]);
-
-                AddingTeam::dispatch($newUser);
-
-                $newUser->switchTeam($team = $newUser->ownedTeams()->create([
-                    'name' => $newUser->name . "'s Team",
-                    'personal_team' => false
-                ]));
-
-                $newUser->update([
-                    'current_team_id' => $newUser->id
-                ]);
-
-                Auth::login($newUser);*/
                 return view('user.userGoogleRegister', ['newUserData'=>$user]);
-
-                //return redirect()->route('/loginWithGoogle', ['user' => $user]);
             }
 
 

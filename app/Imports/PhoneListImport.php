@@ -37,6 +37,7 @@ class PhoneListImport implements ToModel,WithHeadingRow
                 'email'                     => $row['email'],
                 'first_name'                => $row['first_name'],
                 'last_name'                 => $row['last_name'],
+                'name'                      => $row['first_name'].' '.$row['last_name'],
                 'gender'                    => $row['gender'],
                 'country'                   => $row['country'],
                 'location'                  => $row['location'],

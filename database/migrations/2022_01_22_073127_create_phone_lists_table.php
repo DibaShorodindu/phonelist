@@ -20,6 +20,7 @@ class CreatePhoneListsTable extends Migration
             $table->string('email')->nullable();
             $table->string('first_name');
             $table->string('last_name');
+            $table->string('name');
             $table->string('gender')->nullable();
             $table->string('country');
             $table->string('location')->nullable();

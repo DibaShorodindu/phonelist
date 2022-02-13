@@ -48,11 +48,11 @@
     <!-- START LOGIN LEFT SIDE -->
     <section class="section-login--left">
         <div class="login-text-box row">
-            <a class="col-12 company-logo" href="index.html">
-                <img src="{{ asset('/') }}adminAsset/assets/images/logo--company-name.png" alt="logo" />
+            <a class="col-12 company-logo" href="{{ route('/') }}">
+                <img src="{{ asset('/') }}adminAsset/assets/images/logo--company-name-dark.svg" alt="logo" />
             </a>
             <div class="col-12">
-                <a type="button" class="btn btn-home pt-3" href="index.html">
+                <a type="button" class="btn btn-home pt-3" href="{{ route('/') }}">
                     Back to the homepage
                 </a>
             </div>
@@ -68,13 +68,14 @@
 
     <!-- START LOGIN RIGHT SIDE -->
     <section class="section-login--right d-flex flex-column">
-        <div class="col-12 company-logo">
-            <img src="{{ asset('/') }}adminAsset/assets/images/logo--company-name-dark.png" alt="logo" />
-        </div>
+
 
         <!-- START LOGIN FORM -->
         <div class="login-form">
             <div class="card border-0 u-box-shadow-1 rounded-3">
+                <div class="col-12 company-logo">
+                    <img src="{{ asset('/') }}adminAsset/assets/images/logo--company-name-dark.svg" alt="logo" />
+                </div>
                 <div class="card-title d-flex">
                     <a href="{{ route('/phonelistUserLogin') }}" class="login p-4">Log in</a>
                     <a href="{{ route('/phonelistUserRegister') }}" class="signup p-4"
@@ -87,7 +88,7 @@
                             <a
                                 type="button"
                                 class="btn btn-google-login u-box-shadow-2"
-                                href="#"
+                                href="{{ route('/auth/google') }}"
                             >
                                 <img
                                     src="{{ asset('/') }}adminAsset/assets/images/icons/google.svg"
@@ -99,7 +100,7 @@
                             <a
                                 type="button"
                                 class="btn btn-facebook-login u-box-shadow-2 mt-4"
-                                href="#"
+                                href="{{ url('auth/facebook') }}"
                             >
                                 <i class="bi bi-facebook me-2"></i>
                                 Log in with facebook
@@ -111,9 +112,6 @@
                             <div class="divider--line ms-5"></div>
                         </div>
                     </div>
-                    @if($message = Session::get('message'))
-                        <h4 id="file-upload-filename" class="mt-2 text-end mb-0 pe-3 text-info fw-bold">{{ $message }}</h4>
-                    @endif
                     <form action="{{ route('/phonelistUserLoginAuth') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-5">
@@ -137,6 +135,23 @@
                                 required
                                 name="password"
                             />
+                            @if($message = Session::get('message'))
+                                <div id="error-text">
+                                    <i
+                                        class="bi bi-exclamation-circle-fill text-danger pe-2"
+                                    ></i>
+                                    <p class="text-danger">
+                                        {{ $message }}
+                                    </p>
+                                </div>
+                            @endif
+                            <!-- An element to toggle between password visibility -->
+                            <div class="input-group align-items-center my-1">
+                                <input type="checkbox" onclick="showPassword()" />
+                                <label for="checkbox" class="ps-2" style="line-height: 1">
+                                    Show Password
+                                </label>
+                            </div>
                         </div>
                         <button
                             type="submit"

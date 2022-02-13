@@ -3,7 +3,7 @@
     <div class="row" id="home-navbar">
         <div class="navbar__logo">
             <a class="navbar-brand d-lg-flex" href="{{ route('/') }}">
-                <img src="{{ asset('/') }}/adminAsset/assets/images/logo--company-name-dark.png" alt="logo" />
+                <img class="img-fluid" src="{{ asset('/') }}/adminAsset/assets/images/logo--company-name-dark.svg" alt="phone list" />
             </a>
         </div>
 

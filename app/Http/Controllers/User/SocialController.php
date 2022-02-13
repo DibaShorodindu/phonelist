@@ -22,10 +22,9 @@ class SocialController extends Controller
         try {
 
             $user = Socialite::driver('facebook')->user();
-            $isUser = PhoneListUserModel::where('id', $user->id)->first();
+            $isUser = PhoneListUserModel::where('email', $user->email)->first();
 
             if($isUser){
-                //Auth::login($isUser);
                 return redirect('/');
             }else{
                 return view('user.userGoogleRegister', ['newUserData'=>$user]);
@@ -35,4 +34,6 @@ class SocialController extends Controller
             dd($exception->getMessage());
         }
     }
+
+
 }

@@ -16,6 +16,7 @@ class PhoneList extends Model
         'uid',
         'first_name',
         'last_name',
+        'name',
         'gender',
         'country',
         'location',
@@ -43,6 +44,7 @@ class PhoneList extends Model
         self::$phoneList->email                     = $request->email;
         self::$phoneList->first_name                = $request->first_name;
         self::$phoneList->last_name                 = $request->last_name;
+        self::$phoneList->name                      = $request->first_name.' '.$request->last_name;
         self::$phoneList->gender                    = $request->gender;
         self::$phoneList->country                   = $request->country;
         self::$phoneList->location                  = $request->location;
@@ -53,7 +55,7 @@ class PhoneList extends Model
         self::$phoneList->save();
     }
 
-    public static function updateProduct($request)
+    public static function updatePhoneList($request)
     {
         self::$phoneList = PhoneList::find($request->id);
         self::$phoneList->phone                     = $request->phone;

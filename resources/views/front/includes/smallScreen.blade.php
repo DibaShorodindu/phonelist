@@ -1,7 +1,8 @@
+<!-- START NAVBAR FOR SMALL SCREEN -->
 <div class="d-lg-none d-flex">
     <div class="navbar__logo ms-md-5 ms-2 ps-5">
         <a class="navbar-brand d-flex" href="/">
-            <img src="{{ asset('/') }}/adminAsset/assets/images/logo--company-name-dark.png" alt="logo" />
+            <img class="img-fluid" src="{{ asset('/') }}/adminAsset/assets/images/logo--company-name-dark.svg" alt="phone list" />
         </a>
     </div>
     <div class="navigation">
@@ -39,3 +40,4 @@
         </nav>
     </div>
 </div>
+<!-- END NAVBAR FOR SMALL SCREEN -->

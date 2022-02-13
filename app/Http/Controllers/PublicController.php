@@ -27,26 +27,25 @@ class PublicController extends Controller
         $this->data = DB::table('phone_lists')
             ->where('first_name', 'like', $x.'%')
             ->paginate(50);
-        //$this->data = Phonelist::findByCharacter($id);
         return view('front.category', ['data'=>$this->data])->with('dataId', $x);
-        /*return view('front.category',
-            [
-                'data' => DB::table('phone_lists')
-                    ->where('first_name', 'like', $x.'%')
-                    ->paginate(50),])->with('dataId', $x);*/
-
     }
     public function user($id)
     {
         $this->data = Phonelist::find($id);
-        $name = substr($this->data->first_name, 0, 1);
-        //Str::limit($this->data->first_name,1);
-        $this->userData = DB::table('phone_lists')
-            ->where('first_name', 'like', $name.'%')
-            ->get();
+        $result = substr($this->data->name, 0, 3);
+        $this->userData = PhoneList::where('name', 'LIKE', $result. '%'  )->get();
 
         return view('front.user.user', ['data'=>$this->data])->with('userData', $this->userData);
     }
+    public function userSearch(Request $request)
+    {
+        $this->data = PhoneList::where('name', $request->searchPeople)->first();
+        $result = substr($this->data->name, 0, 3);
+        $this->userData = PhoneList::where('name', 'LIKE', $result. '%'  )->get();
+
+        return view('front.user.user', ['data'=>$this->data])->with('userData', $this->userData);
+    }
+
     public function country($id)
     {
         $x=$id;

@@ -49,7 +49,7 @@
     <section class="section-signup--left">
         <div class="signup-text-box row">
             <a class="col-12 company-logo" href="index.html">
-                <img src="{{ asset('/') }}adminAsset/assets/images/logo--company-name.png" alt="logo" />
+                <img src="{{ asset('/') }}adminAsset/assets/images/logo--company-name-dark.svg" alt="logo" />
             </a>
             <div class="col-12">
                 <a type="button" class="btn btn-home pt-3" href="index.html">
@@ -68,15 +68,15 @@
 
     <!-- START SIGNUP RIGHT SIDE -->
     <section class="section-signup--right d-flex flex-column">
-        <div class="col-12 company-logo">
-            <img src="{{ asset('/phonelistUserRegister') }}adminAsset/assets/images/logo--company-name-dark.png" alt="logo" />
-        </div>
-
         <!-- START SIGNUP FORM -->
         <div class="signup-form">
             <div class="card border-0 u-box-shadow-1 rounded-3">
                 <div class="card-body p-5 pb-3">
+                    <div class="col-12 company-logo">
+                        <img src="{{ asset('/') }}adminAsset/assets/images/logo--company-name-dark.svg" alt="logo" />
+                    </div>
                     <div class="card-title">
+
                         <div>
                             <h1>Let's Get Started</h1>
                         </div>
@@ -84,7 +84,7 @@
                             <a
                                 type="button"
                                 class="btn btn-google-login u-box-shadow-2"
-                                href="signup__google.html"
+                                href="{{ route('/auth/google') }}"
                             >
                                 <img
                                     src="{{ asset('/') }}adminAsset/assets/images/icons/google.svg"
@@ -96,7 +96,7 @@
                             <a
                                 type="button"
                                 class="btn btn-facebook-login u-box-shadow-2 mt-4"
-                                href="signup__facebook.html"
+                                href="{{ url('auth/facebook') }}"
                             >
                                 <i class="bi bi-facebook me-2"></i>
                                 Sign up with facebook

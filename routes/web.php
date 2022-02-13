@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Front\CountryController;
+use App\Http\Controllers\User\Searching\TypeaheadController;
 use App\Http\Controllers\User\SocialController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+
+
             //Admin Dashboard
 Route::get('/adminDashboard',[
     'uses' => 'App\Http\Controllers\AdminController@index',
@@ -36,6 +42,12 @@ Route::get('/user/{id}',[
     'uses' => '\App\Http\Controllers\PublicController@user',
     'as'   => 'user',
 ]);
+
+Route::get('/userSearch',[
+    'uses' => '\App\Http\Controllers\PublicController@userSearch',
+    'as'   => 'userSearch',
+]);
+
 Route::get('/country/{id}',[
     'uses' => '\App\Http\Controllers\PublicController@country',
     'as'   => 'country',
@@ -48,10 +60,6 @@ Route::post('/phonelistUserRegisterAdd',[
     'uses' => 'App\Http\Controllers\User\UserController@newUser',
     'as' => '/phonelistUserRegisterAdd',
 ]);
-Route::post('/phonelistUserRegisterAddByGoogle',[
-    'uses' => 'App\Http\Controllers\User\UserController@newUserByGoogle',
-    'as' => '/phonelistUserRegisterAddByGoogle',
-]);
 Route::get('/phonelistUserLogin',[
     'uses' => 'App\Http\Controllers\User\UserController@userLogin',
     'as' => '/phonelistUserLogin',
@@ -60,10 +68,8 @@ Route::post('/phonelistUserLoginAuth',[
     'uses' => 'App\Http\Controllers\User\UserController@userAuth',
     'as' => '/phonelistUserLoginAuth',
 ]);
-/*Route::get('/auth/google/register{userArray}',[
-    'uses' => 'App\Http\Controllers\User\UserController@handleGoogleRegister',
-    'as' => '/auth/google/register',
-]);*/
+
+
 /** Google OAuth routes */
 Route::get('/auth/google',[
     'uses' => 'App\Http\Controllers\User\GoogleController@handleGoogleRedirect',
@@ -78,10 +84,20 @@ Route::get('/loginWithGoogle{id}',[
     'as' => '/loginWithGoogle',
 ]);
 
+/** Email OAuth routes */
+Route::post('/user/email/callback',[
+    'uses' => 'App\Http\Controllers\User\EmailController@handleEmailCallback',
+    'as' => '/user/email/callback',
+]);
+
+
 /** Facebook OAuth routes */
 Route::get('auth/facebook', [SocialController::class, 'facebookRedirect']);
 Route::get('auth/facebook/callback', [SocialController::class, 'loginWithFacebook']);
 
+/** search routes */
+Route::get('/autocomplete-search', [TypeaheadController::class, 'autocompleteSearch']);
+//Route::get('/autocomplete-country-search', [TypeaheadController::class, 'autocompleteSearch']);
 
 
             //import-export Admin Dashboard

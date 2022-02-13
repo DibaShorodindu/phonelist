@@ -26,7 +26,7 @@
                 <div class="col-lg-6 text-lg-start text-center">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="d-flex align-items-center pb-3">
+                            <div class="d-flex justify-content-lg-start justify-content-center align-items-center pb-3">
                                 <span class="heading--sub">Get</span>
                                 <h1 class="heading--sub mb-0">
                                     <strong>&nbsp;phone number list&nbsp;</strong>
@@ -48,13 +48,16 @@
 
                     <div class="row">
                         <div class="col-lg-10 col-md-6 col-12 mx-lg-0 mx-auto">
-                            <div class="input-group py-4 mx-lg-0 mx-auto">
-                                <input type="email" class="form-control form-control--signup" placeholder="Enter your email"
-                                       aria-label="Enter your email..." aria-describedby="button-signup" />
-                                <button class="btn btn-grad rounded-end-pill px-md-4 px-2" type="button" id="button-signup">
-                                    Sign up for free
-                                </button>
-                            </div>
+                            <form action="{{ route('/user/email/callback') }}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <div class="input-group py-4 mx-lg-0 mx-auto">
+                                    <input type="email" name="email" class="form-control form-control--signup" placeholder="Enter your email"
+                                           aria-label="Enter your email..." aria-describedby="button-signup" />
+                                    <button class="btn btn-grad rounded-end-pill px-md-4 px-2" type="submit" id="button-signup">
+                                        Sign up for free
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
 
@@ -86,7 +89,7 @@
                     </div>
                 </div>
                 <div class="col-md-6 d-lg-flex banner-bg d-none">
-                    <img src="{{ asset('/') }}/adminAsset/assets/images/banner.svg" alt="banner" class="banner-bg--img" />
+                    <img src="{{ asset('/') }}/adminAsset/assets/images/banner.png" alt="phone number list" class="banner-bg--img" />
                 </div>
             </div>
         </div>
@@ -154,7 +157,7 @@
     <!-- END SERVICES -->
 
     <!-- START SERVICE01 DETAILS -->
-    <section class="section-analyze u-padding-lg">
+    <section class="section-service01 u-padding-lg">
         <div class="container">
             <div class="row" style="overflow-x: hidden">
                 <div class="col-md-8 pe-5 d-flex flex-column justify-content-center" data-aos="fade-left"
@@ -163,14 +166,14 @@
                         100% accuracy guaranteed
                     </h3>
                     <p class="section-text">
-                        Phone Number List has experts who are collecting data from all over the world. We are collecting information from reliable sources and after a lot of research, we are putting the data onto the website. This contact database will surely increase your sales leads. Again, every detail of a person like a person’s name, address, gender, postal code, etc that you will get is 100% accurate and active. If you get any of our data to be inaccurate or if it bounces back, we will provide credits for that data and that’s a promise we keep.
+                        Phone List has experts who are collecting data from all over the world. We are collecting information from reliable sources and after a lot of research, we are putting the data onto the website. This contact database will surely increase your sales leads. Again, every detail of a person like a person’s name, address, gender, postal code, etc that you will get is 100% accurate and active. If you get any of our data to be inaccurate or if it bounces back, we will provide credits for that data and that’s a promise we keep.
                     </p>
-                    <a href="signup.html" class="btn-txt mt-3">
+                    <a href="{{ route('/phonelistUserRegister') }}"class="btn-txt mt-3">
                         Sign up for free →
                     </a>
                 </div>
                 <div class="col-md-4 p-5 mt-5 mt-md-0" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="300">
-                    <img src="{{ asset('/') }}/adminAsset/assets/images/service01.svg" class="img-fluid" alt="service illustration" />
+                    <img src="{{ asset('/') }}/adminAsset/assets/images/service01.png" class="img-fluid" alt="service illustration" />
                 </div>
             </div>
         </div>
@@ -178,21 +181,22 @@
     <!-- END SERVICE01 DETAILS -->
 
     <!-- START SERVICE02 DETAILS -->
-    <section class="section-analyze u-padding-lg">
+    <section class="section-service02 bg-light u-padding-lg">
         <div class="container">
             <div class="row" style="overflow-x: hidden">
                 <div class="col-md-4 p-5 mt-5 mt-md-0" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="300">
-                    <img src="{{ asset('/') }}/adminAsset/assets/images/service02.svg" class="img-fluid" alt="service illustration" />
+                    <img src="{{ asset('/') }}/adminAsset/assets/images/service02.png" class="img-fluid" alt="service illustration" />
                 </div>
                 <div class="col-md-8 pe-5 d-flex flex-column justify-content-center" data-aos="fade-right"
                      data-aos-duration="1000">
                     <h3 class="section-title mb-5">
-                        Affordable Buying Price
+                        Easy to Search, Buy and Download
+
                     </h3>
                     <p class="section-text">
-                        Phone Number List understands the value of your money. Therefore, we are giving you the mobile number list at a very low price as we can afford it. All our mobile number list packages are very affordable so anyone can buy this contact database from Phone Number List. By doing that Phone Number List is showing the world that we are a business-friendly website. Overall, you are getting high-quality contact details at an amazingly cheap price. This bulk price proves that we are very keen to support others in their financial journey.
+                        From the Phone List website, you can easily find the expecting contact details you are looking after as our search engine is very accurate. Again all the mobile number lists are very easy to buy, you can purchase any service within a minute. In the end, the contact database is also simple to download. So any unfamiliar and inexperienced person can easily follow the process and get the contact list from Phone List.
                     </p>
-                    <a href="signup.html" class="btn-txt mt-3">
+                    <a href="{{ route('/phonelistUserRegister') }}"class="btn-txt mt-3">
                         Sign up for free →
                     </a>
                 </div>
@@ -203,7 +207,7 @@
     <!-- END SERVICE02 DETAILS -->
 
     <!-- START SERVICE03 DETAILS -->
-    <section class="section-analyze u-padding-lg">
+    <section class="section-service03 u-padding-lg">
         <div class="container">
             <div class="row" style="overflow-x: hidden">
                 <div class="col-md-8 pe-5 d-flex flex-column justify-content-center" data-aos="fade-left"
@@ -212,15 +216,15 @@
                         Customizable Service
                     </h3>
                     <p class="section-text">
-                        Phone Number List is allowing you to customize any contact details according to your business needs. Hence, you are getting the opportunity to choose whatever mobile number list you want to buy. Here you have the options to maximize or minimize the data and also that will come with your budget price. You can also choose a database based on your personal preference. For example, you can buy any profession's database or any state's database from our website.
+                        Phone List is allowing you to customize any contact details according to your business needs. Hence, you are getting the opportunity to choose whatever mobile number list you want to buy. Here you have the options to maximize or minimize the data and also that will come with your budget price. You can also choose a database based on your personal preference. For example, you can buy any profession's database or any state's database from our website.
 
                     </p>
-                    <a href="signup.html" class="btn-txt mt-3">
+                    <a href="{{ route('/phonelistUserRegister') }}"class="btn-txt mt-3">
                         Sign up for free →
                     </a>
                 </div>
                 <div class="col-md-4 p-5 mt-5 mt-md-0" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="300">
-                    <img src="{{ asset('/') }}/adminAsset/assets/images/service03.svg" class="img-fluid" alt="service illustration" />
+                    <img src="{{ asset('/') }}/adminAsset/assets/images/service03.png" class="img-fluid" alt="service illustration" />
                 </div>
             </div>
         </div>
@@ -279,22 +283,21 @@
     <!-- END COUNTER -->
 
     <!-- START SERVICE04 DETAILS -->
-    <section class="section-analyze u-padding-lg">
+    <section class="section-service04 u-padding-lg">
         <div class="container">
             <div class="row" style="overflow-x: hidden">
                 <div class="col-md-4 p-5" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="300">
-                    <img src="{{ asset('/') }}/adminAsset/assets/images/service04.svg" class="img-fluid" alt="service illustration" />
+                    <img src="{{ asset('/') }}/adminAsset/assets/images/service04.png" class="img-fluid" alt="service illustration" />
                 </div>
                 <div class="col-md-8 ps-5 d-flex flex-column justify-content-center" data-aos="fade-right"
                      data-aos-duration="1000" data-aos-delay="300">
                     <h3 class="section-title mb-5">
-                        Easy to Search, Buy and Download
+                        Affordable Buying Price
                     </h3>
                     <p class="section-text">
-                        From the Phone Number List website, you can easily find the expecting contact details you are looking after as our search engine is very accurate. Again all the mobile number lists are very easy to buy, you can purchase any service within a minute. In the end, the contact database is also simple to download. So any unfamiliar and inexperienced person can easily follow the process and get the contact list from Phone Number List.
+                        Phone List understands the value of your money. Therefore, we are giving you the mobile number list at a very low price as we can afford it. All our mobile number list packages are very affordable so anyone can buy this contact database from Phone List. By doing that Phone List is showing the world that we are a business-friendly website. Overall, you are getting high-quality contact details at an amazingly cheap price. This bulk price proves that we are very keen to support others in their financial journey.
                     </p>
-
-                    <a href="signup.html" class="btn-txt mt-3">
+                    <a href="{{ route('/phonelistUserRegister') }}"class="btn-txt mt-3">
                         Sign up for free →
                     </a>
                 </div>
@@ -304,7 +307,7 @@
     <!-- END SERVICE04 DETAILS -->
 
     <!-- START SERVICE05 DETAILS -->
-    <section class="section-analyze u-padding-lg">
+    <section class="section-service05 bg-light u-padding-lg">
         <div class="container">
             <div class="row" style="overflow-x: hidden">
                 <div class="col-md-8 pe-5 d-flex flex-column justify-content-center" data-aos="fade-left"
@@ -315,12 +318,12 @@
                     <p class="section-text">
                         Through these contact details, you can go beyond borders. By purchasing this you can get connected with high-profile people. Purchasing these mobile leads will provide you with the latest and active contact number list from all over the world. From here you can get more publicity for your business or company and it will enhance your company image. Because of this contact number product, people from all over the world can see your business. In conclusion, it will help you to build your company as a multinational company.
                     </p>
-                    <a href="signup.html" class="btn-txt mt-3">
+                    <a href="{{ route('/phonelistUserRegister') }}"class="btn-txt mt-3">
                         Sign up for free →
                     </a>
                 </div>
                 <div class="col-md-4 p-5 mt-5 mt-md-0" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="300">
-                    <img src="{{ asset('/') }}/adminAsset/assets/images/service05.svg" class="img-fluid" alt="service illustration" />
+                    <img src="{{ asset('/') }}/adminAsset/assets/images/service05.png" class="img-fluid" alt="service illustration" />
                 </div>
             </div>
         </div>
@@ -328,11 +331,11 @@
     <!-- END SERVICE05 DETAILS -->
 
     <!-- START SERVICE06 DETAILS -->
-    <section class="section-analyze u-padding-lg">
+    <section class="section-service06 u-padding-lg">
         <div class="container">
             <div class="row" style="overflow-x: hidden">
                 <div class="col-md-4 p-5 mt-5 mt-md-0" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="300">
-                    <img src="{{ asset('/') }}/adminAsset/assets/images/service06.svg" class="img-fluid" alt="service illustration" />
+                    <img src="{{ asset('/') }}/adminAsset/assets/images/service06.png" class="img-fluid" alt="service illustration" />
                 </div>
                 <div class="col-md-8 pe-5 d-flex flex-column justify-content-center" data-aos="fade-right"
                      data-aos-duration="1000">
@@ -340,9 +343,9 @@
                         Usable on any CRM platform
                     </h3>
                     <p class="section-text">
-                        Phone Number List works so exquisitely whenever it comes to collecting contact details. After download, you will receive the data as a CSV file. Fuse the file into your sales CRM. Therefore, you can use the database on any CRM platform. So you can say that CRM sales are very much possible with this data prospect. By doing this you can generate an extensive network for your business. The larger you can create your network the more sales leads you will get.
+                        Phone List works so exquisitely whenever it comes to collecting contact details. After download, you will receive the data as a CSV file. Fuse the file into your sales CRM. Therefore, you can use the database on any CRM platform. So you can say that CRM sales are very much possible with this data prospect. By doing this you can generate an extensive network for your business. The larger you can create your network the more sales leads you will get.
                     </p>
-                    <a href="signup.html" class="btn-txt mt-3">
+                    <a href="{{ route('/phonelistUserRegister') }}"class="btn-txt mt-3">
                         Sign up for free →
                     </a>
                 </div>
@@ -389,7 +392,7 @@
                             <div class="swiper-slide">
                                 <div class="card">
                                     <img class="card-img-top img-fluid rounded-circle" src="{{ asset('/') }}/adminAsset/assets/images/user02.jpg"
-                                         alt="User01 Image" />
+                                         alt="User02 Image" />
 
                                     <div class="card-body">
                                         <blockquote class="card-text">
@@ -404,11 +407,11 @@
                             <div class="swiper-slide">
                                 <div class="card">
                                     <img class="card-img-top img-fluid rounded-circle" src="{{ asset('/') }}/adminAsset/assets/images/user03.jpg"
-                                         alt="User01 Image" />
+                                         alt="User03 Image" />
 
                                     <div class="card-body">
                                         <blockquote class="card-text">
-                                            Positive feedbacks and response on the mobile number list data received from Phone Number List.
+                                            Positive feedbacks and response on the mobile number list data received from Phone List.
                                         </blockquote>
                                         <blockquote class="card-text">
                                             - Kimberly E. Scott
@@ -449,13 +452,16 @@
 
                     <div class="row d-flex justify-content-center">
                         <div class="col-lg-10 col-md-6 col-10 mx-lg-0 mx-auto">
-                            <div class="input-group py-4 mx-lg-0 mx-auto">
-                                <input type="email" class="form-control form-control--signup" placeholder="Enter your email"
-                                       aria-label="Enter your email..." aria-describedby="button-signup" />
-                                <button class="btn btn-grad rounded-end-pill px-md-4 px-2" type="button" id="button-signup">
-                                    Sign up for free
-                                </button>
-                            </div>
+                            <form action="{{ route('/user/email/callback') }}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <div class="input-group py-4 mx-lg-0 mx-auto">
+                                    <input type="email" name="email" class="form-control form-control--signup" placeholder="Enter your email"
+                                           aria-label="Enter your email..." aria-describedby="button-signup" />
+                                    <button class="btn btn-grad rounded-end-pill px-md-4 px-2" type="submit" id="button-signup">
+                                        Sign up for free
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
 
@@ -472,13 +478,13 @@
                     <div class="row d-flex justify-content-center">
                         <div class="col-lg-10 col-md-6 col-8 mx-auto mx-lg-0">
                             <div class="google-signup mx-lg-0 mx-auto">
-                                <a type="button" class="btn btn-google-login u-box-shadow-2" href="signup__google.html">
+                                <a type="button" class="btn btn-google-login u-box-shadow-2" href="{{ route('/auth/google') }}">
                                     <img src="{{ asset('/') }}/adminAsset/assets/images/icons/google.svg" alt="google logo" class="me-2" />
                                     Sign up with google
                                 </a>
                             </div>
                             <div class="facebook-signup mx-lg-0 mx-auto mt-4">
-                                <a type="button" class="btn btn-facebook-login u-box-shadow-2" href="signup__facebook.html">
+                                <a type="button" class="btn btn-facebook-login u-box-shadow-2" href="{{ url('auth/facebook') }}">
                                     <img src="{{ asset('/') }}/adminAsset/assets/images/icons/facebook.svg" alt="facebook logo" class="me-2" />
                                     Sign up with facebook
                                 </a>
