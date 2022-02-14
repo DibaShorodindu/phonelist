@@ -18,6 +18,10 @@ class PhoneListUserModel extends Model
         'google_id',
     ];
 
+    protected $hidden = [
+        'remember_token',
+    ];
+
     protected static $user;
 
     public static function newPhoneListUserModel($request)
@@ -60,4 +64,13 @@ class PhoneListUserModel extends Model
         self::$user->country            = $request->country;
         self::$user->save();
     }
+
+//    public static function updatePassword($request)
+//    {
+//        self::$user = PhoneListUserModel::find($request->email);
+//
+//        self::$user->password              = $request->password;
+//        self::$user->save();
+//    }
+
 }

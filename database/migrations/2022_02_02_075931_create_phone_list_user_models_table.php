@@ -15,12 +15,13 @@ class CreatePhoneListUserModelsTable extends Migration
     {
         Schema::create('phone_list_user_models', function (Blueprint $table) {
             $table->id();
-            $table->string('email');
+            $table->string('email')->unique();
             $table->string('password');
             $table->string('firstName');
             $table->string('lastName');
             $table->string('phone');
             $table->string('country');
+            $table->rememberToken();
             $table->timestamps();
         });
     }

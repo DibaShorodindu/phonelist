@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserAuth\ForgotPasswordController;
 use App\Http\Controllers\Front\CountryController;
 use App\Http\Controllers\User\Searching\TypeaheadController;
 use App\Http\Controllers\User\SocialController;
@@ -153,3 +154,11 @@ Auth::routes();
 
 Route::get('/home', '\App\Http\Controllers\HomeController@index')->name('home');
 Route::get('admin/home', '\App\Http\Controllers\HomeController@handleAdmin')->name('admin.route')->middleware('admin');
+
+
+
+/** reset password*/
+Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
+Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
+Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
+Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');

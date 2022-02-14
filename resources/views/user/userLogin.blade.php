@@ -195,7 +195,8 @@
                             </h2>
                         </div>
                     </div>
-                    <form action="">
+                    <form action="{{ route('forget.password.post') }}" method="POST">
+                        @csrf
                         <div class="mb-5">
                             <label for="email" class="form-label">Email</label>
                             <input
@@ -204,6 +205,7 @@
                                 id="email"
                                 placeholder="Type Your Email"
                                 required
+                                name="email"
                             />
                         </div>
                         <div class="mb-5">
