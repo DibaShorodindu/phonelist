@@ -25,7 +25,7 @@ class SocialController extends Controller
             $isUser = PhoneListUserModel::where('email', $user->email)->first();
 
             if($isUser){
-                return redirect('/');
+                return redirect()->route('loggedInUser');
             }else{
                 return view('user.userGoogleRegister', ['newUserData'=>$user]);
             }

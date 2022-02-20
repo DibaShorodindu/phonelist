@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\UserAuth\ForgotPasswordController;
-use App\Http\Controllers\Front\CountryController;
 use App\Http\Controllers\User\Searching\TypeaheadController;
 use App\Http\Controllers\User\SocialController;
 use Illuminate\Support\Facades\Route;
@@ -69,6 +68,24 @@ Route::post('/phonelistUserLoginAuth',[
     'uses' => 'App\Http\Controllers\User\UserController@userAuth',
     'as' => '/phonelistUserLoginAuth',
 ]);
+/** terms and services*/
+Route::get('/terms-of-service',[
+    'uses' => 'App\Http\Controllers\User\FooterController@termsAndServices',
+    'as' => 'termsAndServices',
+]);
+/** privacy policy*/
+Route::get('/privacy_policy',[
+    'uses' => 'App\Http\Controllers\User\FooterController@privacyPolicy',
+    'as' => 'privacyPolicy',
+]);
+/** refund policy*/
+Route::get('/refund',[
+    'uses' => 'App\Http\Controllers\User\FooterController@refund',
+    'as' => 'refund',
+]);
+
+
+
 
 
 /** Google OAuth routes */
@@ -157,8 +174,69 @@ Route::get('admin/home', '\App\Http\Controllers\HomeController@handleAdmin')->na
 
 
 
-/** reset password*/
+/** reset password */
 Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
 Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
+
+
+/** product page */
+Route::get('/product',[
+    'uses' => '\App\Http\Controllers\Product\ProductController@product',
+    'as'   => 'product',
+]);
+/** packages page */
+Route::get('/packages',[
+    'uses' => '\App\Http\Controllers\Packages\PackagesController@packages',
+    'as'   => 'packages',
+]);
+/** careers page */
+Route::get('/careers',[
+    'uses' => '\App\Http\Controllers\Careers\CareersController@careers',
+    'as'   => 'careers',
+]);
+/** contact page */
+Route::get('/contact',[
+    'uses' => '\App\Http\Controllers\Contact\ContactController@contact',
+    'as'   => 'contact',
+]);
+/** about us page */
+Route::get('/aboutUS',[
+    'uses' => '\App\Http\Controllers\Contact\ContactController@aboutUS',
+    'as'   => 'about',
+]);
+
+
+/** user Dashboard */
+Route::group(['middleware' => ['auth:sanctum', 'verified']], function (){
+
+
+    Route::get('loggedInUser',[
+        'uses' => '\App\Http\Controllers\User\UserController@dashboard',
+        'as'   => 'loggedInUser',
+    ]);
+
+    Route::get('people',[
+        'uses' => '\App\Http\Controllers\User\UserController@people',
+        'as'   => 'people',
+    ]);
+
+    Route::get('/settings/account',[
+        'uses' => '\App\Http\Controllers\User\UserController@account',
+        'as'   => 'account',
+    ]);
+
+    Route::get('/settings/upgrade',[
+        'uses' => '\App\Http\Controllers\User\UserController@upgradeUser',
+        'as'   => 'upgrade',
+    ]);
+
+});
+
+Route::get('userLogout',[
+    'uses' => '\App\Http\Controllers\User\UserController@logout',
+    'as'   => 'userLogout',
+]);
+
+

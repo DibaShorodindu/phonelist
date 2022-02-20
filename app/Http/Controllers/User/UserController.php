@@ -5,7 +5,9 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\PhoneListUserModel;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Hash;
+use Session;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -14,16 +16,57 @@ class UserController extends Controller
     protected $emailAuth;
     protected $passwordAuth;
     protected $data;
+    protected $id;
+    protected $user;
+
+
+    public function dashboard()
+    {
+        if(Auth::check()){
+            return view('userDashboard.userDashboard');
+        }
+        return redirect('/phonelistUserLogin')->with('message','Oppes! You have entered invalid credentials');
+
+    }
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
 
     public function userRegister()
     {
         return view('user.userRegister');
     }
+
     public function newUser(Request $request)
     {
-        PhoneListUserModel::newPhoneListUserModel($request);
-        return redirect('/')->with('message', 'Created Successfully');
+        $data = $request->all();
+        $check = $this->create($data);
+
+        return redirect("loggedInUser")->with('message', 'data Updated Successfully');
+
+
     }
+
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+    public function create(array $data)
+    {
+        return PhoneListUserModel::create([
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'firstName' => $data['firstName'],
+            'lastName' => $data['lastName'],
+            'name' => $data['firstName'].' '.$data['lastName'],
+            'phone' => $data['phone'],
+            'country' => $data['country'],
+        ]);
+    }
+
     public function userLogin()
     {
         return view('user.userLogin');
@@ -32,26 +75,28 @@ class UserController extends Controller
     {
         return view('user.userLogin');
     }
+
+    /*
+     * Write code on Method
+     *
+     * @return response()
+     */
     public function userAuth(Request $request)
     {
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+        ]);
 
-        $connect = mysqli_connect("localhost", "root", "", "phonelist");
-        session_start();
-            $email = mysqli_real_escape_string($connect,$_POST['email']);
-            $password = mysqli_real_escape_string($connect,$_POST['password']);
+        $credentials = $request->only('email', 'password');
+        if (Auth::attempt($credentials)) {
+            return redirect('loggedInUser')
+                ->withSuccess('You have Successfully loggedin');
+        }
 
-            $sql = "SELECT id FROM phone_list_user_models WHERE email = '$email' and password = '$password'";
-            $result = mysqli_query($connect,$sql);
-            $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-            $count = mysqli_num_rows($result);
-            if($count == 1) {
-                $_SESSION['email'] = $email;
-                $_SESSION['login_user'] = $email;
+        return redirect("/phonelistUserLogin")->with('message','Oppes! You have entered invalid credentials');
 
-                return redirect('/')->with('message', 'login Successfully');
-            }else {
-                return redirect()->back()->with('message', 'Email and/or password do not match with any of our records.');
-            }
+
     }
 
     public function handleGoogleRegister($userArray)
@@ -60,4 +105,30 @@ class UserController extends Controller
         return view('user.', ['newUserData'=>$this->data]);
     }
 
+    public function people()
+    {
+        return view('userDashboard.people');
+    }
+
+    public function account()
+    {
+        return view('userDashboard.settings.account');
+    }
+
+    public function upgradeUser()
+    {
+        return view('userDashboard.settings.upgrade');
+    }
+
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+    public function logout() {
+        Session::flush();
+        Auth::logout();
+
+        return Redirect('/');
+    }
 }

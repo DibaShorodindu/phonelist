@@ -13,7 +13,7 @@ class EmailController extends Controller
         $isUser = PhoneListUserModel::where('email', $request->email)->first();
 
         if($isUser){
-            return redirect('/');
+            return redirect()->route('loggedInUser');
         }else{
             return view('user.userEmailRegister', ['newUserData'=>$request->email]);
         }

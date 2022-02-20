@@ -26,3 +26,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js">
 </script>
 
+<!-- TRANSLATOR JS  -->
+<script type="text/javascript"
+    src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2"></script>
+<script src="{{ asset('/') }}/adminAsset/assets/js/translator.js"></script>

@@ -32,7 +32,7 @@ class GoogleController extends Controller
 
             if( $userExisted ) {
 
-                return redirect()->route('/');
+                return redirect()->route('loggedInUser');
 
             }else {
                 return view('user.userGoogleRegister', ['newUserData'=>$user]);
