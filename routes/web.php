@@ -187,7 +187,7 @@ Route::get('/product',[
     'as'   => 'product',
 ]);
 /** packages page */
-Route::get('/packages',[
+Route::get('/pricing/packages',[
     'uses' => '\App\Http\Controllers\Packages\PackagesController@packages',
     'as'   => 'packages',
 ]);

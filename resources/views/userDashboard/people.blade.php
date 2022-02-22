@@ -1,3 +1,9 @@
+<?php
+$connect = mysqli_connect("localhost", "root", "", "phonelist");
+$query = "SELECT * FROM phone_lists";
+$result = mysqli_query($connect, $query);
+$rowcount = mysqli_num_rows( $result );
+?>
 @extends('userDashboard.master')
 
 
@@ -37,6 +43,7 @@
                         name="gender"
                         id="gender"
                         placeholder="Enter gender..."
+                        onkeyup="searchGender()"
                     />
                 </div>
 
@@ -130,6 +137,8 @@
                             >
                                 <thead>
                                 <tr>
+                                    {{--<th><input type="checkbox" class="sub_chk" --}}{{--data-id="{{$data->id}}"--}}{{--></th>--}}
+                                    <th></th>
                                     <th>Name</th>
                                     <th>Facebook Profile</th>
                                     <th>Quick Actions</th>
@@ -144,43 +153,86 @@
                                 </thead>
 
                                 <tbody>
-                                <tr class="table-row">
-                                    <td>
-                                        <a href="user01.html" class="person-name">
-                                            Shamonti Haque
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a
-                                            href="https://www.facebook.com/1234
-                  "
-                                        >https://www.facebook.com/1234
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a
-                                            class="btn btn-access btn-access--phone"
-                                            href="pricing/packages.html"
-                                        >
-                                            <i class="bi bi-phone"></i>
-                                            <i class="bi bi-caret-down-fill"></i>
-                                        </a>
-                                        <a
-                                            class="btn btn-access btn-access--email"
-                                            href="pricing/packages.html"
-                                        >
-                                            <i class="bi bi-envelope"></i>
-                                            <i class="bi bi-caret-down-fill"></i>
-                                        </a>
-                                    </td>
-                                    <td>Female</td>
-                                    <td>Single</td>
-                                    <td>SEO Exparte Bangladesh</td>
-                                    <td>2019</td>
-                                    <td>Bogra, Bangladesh</td>
-                                    <td>Dinajpur, Bangladesh</td>
-                                    <td>Bangladesh</td>
-                                </tr>
+                                    @foreach($allData as $data)
+                                        <tr class="table-row">
+                                            <td><input type="checkbox" class="sub_chk" data-id="{{$data->id}}"></td>
+                                            <td>
+                                                <a href="user01.html" class="person-name">
+                                                    {{ $data->name }}
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a
+                                                    href="https://www.facebook.com/{{ $data->uid }}"
+                                                >https://www.facebook.com/{{ $data->uid }}
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a
+                                                    class="btn btn-access btn-access--phone"
+                                                    href="{{ route('packages') }}"
+                                                >
+                                                    <i class="bi bi-phone"></i>
+                                                    <i class="bi bi-caret-down-fill"></i>
+                                                </a>
+                                                <a
+                                                    class="btn btn-access btn-access--email"
+                                                    href="{{ route('packages') }}"
+                                                >
+                                                    <i class="bi bi-envelope"></i>
+                                                    <i class="bi bi-caret-down-fill"></i>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                @if(!empty($data->gender))
+                                                    {{ $data->gender}}
+                                                @else
+                                                    -
+                                                @endif</td>
+                                            <td>
+                                                @if(!empty( $data->relationship_status ))
+                                                    {{ $data->relationship_status }}
+                                                @else
+                                                    -
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if(!empty( $data->work ))
+                                                    {{ $data->work}}
+                                                @else
+                                                    -
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if(!empty( $data->education_last_year ))
+                                                    {{ $data->education_last_year}}
+                                                @else
+                                                    -
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if(!empty( $data->location ))
+                                                    {{ $data->location.', '.$data->country }}
+                                                @else
+                                                    -
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if(!empty( $data->hometown ))
+                                                    {{ $data->hometown }}
+                                                @else
+                                                    -
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if(!empty( $data->country ))
+                                                    {{ $data->country }}
+                                                @else
+                                                    -
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -189,29 +241,22 @@
                 <!-- END TABLE -->
 
                 <!-- START PAGINATION -->
-                <nav aria-label="User Dashboard All Data Page navigation">
-                    <ul class="pagination justify-content-end">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">3</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+                <div class="row pb-2 pt-5 mt-2">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-end">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <div class="d-sm-inline-flex justify-content-center">
+                                    {!! $allData->links() !!}
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
                 <!-- END PAGINATION -->
             </section>
             <!-- END MAIN DASHBOARD -->

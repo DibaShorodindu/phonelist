@@ -476,11 +476,11 @@
                                 @forelse ($data as $allData)
                                     <a href="{{ route('user', ['id' => $allData->id]) }}" class="user-link"
                                     >{{$allData->first_name." ".$allData->last_name }}</a>
-                            @empty
-                                <h2 class="card-text no-data">
-                                    No Person pages found for:
-                                    <span class="text-secondary">{{ $dataId }}</span>
-                                </h2>
+                                @empty
+                                    <h2 class="card-text no-data">
+                                        No Person pages found for:
+                                        <span class="text-secondary">{{ $dataId }}</span>
+                                    </h2>
                                 @endforelse
                             </p>
                             <div class="card-footer bg-transparent border-0">

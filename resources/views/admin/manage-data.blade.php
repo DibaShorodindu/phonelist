@@ -167,7 +167,7 @@
                                         @foreach($allData as $data)
                                             <tr class="table-row">
                                                 <td scope="row" class="name">
-                                                    <a href=""> {{ $data->first_name." ".$data->last_name }} </a>
+                                                    <a href=""> {{ $data->name }} </a>
                                                 </td>
                                                 <td> {{$data->phone }} </td>
                                                 <td> {{ $data->email }} </td>

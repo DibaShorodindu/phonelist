@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\PhoneList;
 use App\Models\PhoneListUserModel;
 use Illuminate\Http\Request;
 use Hash;
@@ -18,6 +19,7 @@ class UserController extends Controller
     protected $data;
     protected $id;
     protected $user;
+    protected $allData;
 
 
     public function dashboard()
@@ -107,7 +109,8 @@ class UserController extends Controller
 
     public function people()
     {
-        return view('userDashboard.people');
+        $this->allData = PhoneList::paginate(20);
+        return view('userDashboard.people', ['allData' => $this->allData]);
     }
 
     public function account()
