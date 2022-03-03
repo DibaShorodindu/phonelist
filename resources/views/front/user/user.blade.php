@@ -16,13 +16,11 @@
             <div class="row">
                 <div class="col-lg-3 col-md-4 col-6 ms-md-auto">
                     <div class="row">
-                        <form action="{{ route('userSearch') }}">
-                            @csrf
+                        <form id="searchPeopleByName" action="{{ route('userSearch') }}">
                             <div class="col-12">
                                 <input type="text" name="searchPeople" id="searchPeople"
-                                       class="typeahead searchBar bg-white border-5 text-dark fw-normal col-md-8 col-7" onkeyup="searchPeople()"
-                                       placeholder="Search by Name..." />
-                                <button type="submit" class="btn btn-purple ms-1 col-md-3 col-4">Search</button>
+                                       class="searchBar bg-white border-5 text-dark fw-normal col-md-11 col-11" {{--onkeyup="searchPeople()"--}}
+                                       placeholder="Search by Name..." onkeypress="handleName" />
                             </div>
                         </form>
                     </div>
@@ -728,7 +726,7 @@
                                     <div class="similar-contacts-details--contact">
                                         <a
                                             class="similar-contacts-details--contact-phone"
-                                            href=""
+                                            href=""window.history.pushstate not working reload
                                         >
                                             <i class="bi bi-telephone-fill"></i>Phone
                                         </a>
@@ -749,3 +747,24 @@
         </div>
     </div>
 @endsection
+
+
+<script>
+    function handleName(e){
+        if(e.key === "Enter"){
+            //alert("Enter was just pressed.");
+        }
+
+        return false;
+    }
+</script>
+
+<script>
+    var stateObj = { foo: "" };
+    history.pushState(stateObj, "page without extension", "people/{{ $data->first_name.'.'.$data->last_name }}");
+    window.onpopstate = function(event) {
+        if(event && event.state) {
+            location.reload();
+        }
+    }
+</script>

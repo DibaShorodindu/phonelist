@@ -32,7 +32,7 @@ class PublicController extends Controller
     public function user($id)
     {
         $this->data = Phonelist::find($id);
-        $result = substr($this->data->name, 0, 3);
+        $result = substr($this->data->first_name, 0, 3);
         $this->userData = PhoneList::where('name', 'LIKE', $result. '%'  )->get();
 
         return view('front.user.user', ['data'=>$this->data])->with('userData', $this->userData);

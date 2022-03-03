@@ -38,7 +38,7 @@ Route::get('/category/{id}',[
 Route::get('/convert-to-json', function () {
     return App\Http\Controllers\PublicController::paginate(5);
 });
-Route::get('/user/{id}',[
+Route::get('/people.{id}',[
     'uses' => '\App\Http\Controllers\PublicController@user',
     'as'   => 'user',
 ]);
@@ -115,8 +115,11 @@ Route::get('auth/facebook/callback', [SocialController::class, 'loginWithFaceboo
 
 /** search routes */
 Route::get('/autocomplete-search', [TypeaheadController::class, 'autocompleteSearch']);
-//Route::get('/autocomplete-country-search', [TypeaheadController::class, 'autocompleteSearch']);
 
+Route::get('searchPeople{id}',[
+    'uses' => 'App\Http\Controllers\User\Searching\TypeaheadController@searchPeople',
+    'as'   => 'searchPeople',
+]);
 
             //import-export Admin Dashboard
 
@@ -132,6 +135,15 @@ Route::get('/file-import-export', [
 Route::post('/file-import', [
     'uses' => '\App\Http\Controllers\AdminController@fileImport',
     'as' => 'file-import'
+]);
+Route::get('/file-export', [
+    'uses' => '\App\Http\Controllers\AdminController@fileExport',
+    'as' => 'file-export'
+]);
+
+Route::get('/selected-file-export{id}', [
+    'uses' => '\App\Http\Controllers\AdminController@selectedfileExport',
+    'as' => 'selected-file-export'
 ]);
 
 Route::get('/convert-to-json', function () {
@@ -222,6 +234,38 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function (){
         'as'   => 'people',
     ]);
 
+
+    //searching
+
+
+    Route::get('peopleSearch',[
+        'uses' => '\App\Http\Controllers\User\UserController@peopleSearch',
+        'as'   => 'peopleSearch',
+    ]);
+    Route::get('genderSearch',[
+        'uses' => '\App\Http\Controllers\User\UserController@genderSearch',
+        'as'   => 'genderSearch',
+    ]);
+    Route::get('relationshipSearch',[
+        'uses' => '\App\Http\Controllers\User\UserController@relationshipSearch',
+        'as'   => 'relationshipSearch',
+    ]);
+    Route::get('locationSearch',[
+        'uses' => '\App\Http\Controllers\User\UserController@locationSearch',
+        'as'   => 'locationSearch',
+    ]);
+    Route::get('hometownSearch',[
+        'uses' => '\App\Http\Controllers\User\UserController@hometownSearch',
+        'as'   => 'hometownSearch',
+    ]);
+    Route::get('countrySearch',[
+        'uses' => '\App\Http\Controllers\User\UserController@countrySearch',
+        'as'   => 'countrySearch',
+    ]);
+
+
+
+
     Route::get('/settings/account',[
         'uses' => '\App\Http\Controllers\User\UserController@account',
         'as'   => 'account',
@@ -238,5 +282,8 @@ Route::get('userLogout',[
     'uses' => '\App\Http\Controllers\User\UserController@logout',
     'as'   => 'userLogout',
 ]);
+
+
+
 
 

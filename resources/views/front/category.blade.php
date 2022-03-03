@@ -16,13 +16,11 @@
             <div class="row">
                 <div class="col-lg-3 col-md-4 col-6 ms-md-auto">
                     <div class="row">
-                        <form action="{{ route('userSearch') }}">
-                            @csrf
+                        <form id="searchPeopleByName" action="{{ route('userSearch') }}">
                             <div class="col-12">
                                 <input type="text" name="searchPeople" id="searchPeople"
-                                       class="typeahead searchBar bg-white border-5 text-dark fw-normal col-md-8 col-7" onkeyup="searchPeople()"
-                                       placeholder="Search by Name..." />
-                                <button type="submit" class="btn btn-purple ms-1 col-md-3 col-4">Search</button>
+                                       class="searchBar bg-white border-5 text-dark fw-normal col-md-11 col-11" {{--onkeyup="searchPeople()"--}}
+                                       placeholder="Search by Name..." onkeypress="handleName" />
                             </div>
                         </form>
                     </div>
@@ -474,7 +472,7 @@
                             </h2>
                             <p class="card-text">
                                 @forelse ($data as $allData)
-                                    <a href="{{ route('user', ['id' => $allData->id]) }}" class="user-link"
+                                    <a href="{{ route('user', ['id' => $allData->id ]) }}" class="user-link"
                                     >{{$allData->first_name." ".$allData->last_name }}</a>
                                 @empty
                                     <h2 class="card-text no-data">
@@ -502,5 +500,17 @@
     </section>
     <!-- END SECTION MESSAGE -->
 
+
 @endsection
+
+
+    <script>
+        function handleName(e){
+            if(e.key === "Enter"){
+                //alert("Enter was just pressed.");
+            }
+
+            return false;
+        }
+    </script>
 

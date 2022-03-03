@@ -7,6 +7,7 @@ use App\Models\PhoneList;
 use App\Models\PhoneListUserModel;
 use Illuminate\Http\Request;
 use Hash;
+use Illuminate\Support\Facades\DB;
 use Session;
 use Illuminate\Support\Facades\Auth;
 
@@ -109,9 +110,62 @@ class UserController extends Controller
 
     public function people()
     {
-        $this->allData = PhoneList::paginate(20);
+        $this->allData = PhoneList::paginate(15);
         return view('userDashboard.people', ['allData' => $this->allData]);
     }
+    public function peopleSearch(Request $request)
+    {
+        $result = $request->name;
+        $this->allData = PhoneList::where('name', 'LIKE', $result. '%'  )->get();
+        return view('userDashboard.peopleSearch', ['allData' => $this->allData]);
+    }
+    public function genderSearch(Request $request)
+    {
+        $result = $request->gender;
+        $this->allData = DB::table('phone_lists')
+            ->where('gender', 'like', $result.'%')
+            ->paginate(15);
+
+        return view('userDashboard.genderSearch', ['allData' => $this->allData]);
+    }
+
+    public function relationshipSearch(Request $request)
+    {
+        $result = $request->relationship;
+        $this->allData = DB::table('phone_lists')
+            ->where('relationship_status', 'like', $result.'%')
+            ->paginate(15);
+
+        return view('userDashboard.genderSearch', ['allData' => $this->allData]);
+    }
+    public function locationSearch(Request $request)
+    {
+        $result = $request->location;
+        $this->allData = DB::table('phone_lists')
+            ->where('location', 'like', $result.'%')
+            ->paginate(15);
+
+        return view('userDashboard.genderSearch', ['allData' => $this->allData]);
+    }
+    public function hometownSearch(Request $request)
+    {
+        $result = $request->hometown;
+        $this->allData = DB::table('phone_lists')
+            ->where('hometown', 'like', $result.'%')
+            ->paginate(15);
+
+        return view('userDashboard.genderSearch', ['allData' => $this->allData]);
+    }
+    public function countrySearch(Request $request)
+    {
+        $result = $request->country;
+        $this->allData = DB::table('phone_lists')
+            ->where('country', 'like', $result.'%')
+            ->paginate(15);
+
+        return view('userDashboard.genderSearch', ['allData' => $this->allData]);
+    }
+
 
     public function account()
     {

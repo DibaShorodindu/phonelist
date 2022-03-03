@@ -56,6 +56,12 @@ class AdminController extends Controller
         return Excel::download(new PhoneListExport, 'phoneList-collection.xlsx');
     }
 
+    public function selectedfileExport($id)
+    {
+        return Excel::download(new PhoneListExport($id), 'phoneList-custom-collection.xlsx');
+    }
+
+
 
             //  admin Dashboard view all data // data edit update delete
 

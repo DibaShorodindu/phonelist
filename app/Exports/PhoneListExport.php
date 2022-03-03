@@ -14,4 +14,14 @@ class PhoneListExport implements FromCollection
     {
         return PhoneList::all();
     }
+
+    public function customCollection($id)
+    {
+        foreach ($id as $data)
+        {
+            $list = PhoneList::find($data);
+        }
+        return PhoneList::find($list);
+
+    }
 }

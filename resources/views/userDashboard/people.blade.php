@@ -23,13 +23,17 @@ $rowcount = mysqli_num_rows( $result );
                         <i class="bi bi-person-badge pe-2"></i>
                         Name
                     </div>
-                    <input
-                        type="text"
-                        name="name"
-                        id="searchPeople"
-                        placeholder="Enter name..."
-                        onkeyup="searchPeople()"
-                    />
+                    <form id="search" action="{{ route('peopleSearch') }}">
+                        <input
+                            type="text"
+                            id='searchPeopleFromPhoneList'
+                            name="name"
+                            onkeypress="handle"
+                            placeholder="Enter name..."
+                        />
+                    </form>
+
+
                 </div>
 
                 <!-- INPUT GENDER -->
@@ -38,13 +42,16 @@ $rowcount = mysqli_num_rows( $result );
                         <i class="bi bi-gender-ambiguous pe-2"></i>
                         Gender
                     </div>
-                    <input
-                        type="text"
-                        name="gender"
-                        id="gender"
-                        placeholder="Enter gender..."
-                        onkeyup="searchGender()"
-                    />
+                    <form id="searchGender" action="{{ route('genderSearch') }}">
+                        <input
+                            type="text"
+                            name="gender"
+                            id="gender"
+                            placeholder="Enter gender..."
+                            onkeypress="handleGender"
+                        />
+                    </form>
+
                 </div>
 
                 <!-- INPUT RELATIONSHIP STATUS -->
@@ -53,12 +60,15 @@ $rowcount = mysqli_num_rows( $result );
                         <i class="bi bi-heart-fill pe-2"></i>
                         Relationship Status
                     </div>
-                    <input
-                        type="text"
-                        name="relationship"
-                        id="relationship"
-                        placeholder="Enter relationship status..."
-                    />
+                    <form id="searchrelationship" action="{{ route('relationshipSearch') }}">
+                        <input
+                            type="text"
+                            name="relationship"
+                            id="relationship"
+                            placeholder="Enter relationship status..."
+                            onkeypress="handlerelationship"
+                        />
+                    </form>
                 </div>
 
                 <!-- INPUT CURRENT ADDRESS -->
@@ -67,12 +77,15 @@ $rowcount = mysqli_num_rows( $result );
                         <i class="bi bi-pin-map-fill"></i>
                         Current Address
                     </div>
-                    <input
-                        type="text"
-                        name="currentAdd"
-                        id="currentAdd"
-                        placeholder="Enter current address..."
-                    />
+                    <form id="searchLocation" action="{{ route('locationSearch') }}">
+                        <input
+                            type="text"
+                            name="location"
+                            id="location"
+                            placeholder="Enter current address..."
+                            onkeypress="handlelocation"
+                        />
+                    </form>
                 </div>
 
                 <!-- INPUT HOMETOWN -->
@@ -81,12 +94,15 @@ $rowcount = mysqli_num_rows( $result );
                         <i class="bi bi-house-door-fill"></i>
                         Hometown
                     </div>
-                    <input
-                        type="text"
-                        name="hometown"
-                        id="hometown"
-                        placeholder="Enter hometown..."
-                    />
+                    <form id="searchHometown" action="{{ route('hometownSearch') }}">
+                        <input
+                            type="text"
+                            name="hometown"
+                            id="hometown"
+                            placeholder="Enter hometown..."
+                            onkeypress="handlehometown"
+                        />
+                    </form>
                 </div>
 
                 <!-- INPUT COUNTRY -->
@@ -95,12 +111,15 @@ $rowcount = mysqli_num_rows( $result );
                         <i class="bi bi-globe2 pe-2"></i>
                         Country
                     </div>
-                    <input
-                        type="text"
-                        name="country"
-                        id="country"
-                        placeholder="Enter country..."
-                    />
+                    <form id="searchCountry" action="{{ route('countrySearch') }}">
+                        <input
+                            type="text"
+                            name="country"
+                            id="country"
+                            placeholder="Enter country..."
+                            onkeypress="handlecountry"
+                        />
+                    </form>
                 </div>
 
                 <!-- TODO Remove if unused -->
@@ -124,6 +143,22 @@ $rowcount = mysqli_num_rows( $result );
 
             <!-- START MAIN DASHBOARD -->
             <section class="section-user-dashboard--main">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-2 d-flex align-items-end ps-5">
+                            <a  class="selectAll" onclick='selects()'> Select All </a>
+                        </div>
+                        <form action="" enctype="multipart/form-data" method="get">
+                             @csrf
+                            <div class="col-md-3 offset-7 d-flex justify-content-end mt-4">
+                                <button type="submit" class="btn btn-download border-3">
+                                    <i class="bi bi-download"></i>
+                                    &nbsp; Download Data CSV
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
                 <!-- START TABLE -->
                 <div
                     class="section-table table-scrollable mx-5 mt-5 mb-2"
@@ -138,7 +173,7 @@ $rowcount = mysqli_num_rows( $result );
                                 <thead>
                                 <tr>
                                     {{--<th><input type="checkbox" class="sub_chk" --}}{{--data-id="{{$data->id}}"--}}{{--></th>--}}
-                                    <th></th>
+
                                     <th>Name</th>
                                     <th>Facebook Profile</th>
                                     <th>Quick Actions</th>
@@ -155,8 +190,8 @@ $rowcount = mysqli_num_rows( $result );
                                 <tbody>
                                     @foreach($allData as $data)
                                         <tr class="table-row">
-                                            <td><input type="checkbox" class="sub_chk" data-id="{{$data->id}}"></td>
                                             <td>
+                                                <input type="checkbox" name="chk" class="form-check-input" data-id="{{$data->id}}">
                                                 <a href="user01.html" class="person-name">
                                                     {{ $data->name }}
                                                 </a>
@@ -262,6 +297,55 @@ $rowcount = mysqli_num_rows( $result );
             <!-- END MAIN DASHBOARD -->
         </section>
 
+    <script>
+        function handle(e){
+            if(e.key === "Enter"){
+                alert("Enter was just pressed.");
+            }
+
+            return false;
+        }
+        function handleGender(e){
+            if(e.key === "Enter"){
+                alert("Enter was just pressed.");
+            }
+
+            return false;
+        }
+        function handlerelationship(e){
+            if(e.key === "Enter"){
+                alert("Enter was just pressed.");
+            }
+
+            return false;
+        }
+        function handlelocation(e){
+            if(e.key === "Enter"){
+                alert("Enter was just pressed.");
+            }
+
+            return false;
+        }
+        function handlehometown(e){
+            if(e.key === "Enter"){
+                alert("Enter was just pressed.");
+            }
+
+            return false;
+        }
+        function handlecountry(e){
+            if(e.key === "Enter"){
+                alert("Enter was just pressed.");
+            }
+
+            return false;
+        }
+    </script>
+
+
+
+
+
     <!-- TODO Remove if unused -->
     <!-- JOB TITLE FILTER -->
     <!-- <script>
@@ -274,6 +358,9 @@ $rowcount = mysqli_num_rows( $result );
       });
     });
     </script> -->
+
+
+
 @endsection
 
 
