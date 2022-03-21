@@ -15,7 +15,7 @@
                 <div class="col-md-6 col-12">
                     <h1 class="heading--main">Let's get started!</h1>
                     <h2 class="heading--sub pb-md-5 pb-4">
-                        Hi <span>Shamonti Haque</span>, welcome to Phone List.
+                        Hi <span>{{ Auth::user()->firstName }} {{ Auth::user()->lastName }}</span>, welcome to Phone List.
                     </h2>
                 </div>
                 <div

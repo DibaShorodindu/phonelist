@@ -54,7 +54,7 @@
         <div class="user-div hide u-box-shadow-1">
             <h4 class="px-4 pt-5"></h4>
             <div class="user--label mx-4">
-                <span>User</span>
+                <span>{{ Auth::user()->firstName }} {{ Auth::user()->lastName }}</span>
             </div>
 
             <div class="user--menu">
@@ -100,7 +100,8 @@
             id="userBtn"
             class="user user-btn circle-element mx-3"
         >
-            <p class="user-name">SH</p>
+
+            <p class="user-name">{{ $firstStringCharacter = substr(Auth::user()->firstName, 0, 1) }}{{ $firstStringCharacter = substr(Auth::user()->lastName, 0, 1) }}</p>
         </button>
     </div>
     <!-- END RIGHT NAV ITEMS -->

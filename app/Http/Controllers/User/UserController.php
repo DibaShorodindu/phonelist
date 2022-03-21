@@ -44,7 +44,7 @@ class UserController extends Controller
 
     public function newUser(Request $request)
     {
-        //$data = $request->all();
+        $data = $request->all();
         $validator = \Validator::make($request->all(), [
             'email' => 'required|email|unique:phone_list_user_models,email',
             'password' => 'required',
@@ -57,7 +57,7 @@ class UserController extends Controller
             //$errors = $validator->errors();
             return redirect()->back()->with('message1', 'The email or phone number has already been taken');
         } else {
-            $check = $this->create($validator);
+            $check = $this->create($data);
             return redirect("loggedInUser")->with('message2', 'data Updated Successfully');
         }
 
