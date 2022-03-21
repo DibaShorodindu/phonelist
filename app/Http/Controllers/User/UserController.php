@@ -44,10 +44,25 @@ class UserController extends Controller
 
     public function newUser(Request $request)
     {
-        $data = $request->all();
-        $check = $this->create($data);
+        //$data = $request->all();
+        $validator = \Validator::make($request->all(), [
+            'email' => 'required|email|unique:phone_list_user_models,email',
+            'password' => 'required',
+            'firstName' => 'required',
+            'lastName' => 'required',
+            'phone'=>'required|min:11|numeric|unique:phone_list_user_models',
+            'country' => 'required',
+        ]);
+        if ($validator->fails()) {
+            //$errors = $validator->errors();
+            return redirect()->back()->with('message1', 'The email or phone number has already been taken');
+        } else {
+            $check = $this->create($validator);
+            return redirect("loggedInUser")->with('message2', 'data Updated Successfully');
+        }
 
-        return redirect("loggedInUser")->with('message', 'data Updated Successfully');
+
+
 
 
     }
@@ -93,7 +108,10 @@ class UserController extends Controller
 
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
+            $result = $request->email;
+            $this->data = PhoneListUserModel::where('email', 'LIKE', $result. '%'  )->get();
             return redirect('loggedInUser')
+                ->with( ['userData' => $this->data] )
                 ->withSuccess('You have Successfully loggedin');
         }
 
@@ -171,6 +189,31 @@ class UserController extends Controller
     {
         return view('userDashboard.settings.account');
     }
+    public function managePlan()
+    {
+        return view('userDashboard.settings.plans.managePlan');
+    }
+    public function billing()
+    {
+        return view('userDashboard.settings.plans.billing');
+    }
+    public function exports()
+    {
+        return view('userDashboard.settings.exports.exports');
+    }
+    public function csvExportSettings()
+    {
+        return view('userDashboard.settings.exports.csv-export-settings');
+    }
+    public function current()
+    {
+        return view('userDashboard.settings.credits.current');
+    }
+    public function history()
+    {
+        return view('userDashboard.settings.credits.history');
+    }
+
 
     public function upgradeUser()
     {

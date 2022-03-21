@@ -29,7 +29,7 @@
         >
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item pl-4">
-                    <a class="nav-link active" aria-current="page" href="{{ route('loggedInUser') }}">
+                    <a class="nav-link" aria-current="page" href="{{ route('loggedInUser') }}">
                         <i class="bi bi-house-door"></i>
                         Dashboard
                     </a>
@@ -52,7 +52,7 @@
 
         <!-- START SHOW ELEMENT ON CLICKING USER -->
         <div class="user-div hide u-box-shadow-1">
-            <h4 class="px-4 pt-5">Shamonti Haque</h4>
+            <h4 class="px-4 pt-5"></h4>
             <div class="user--label mx-4">
                 <span>User</span>
             </div>

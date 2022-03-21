@@ -270,6 +270,32 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function (){
         'uses' => '\App\Http\Controllers\User\UserController@account',
         'as'   => 'account',
     ]);
+    Route::get('/settings/plans',[
+        'uses' => '\App\Http\Controllers\User\UserController@managePlan',
+        'as'   => 'managePlan',
+    ]);
+    Route::get('/settings/billing',[
+        'uses' => '\App\Http\Controllers\User\UserController@billing',
+        'as'   => 'billing',
+    ]);
+    Route::get('/settings/exports/exports',[
+        'uses' => '\App\Http\Controllers\User\UserController@exports',
+        'as'   => 'exports',
+    ]);
+    Route::get('/settings/exports/csv-export-settings',[
+        'uses' => '\App\Http\Controllers\User\UserController@csvExportSettings',
+        'as'   => 'csv-export-settings',
+    ]);
+    Route::get('/settings/credits/current',[
+        'uses' => '\App\Http\Controllers\User\UserController@current',
+        'as'   => 'current',
+    ]);
+    Route::get('/settings/credits/history',[
+        'uses' => '\App\Http\Controllers\User\UserController@history',
+        'as'   => 'history',
+    ]);
+
+
 
     Route::get('/settings/upgrade',[
         'uses' => '\App\Http\Controllers\User\UserController@upgradeUser',

@@ -44,7 +44,13 @@
                         <div>OR</div>
                         <div class="divider--line ms-5"></div>
                     </div>
-
+                    @if($message1 = Session::get('message1'))
+                        <div id="error-text">
+                            <p class="text-danger">
+                                {{ $message1 }}
+                            </p>
+                        </div>
+                    @endif
                     <form action="{{ route('/phonelistUserRegisterAdd') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-4">
