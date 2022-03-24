@@ -140,6 +140,10 @@ Route::get('/file-export', [
     'uses' => '\App\Http\Controllers\AdminController@fileExport',
     'as' => 'file-export'
 ]);
+Route::get('/customExport', [
+    'uses' => '\App\Http\Controllers\AdminController@customExport',
+    'as' => 'customExport'
+]);
 
 Route::get('/selected-file-export{id}', [
     'uses' => '\App\Http\Controllers\AdminController@selectedfileExport',

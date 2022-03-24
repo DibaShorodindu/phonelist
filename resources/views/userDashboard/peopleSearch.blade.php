@@ -148,15 +148,14 @@ $rowcount = mysqli_num_rows( $result );
                     <div class="col-md-2 d-flex align-items-end ps-5">
                         <a  class="selectAll" onclick='selects()'> Select All </a>
                     </div>
-                    <form action="" enctype="multipart/form-data" method="get">
+                    <form action="{{ route('customExport') }}" enctype="multipart/form-data" method="get">
                         @csrf
                         <div class="col-md-3 offset-7 d-flex justify-content-end mt-4">
-                            <button type="submit" class="btn btn-download border-3">
+                            <button type="submit" id="customCSV" class="btn btn-download border-3">
                                 <i class="bi bi-download"></i>
                                 &nbsp; Download Data CSV
                             </button>
                         </div>
-                    </form>
                 </div>
             </div>
             <!-- START TABLE -->
@@ -172,8 +171,14 @@ $rowcount = mysqli_num_rows( $result );
                         >
                             <thead>
                             <tr>
-                                {{--<th><input type="checkbox" class="sub_chk" --}}{{--data-id="{{$data->id}}"--}}{{--></th>--}}
+                                <th>
+                                    <div class="col-md-5 d-flex align-items-end ps-5">
+                                        {{--<a  class="selectAll" onclick='selects()'> Select All </a>--}}
+                                        <input id="checkAll" type="button" class="selectAll" value="Select All"/>
+                                    </div>
 
+
+                                </th>
                                 <th>Name</th>
                                 <th>Facebook Profile</th>
                                 <th>Quick Actions</th>
@@ -191,8 +196,10 @@ $rowcount = mysqli_num_rows( $result );
                             @foreach($allData as $data)
                                 <tr class="table-row">
                                     <td>
-                                        <input type="checkbox" name="chk" class="form-check-input" data-id="{{$data->id}}">
-                                        <a href="user01.html" class="person-name">
+                                        <input type="checkbox" name="chk[]" id="chk" class="form-check-input" value="{{$data->id}}" >
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('user', ['id' => $data->id ]) }}" class="person-name">
                                             {{ $data->name }}
                                         </a>
                                     </td>
@@ -273,11 +280,41 @@ $rowcount = mysqli_num_rows( $result );
                     </div>
                 </div>
             </div>
+            </form>
             <!-- END TABLE -->
         </section>
         <!-- END MAIN DASHBOARD -->
     </section>
 
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+
+            $(document).on('click', '#checkAll', function() {
+
+                if ($(this).val() == 'Select All') {
+                    //$('.button input').prop('checked', true);
+                    var ele=document.getElementsByName('chk[]');
+                    for(var i=0; i<ele.length; i++){
+                        if(ele[i].type=='checkbox')
+                            ele[i].checked=true;
+                    }
+                    $(this).val('Deselect All');
+                } else {
+                    //$('.button input').prop('checked', false);
+                    var ele=document.getElementsByName('chk[]');
+                    for(var i=0; i<ele.length; i++){
+                        if(ele[i].type=='checkbox')
+                            ele[i].checked=false;
+
+                    }
+                    $(this).val('Select All');
+                }
+            });
+
+        });
+    </script>
 
     <script>
         function handle(e){

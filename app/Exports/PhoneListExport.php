@@ -12,16 +12,11 @@ class PhoneListExport implements FromCollection
     */
     public function collection()
     {
-        return PhoneList::all();
+        return PhoneList::limit(50)->get();
     }
 
     public function customCollection($id)
     {
-        foreach ($id as $data)
-        {
-            $list = PhoneList::find($data);
-        }
-        return PhoneList::find($list);
-
+        // TODO: Implement customCollection() method.
     }
 }

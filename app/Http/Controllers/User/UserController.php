@@ -134,7 +134,9 @@ class UserController extends Controller
     public function peopleSearch(Request $request)
     {
         $result = $request->name;
-        $this->allData = PhoneList::where('name', 'LIKE', $result. '%'  )->get();
+        $this->allData = DB::table('phone_lists')
+            ->where('name', 'like', $result.'%')
+            ->paginate(15);
         return view('userDashboard.peopleSearch', ['allData' => $this->allData]);
     }
     public function genderSearch(Request $request)

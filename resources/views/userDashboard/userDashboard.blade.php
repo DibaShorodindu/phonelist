@@ -21,11 +21,16 @@
                 <div
                     class="col-md-6 col-10 d-flex align-items-center justify-content-md-end"
                 >
-                    <button type="button" class="btn btn-download border-3">
-                        <i class="bi bi-download"></i>
-                        &nbsp; Download Data CSV
-                    </button>
+                    <form action="{{ route('file-export') }}" method="get" enctype="multipart/form-data">
+                        @csrf
+                        <button type="submit" class="btn btn-download border-3">
+                            <i class="bi bi-download"></i>
+                            &nbsp; Download Data CSV
+                        </button>
+                    </form>
+
                 </div>
+
             </div>
         </div>
     </section>

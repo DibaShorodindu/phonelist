@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Exports\CustomExport;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\PhoneListImport;
 use App\Exports\PhoneListExport;
@@ -56,9 +58,10 @@ class AdminController extends Controller
         return Excel::download(new PhoneListExport, 'phoneList-collection.xlsx');
     }
 
-    public function selectedfileExport($id)
+
+    public function customExport(Request $request)
     {
-        return Excel::download(new PhoneListExport($id), 'phoneList-custom-collection.xlsx');
+        return (new CustomExport($request->chk))->download('phoneList.xlsx');
     }
 
 
