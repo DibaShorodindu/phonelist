@@ -3,13 +3,20 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Card;
+use App\Models\ExportHistori;
 use App\Models\PhoneList;
 use App\Models\PhoneListUserModel;
+use App\Models\PurchasePlan;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
 use Session;
 use Illuminate\Support\Facades\Auth;
+use Storage;
+use Symfony\Component\Console\Input\Input;
 
 class UserController extends Controller
 {
@@ -58,13 +65,24 @@ class UserController extends Controller
             return redirect()->back()->with('message1', 'The email or phone number has already been taken');
         } else {
             $check = $this->create($data);
+            $newUser = PhoneListUserModel::where('email', $data['email'])->first();
+            $startDate = Carbon::now();
+            $startDate = $startDate->toDateString();
+            //$daysToAdd = 30;
+            $endDate = Carbon::now()->addDays(30);
+            PurchasePlan::create([
+                'userId' => $newUser->id,
+                'plan' => 'Free',
+                'price' => 0,
+                'credit' => 20,
+                'phoneNumber'=> 20,
+                'dataFilter' => 'Basic Filters',
+                'csvExport'=> 'CSV Export',
+                'start' => $startDate,
+                'end' => $endDate->format('Y-m-d'),
+            ]);
             return redirect("loggedInUser")->with('message2', 'data Updated Successfully');
         }
-
-
-
-
-
     }
 
     /**
@@ -84,6 +102,100 @@ class UserController extends Controller
             'country' => $data['country'],
         ]);
     }
+
+
+    /** start updating user information*/
+    public function updateUserFirstName(Request $request, $id)
+    {
+        $this->user = PhoneListUserModel::where('id', $id)->update(['firstName' => $request->firstName]);
+        return redirect()->back();
+
+    }
+    public function updateUserLastName(Request $request, $id)
+    {
+        $this->user = PhoneListUserModel::where('id', $id)->update(['lastName' => $request->lastName]);
+        return redirect()->back();
+
+    }
+    public function updateUserPhone(Request $request, $id)
+    {
+        $this->user = PhoneListUserModel::where('id', $id)->update(['phone' => $request->phone]);
+        return redirect()->back();
+
+    }
+    public function updateUserCountry(Request $request, $id)
+    {
+        $this->user = PhoneListUserModel::where('id', $id)->update(['country' => $request->country]);
+        return redirect()->back();
+    }
+    public function updateUserEmail(Request $request, $id)
+    {
+        $this->user = PhoneListUserModel::where('id', $id)->update(['email' => $request->email]);
+        return redirect()->back();
+
+    }
+    public function updateUserPassword(Request $request, $id)
+    {
+        $request->user()->fill([
+            'password' => Hash::make($request->password)
+        ])->save();
+        return redirect()->back();
+
+    }
+    public function updateUserInfo()
+    {
+        dd(Request('id'));
+
+        $id = Request('id');
+        $option = PhoneListUserModel::where('id', $id)->first();
+        $option->fristName = Request('fristName');
+        $option->lastName = Request('lastName');
+        //$option->phone = $this->user['phone'];
+        //$option->country = $this->user['country'];
+        //$option->update();
+        /*$this->user = PhoneListUserModel::where('id', $id)->update(['country' => $request->country]);*/
+        return redirect()->back();
+
+    }
+    /** end updating user information*/
+    /** start add/updating user billing information*/
+
+    public function addCardInfo(Request $request)
+    {
+        Card::create([
+            'userId' => $request->userId,
+            'firstName' => $request->firstName,
+            'lastName' => $request->lastName,
+            'creditCardNumber' => $request->creditCardNumber,
+            'expirationDate' => $request->expirationDate,
+            'cvc' => $request->cvc,
+            'address' => $request->address,
+            'city' => $request->city,
+            'state' => $request->state,
+            'country' => $request->country,
+            'postalCode' => $request->postalCode,
+        ]);
+        return redirect()->route('billingRequest',['id' => $request->userId]);
+    }
+    public function updateCardInfo(Request $request)
+    {
+        Card::where('id', $request->cardId)->update([
+            'userId' => $request->userId,
+            'firstName' => $request->firstName,
+            'lastName' => $request->lastName,
+            'creditCardNumber' => $request->creditCardNumber,
+            'expirationDate' => $request->expirationDate,
+            'cvc' => $request->cvc,
+            'address' => $request->address,
+            'city' => $request->city,
+            'state' => $request->state,
+            'country' => $request->country,
+            'postalCode' => $request->postalCode,
+        ]);
+        return redirect()->route('billingRequest',['id' => $request->userId]);
+    }
+
+    /** end add/updating user billing information*/
 
     public function userLogin()
     {
@@ -191,17 +303,46 @@ class UserController extends Controller
     {
         return view('userDashboard.settings.account');
     }
-    public function managePlan()
+    public function managePlan(Request $request)
     {
-        return view('userDashboard.settings.plans.managePlan');
+        $data = PurchasePlan::where('userId', $request->userId)->get();
+        $items[0] = $data->last()->plan;
+        $items[1] = 0;
+        $items[2] = 0;
+        $items[3] = $data->last()->price;
+        $date = Carbon::createFromFormat('Y-m-d', $data->last()->start);
+        $monthName = $date->format('M'); $year = $date->format('Y'); $day = $date->format('d');
+        $items[4] = $monthName; $items[5] = $year; $items[6] = $day;
+        $date2 = Carbon::createFromFormat('Y-m-d', $data->last()->end);
+        $monthName2 = $date2->format('M'); $year2 = $date2->format('Y'); $day2 = $date2->format('d');
+        $items[7] = $monthName2; $items[8] = $year2; $items[9] = $day2;
+        $items[10] = $data->last()->start;
+        $items[11] = $data->last()->end;
+        foreach($data as $dataPlan) {
+            $items[1] = $items[1] + $dataPlan->credit;
+            $items[2] = $items[2] + $dataPlan->phoneNumber;
+        }
+        return view('userDashboard.settings.plans.managePlan', ['userPurchasePlan' => $items]);
     }
-    public function billing()
+    public function billingRequest($userId)
     {
-        return view('userDashboard.settings.plans.billing');
+        $data = Card::where('userId', $userId)->get();
+        return view('userDashboard.settings.plans.billing', ['userCardInfo' => $data]);
+    }
+    public function billing(Request $request)
+    {
+        $data = Card::where('userId', $request->userId)->get();
+        return view('userDashboard.settings.plans.billing', ['userCardInfo' => $data]);
     }
     public function exports()
     {
-        return view('userDashboard.settings.exports.exports');
+       $data = ExportHistori::where('userId',Auth::user()->id)->orderBy('createdOn', 'desc')->paginate(6);
+        return view('userDashboard.settings.exports.exports', ['exportHistory' => $data]);
+    }
+    public function reDownloadFile($file_name)
+    {
+        $data = ExportHistori::find($file_name);
+        return response()->download('storage/'. $data->file,'phonelist.xlsx');
     }
     public function csvExportSettings()
     {

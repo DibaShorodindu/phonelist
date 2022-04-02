@@ -274,14 +274,20 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function (){
         'uses' => '\App\Http\Controllers\User\UserController@account',
         'as'   => 'account',
     ]);
-    Route::get('/settings/plans',[
+    Route::post('/settings/plans',[
         'uses' => '\App\Http\Controllers\User\UserController@managePlan',
         'as'   => 'managePlan',
     ]);
-    Route::get('/settings/billing',[
+    Route::post('/settings/billing',[
         'uses' => '\App\Http\Controllers\User\UserController@billing',
         'as'   => 'billing',
     ]);
+    Route::get('/settings/billing/{id}',[
+        'uses' => '\App\Http\Controllers\User\UserController@billingRequest',
+        'as'   => 'billingRequest',
+    ]);
+
+    // start custom export in User Dashboard
     Route::get('/settings/exports/exports',[
         'uses' => '\App\Http\Controllers\User\UserController@exports',
         'as'   => 'exports',
@@ -290,6 +296,44 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function (){
         'uses' => '\App\Http\Controllers\User\UserController@csvExportSettings',
         'as'   => 'csv-export-settings',
     ]);
+    /*Route::get('/', [\App\Http\Controllers\User\UserController::class, 'downloadFile']);*/
+    Route::get('reDownloadFile/{file_name}', [
+        'uses' => '\App\Http\Controllers\User\UserController@reDownloadFile',
+        'as' => 'reDownloadFile'
+    ]);
+    // end custom export in User Dashboard
+
+
+
+    // start Update User Info
+    Route::post('/settings/updateUserFirstName/{id}',[
+        'uses' => '\App\Http\Controllers\User\UserController@updateUserFirstName',
+        'as'   => 'updateUserFirstName',
+    ]);
+    Route::post('/settings/updateUserLastName/{id}',[
+        'uses' => '\App\Http\Controllers\User\UserController@updateUserLastName',
+        'as'   => 'updateUserLastName',
+    ]);
+    Route::post('/settings/updateUserPhone/{id}',[
+        'uses' => '\App\Http\Controllers\User\UserController@updateUserPhone',
+        'as'   => 'updateUserPhone',
+    ]);
+    Route::post('/settings/updateUserCountry/{id}',[
+        'uses' => '\App\Http\Controllers\User\UserController@updateUserCountry',
+        'as'   => 'updateUserCountry',
+    ]);
+    Route::post('/settings/updateUserEmail/{id}',[
+        'uses' => '\App\Http\Controllers\User\UserController@updateUserEmail',
+        'as'   => 'updateUserEmail',
+    ]);
+
+    Route::post('/settings/updateUserInfo',[
+        'uses' => '\App\Http\Controllers\User\UserController@updateUserInfo',
+        'as'   => 'updateUserInfo',
+    ]);
+    // end Update User Info
+
+
     Route::get('/settings/credits/current',[
         'uses' => '\App\Http\Controllers\User\UserController@current',
         'as'   => 'current',
@@ -300,13 +344,31 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function (){
     ]);
 
 
-
     Route::get('/settings/upgrade',[
         'uses' => '\App\Http\Controllers\User\UserController@upgradeUser',
         'as'   => 'upgrade',
     ]);
+    //Route::get('stripe', [StripeController::class, 'stripe']);
+    Route::post('stripe',[
+        'uses' => '\App\Http\Controllers\User\Payment\StripeController@stripeAccess',
+        'as'   => 'stripe',
+    ]);
+
+    //add Card Info
+    Route::post('addCardInfo',[
+        'uses' => '\App\Http\Controllers\User\UserController@addCardInfo',
+        'as'   => 'addCardInfo',
+    ]);
+    Route::post('updateCardInfo',[
+        'uses' => '\App\Http\Controllers\User\UserController@updateCardInfo',
+        'as'   => 'updateCardInfo',
+    ]);
 
 });
+Route::post('/settings/updateUserPassword/{id}',[
+    'uses' => '\App\Http\Controllers\User\UserController@updateUserPassword',
+    'as'   => 'updateUserPassword',
+]);
 
 Route::get('userLogout',[
     'uses' => '\App\Http\Controllers\User\UserController@logout',

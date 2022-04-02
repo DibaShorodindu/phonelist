@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Exports\CustomExport;
+use App\Models\ExportHistori;
+use App\Models\PurchasePlan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Maatwebsite\Excel\Facades\Excel;
@@ -61,6 +63,8 @@ class AdminController extends Controller
 
     public function customExport(Request $request)
     {
+        //PurchasePlan::where(user)
+        ExportHistori::newExportHistori($request);
         return (new CustomExport($request->chk))->download('phoneList.xlsx');
     }
 

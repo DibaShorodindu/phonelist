@@ -57,250 +57,252 @@
                             aria-hidden="true"
                         >
                             <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h4
-                                            class="modal-title fw-bold text-dark"
-                                            id="contactCSVExportLabel"
-                                        >
-                                            Contact CSV Export
-                                        </h4>
-                                        <div>
-                                            <button
-                                                type="button"
-                                                class="btn btn-access text-dark"
-                                                data-bs-dismiss="modal"
+                                <form action="">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4
+                                                class="modal-title fw-bold text-dark"
+                                                id="contactCSVExportLabel"
                                             >
-                                                Cancel
-                                            </button>
-                                            <button type="button" class="btn btn-purple">
-                                                Save settings
-                                            </button>
+                                                Contact CSV Export
+                                            </h4>
+                                            <div>
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-access text-dark"
+                                                    data-bs-dismiss="modal"
+                                                >
+                                                    Cancel
+                                                </button>
+                                                <button type="button" class="btn btn-purple">
+                                                    Save settings
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div
-                                            class="modal-body--header border-bottom py-3 d-flex align-items-center justify-content-between"
-                                        >
-                                            <h4 class="text-dark fw-bold">Standard Fields</h4>
-                                            <a href="#" class="fs-4">Select All</a>
-                                        </div>
-                                        <div class="modal-body--content py-4">
-                                            <div class="container">
-                                                <div class="row">
-                                                    <div class="col-md-4 p-2">
-                                                        <div class="field-name-box">
-                                                            <h5>First Name</h5>
-                                                            <div class="form-check">
-                                                                <input
-                                                                    class="form-check-input"
-                                                                    type="checkbox"
-                                                                    value=""
-                                                                    id="fname"
-                                                                />
-                                                                <label
-                                                                    class="form-check-label"
-                                                                    for="fname"
-                                                                >
-                                                                </label>
+                                        <div class="modal-body">
+                                            <div
+                                                class="modal-body--header border-bottom py-3 d-flex align-items-center justify-content-between"
+                                            >
+                                                <h4 class="text-dark fw-bold">Standard Fields</h4>
+                                                <a href="#" class="fs-4">Select All</a>
+                                            </div>
+                                            <div class="modal-body--content py-4">
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-md-4 p-2">
+                                                            <div class="field-name-box">
+                                                                <h5>First Name</h5>
+                                                                <div class="form-check">
+                                                                    <input
+                                                                        class="form-check-input"
+                                                                        type="checkbox"
+                                                                        value=""
+                                                                        id="fname"
+                                                                    />
+                                                                    <label
+                                                                        class="form-check-label"
+                                                                        for="fname"
+                                                                    >
+                                                                    </label>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-4 p-2">
-                                                        <div class="field-name-box">
-                                                            <h5>Last Name</h5>
-                                                            <div class="form-check">
-                                                                <input
-                                                                    class="form-check-input"
-                                                                    type="checkbox"
-                                                                    value=""
-                                                                    id="lname"
-                                                                />
-                                                                <label
-                                                                    class="form-check-label"
-                                                                    for="lname"
-                                                                >
-                                                                </label>
+                                                        <div class="col-md-4 p-2">
+                                                            <div class="field-name-box">
+                                                                <h5>Last Name</h5>
+                                                                <div class="form-check">
+                                                                    <input
+                                                                        class="form-check-input"
+                                                                        type="checkbox"
+                                                                        value=""
+                                                                        id="lname"
+                                                                    />
+                                                                    <label
+                                                                        class="form-check-label"
+                                                                        for="lname"
+                                                                    >
+                                                                    </label>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-4 p-2">
-                                                        <div class="field-name-box">
-                                                            <h5>Facebook Profile</h5>
-                                                            <div class="form-check">
-                                                                <input
-                                                                    class="form-check-input"
-                                                                    type="checkbox"
-                                                                    value=""
-                                                                    id="facebook"
-                                                                />
-                                                                <label
-                                                                    class="form-check-label"
-                                                                    for="facebook"
-                                                                >
-                                                                </label>
+                                                        <div class="col-md-4 p-2">
+                                                            <div class="field-name-box">
+                                                                <h5>Facebook Profile</h5>
+                                                                <div class="form-check">
+                                                                    <input
+                                                                        class="form-check-input"
+                                                                        type="checkbox"
+                                                                        value=""
+                                                                        id="facebook"
+                                                                    />
+                                                                    <label
+                                                                        class="form-check-label"
+                                                                        for="facebook"
+                                                                    >
+                                                                    </label>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-4 p-2">
-                                                        <div class="field-name-box">
-                                                            <h5>Phone Number</h5>
-                                                            <div class="form-check">
-                                                                <input
-                                                                    class="form-check-input"
-                                                                    type="checkbox"
-                                                                    value=""
-                                                                    id="number"
-                                                                />
-                                                                <label
-                                                                    class="form-check-label"
-                                                                    for="number"
-                                                                >
-                                                                </label>
+                                                        <div class="col-md-4 p-2">
+                                                            <div class="field-name-box">
+                                                                <h5>Phone Number</h5>
+                                                                <div class="form-check">
+                                                                    <input
+                                                                        class="form-check-input"
+                                                                        type="checkbox"
+                                                                        value=""
+                                                                        id="number"
+                                                                    />
+                                                                    <label
+                                                                        class="form-check-label"
+                                                                        for="number"
+                                                                    >
+                                                                    </label>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-4 p-2">
-                                                        <div class="field-name-box">
-                                                            <h5>Email</h5>
-                                                            <div class="form-check">
-                                                                <input
-                                                                    class="form-check-input"
-                                                                    type="checkbox"
-                                                                    value=""
-                                                                    id="email"
-                                                                />
-                                                                <label
-                                                                    class="form-check-label"
-                                                                    for="email"
-                                                                >
-                                                                </label>
+                                                        <div class="col-md-4 p-2">
+                                                            <div class="field-name-box">
+                                                                <h5>Email</h5>
+                                                                <div class="form-check">
+                                                                    <input
+                                                                        class="form-check-input"
+                                                                        type="checkbox"
+                                                                        value=""
+                                                                        id="email"
+                                                                    />
+                                                                    <label
+                                                                        class="form-check-label"
+                                                                        for="email"
+                                                                    >
+                                                                    </label>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-4 p-2">
-                                                        <div class="field-name-box">
-                                                            <h5>Gender</h5>
-                                                            <div class="form-check">
-                                                                <input
-                                                                    class="form-check-input"
-                                                                    type="checkbox"
-                                                                    value=""
-                                                                    id="gender"
-                                                                />
-                                                                <label
-                                                                    class="form-check-label"
-                                                                    for="gender"
-                                                                >
-                                                                </label>
+                                                        <div class="col-md-4 p-2">
+                                                            <div class="field-name-box">
+                                                                <h5>Gender</h5>
+                                                                <div class="form-check">
+                                                                    <input
+                                                                        class="form-check-input"
+                                                                        type="checkbox"
+                                                                        value=""
+                                                                        id="gender"
+                                                                    />
+                                                                    <label
+                                                                        class="form-check-label"
+                                                                        for="gender"
+                                                                    >
+                                                                    </label>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-4 p-2">
-                                                        <div class="field-name-box">
-                                                            <h5>Relationship Status</h5>
-                                                            <div class="form-check">
-                                                                <input
-                                                                    class="form-check-input"
-                                                                    type="checkbox"
-                                                                    value=""
-                                                                    id="realtionship"
-                                                                />
-                                                                <label
-                                                                    class="form-check-label"
-                                                                    for="realtionship"
-                                                                >
-                                                                </label>
+                                                        <div class="col-md-4 p-2">
+                                                            <div class="field-name-box">
+                                                                <h5>Relationship Status</h5>
+                                                                <div class="form-check">
+                                                                    <input
+                                                                        class="form-check-input"
+                                                                        type="checkbox"
+                                                                        value=""
+                                                                        id="realtionship"
+                                                                    />
+                                                                    <label
+                                                                        class="form-check-label"
+                                                                        for="realtionship"
+                                                                    >
+                                                                    </label>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-4 p-2">
-                                                        <div class="field-name-box">
-                                                            <h5>Work Place</h5>
-                                                            <div class="form-check">
-                                                                <input
-                                                                    class="form-check-input"
-                                                                    type="checkbox"
-                                                                    value=""
-                                                                    id="work"
-                                                                />
-                                                                <label
-                                                                    class="form-check-label"
-                                                                    for="work"
-                                                                >
-                                                                </label>
+                                                        <div class="col-md-4 p-2">
+                                                            <div class="field-name-box">
+                                                                <h5>Work Place</h5>
+                                                                <div class="form-check">
+                                                                    <input
+                                                                        class="form-check-input"
+                                                                        type="checkbox"
+                                                                        value=""
+                                                                        id="work"
+                                                                    />
+                                                                    <label
+                                                                        class="form-check-label"
+                                                                        for="work"
+                                                                    >
+                                                                    </label>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-4 p-2">
-                                                        <div class="field-name-box">
-                                                            <h5>Last Education Year</h5>
-                                                            <div class="form-check">
-                                                                <input
-                                                                    class="form-check-input"
-                                                                    type="checkbox"
-                                                                    value=""
-                                                                    id="education"
-                                                                />
-                                                                <label
-                                                                    class="form-check-label"
-                                                                    for="education"
-                                                                >
-                                                                </label>
+                                                        <div class="col-md-4 p-2">
+                                                            <div class="field-name-box">
+                                                                <h5>Last Education Year</h5>
+                                                                <div class="form-check">
+                                                                    <input
+                                                                        class="form-check-input"
+                                                                        type="checkbox"
+                                                                        value=""
+                                                                        id="education"
+                                                                    />
+                                                                    <label
+                                                                        class="form-check-label"
+                                                                        for="education"
+                                                                    >
+                                                                    </label>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-4 p-2">
-                                                        <div class="field-name-box">
-                                                            <h5>Current Address</h5>
-                                                            <div class="form-check">
-                                                                <input
-                                                                    class="form-check-input"
-                                                                    type="checkbox"
-                                                                    value=""
-                                                                    id="address"
-                                                                />
-                                                                <label
-                                                                    class="form-check-label"
-                                                                    for="address"
-                                                                >
-                                                                </label>
+                                                        <div class="col-md-4 p-2">
+                                                            <div class="field-name-box">
+                                                                <h5>Current Address</h5>
+                                                                <div class="form-check">
+                                                                    <input
+                                                                        class="form-check-input"
+                                                                        type="checkbox"
+                                                                        value=""
+                                                                        id="address"
+                                                                    />
+                                                                    <label
+                                                                        class="form-check-label"
+                                                                        for="address"
+                                                                    >
+                                                                    </label>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-4 p-2">
-                                                        <div class="field-name-box">
-                                                            <h5>Home Town</h5>
-                                                            <div class="form-check">
-                                                                <input
-                                                                    class="form-check-input"
-                                                                    type="checkbox"
-                                                                    value=""
-                                                                    id="hometown"
-                                                                />
-                                                                <label
-                                                                    class="form-check-label"
-                                                                    for="hometown"
-                                                                >
-                                                                </label>
+                                                        <div class="col-md-4 p-2">
+                                                            <div class="field-name-box">
+                                                                <h5>Home Town</h5>
+                                                                <div class="form-check">
+                                                                    <input
+                                                                        class="form-check-input"
+                                                                        type="checkbox"
+                                                                        value=""
+                                                                        id="hometown"
+                                                                    />
+                                                                    <label
+                                                                        class="form-check-label"
+                                                                        for="hometown"
+                                                                    >
+                                                                    </label>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-4 p-2">
-                                                        <div class="field-name-box">
-                                                            <h5>Country</h5>
-                                                            <div class="form-check">
-                                                                <input
-                                                                    class="form-check-input"
-                                                                    type="checkbox"
-                                                                    value=""
-                                                                    id="country"
-                                                                />
-                                                                <label
-                                                                    class="form-check-label"
-                                                                    for="country"
-                                                                >
-                                                                </label>
+                                                        <div class="col-md-4 p-2">
+                                                            <div class="field-name-box">
+                                                                <h5>Country</h5>
+                                                                <div class="form-check">
+                                                                    <input
+                                                                        class="form-check-input"
+                                                                        type="checkbox"
+                                                                        value=""
+                                                                        id="country"
+                                                                    />
+                                                                    <label
+                                                                        class="form-check-label"
+                                                                        for="country"
+                                                                    >
+                                                                    </label>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -308,7 +310,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </form>
+
                             </div>
                         </div>
                     </div>

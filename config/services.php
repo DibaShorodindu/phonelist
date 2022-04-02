@@ -41,4 +41,8 @@ return [
         'redirect' => 'http://localhost/PhoneList/public/auth/facebook/callback',
     ],
 
+    'stripe' => [
+        'secret' => env('STRIPE_SECRET'),
+    ],
+
 ];

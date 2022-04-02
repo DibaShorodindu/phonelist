@@ -148,6 +148,7 @@ $rowcount = mysqli_num_rows( $result );
 
                         <form action="{{ route('customExport') }}" enctype="multipart/form-data" method="get">
                              @csrf
+                            <input hidden type="number" name="userId" value="{{ Auth::user()->id }}">
                             <div class="col-md-3 offset-7 d-flex justify-content-end mt-4">
                                 <button type="submit" id="customCSV" class="btn btn-download border-3">
                                     <i class="bi bi-download"></i>

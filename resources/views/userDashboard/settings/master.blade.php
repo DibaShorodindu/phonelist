@@ -21,8 +21,12 @@
                     </a>
                 </li>
                 <li class="nav-item mt-4">
-                    <span class="text-uppercase">Admin Settings</span>
-                    <a href="{{ route('managePlan') }}" class="nav-link"> Manage Plan </a>
+                    <form action="{{ route('managePlan') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <span class="text-uppercase">Admin Settings</span>
+                        <input hidden type="text" name="userId" value="{{ Auth::user()->id }}">
+                        <button type="submit" class="nav-link"> Manage Plan </button>
+                    </form>
                 </li>
                 <li class="nav-item mt-4">
                     <span class="text-uppercase">System Activity</span>

@@ -42,7 +42,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('product') }}">
+                    <a class="nav-link" href="{{ route('upgrade') }}">
                         <i class="bi bi-box-seam"></i>
                         Products
                     </a>

@@ -60,6 +60,27 @@
         <!-- END CREDIT HISTORY -->
     </section>
 
+
+    <!-- Bootstrap JS -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"
+    ></script>
+
+    <!-- CALENDAR JS -->
+    <script
+        type="text/javascript"
+        src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"
+    ></script>
+    <script
+        type="text/javascript"
+        src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"
+    ></script>
+    <script
+        type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"
+    ></script>
     <script>
         $(function () {
             $('input[name="daterange"]').daterangepicker(
@@ -77,6 +98,11 @@
             );
         });
     </script>
+
+    <!-- CUSTOM JS -->
+    <script src="{{ asset('/') }}adminAsset/assets/js/navbar.js"></script>
+    <script src="{{ asset('/') }}adminAsset/assets/js/script.js"></script>
+
 
 @endsection
 

@@ -1,3 +1,4 @@
+
 @extends('userDashboard.settings.master')
 
 @section('main')
@@ -6,10 +7,18 @@
         <section class="second-navbar">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a href="{{ route('managePlan') }}" class="nav-link active">Plan Overview</a>
+                    <form action="{{ route('managePlan') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <input hidden type="text" name="userId" value="{{ Auth::user()->id }}">
+                        <button type="submit" class="nav-link"> Plan Overview </button>
+                    </form>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('billing') }}" class="nav-link">Billing</a>
+                    <form action="{{ route('billing') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <input hidden type="text" name="userId" value="{{ Auth::user()->id }}">
+                        <button type="submit" class="nav-link"> Billing </button>
+                    </form>
                 </li>
             </ul>
         </section>
@@ -19,9 +28,9 @@
                 <div
                     class="card-title m-0 d-flex justify-content-between align-items-center"
                 >
-                    <h1 class="p-4 text-capitalize">Free Plan</h1>
+                    <h1 class="p-4 text-capitalize">{{ $userPurchasePlan[0] }} Plan</h1>
                     <a
-                        href="upgrade.html"
+                        href="{{ route('upgrade') }}"
                         type="button"
                         class="btn btn-purple me-4"
                     >
@@ -41,25 +50,14 @@
                             </div>
                             <div class="row border-bottom">
                                 <div class="col-md-4">
-                                    <h3>Users</h3>
-                                </div>
-                                <div class="col-md-4">
-                                    <p>1 user</p>
-                                </div>
-                                <div class="col-md-4 text-end">
-                                    <p>$0/mo</p>
-                                </div>
-                            </div>
-                            <div class="row border-bottom">
-                                <div class="col-md-4">
                                     <h3>Credits</h3>
                                 </div>
                                 <div class="col-md-4">
-                                    <p>30 Reward Credits</p>
-                                    <p>50 Email Credits / mo</p>
+                                    <p>{{ $userPurchasePlan[1] }} Credits</p>
+                                    <p>{{ $userPurchasePlan[2] }} Phone Numbers</p>
                                 </div>
                                 <div class="col-md-4 text-end">
-                                    <p>Free</p>
+                                    <p>{{ $userPurchasePlan[0] }}</p>
                                 </div>
                             </div>
                             <div class="row">
@@ -68,7 +66,7 @@
                                 </div>
                                 <div class="col-md-4"></div>
                                 <div class="col-md-4 text-end">
-                                    <p class="fw-bold">$0/mo</p>
+                                    <p class="fw-bold">${{ $userPurchasePlan[3] }}/mo</p>
                                 </div>
                             </div>
                         </div>
@@ -83,10 +81,10 @@
                     class="card-title d-flex justify-content-between align-items-center"
                 >
                     <h3 class="p-4 text-capitalize">
-                        Credits Usage <span> (Jan 21, 2022 - Feb 21, 2022) </span>
+                        Credits Usage <span> ( {{ $userPurchasePlan[4] }} {{ $userPurchasePlan[6] }} {{ $userPurchasePlan[5] }}  - {{ $userPurchasePlan[7] }} {{ $userPurchasePlan[9] }} {{ $userPurchasePlan[8] }} ) </span>
                     </h3>
                     <a
-                        href="upgrade.html"
+                        href="{{ route('upgrade') }}"
                         type="button"
                         class="btn btn-access me-4"
                     >
@@ -114,5 +112,7 @@
                 </div>
             </div>
         </section>
+    </section>
+    <!-- END MAIN -->
     </section>
 @endsection

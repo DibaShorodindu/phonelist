@@ -78,7 +78,7 @@
 
         <!-- START SHOW ELEMENT ON CLICKING USER -->
         <div class="user-div hide u-box-shadow-1">
-            <h4 class="px-4 pt-5">Shamonti Haque</h4>
+            <h4 class="px-4 pt-5">{{ Auth::user()->firstName }} {{ Auth::user()->lastName }}</h4>
             <div class="user--label mx-4">
                 <span>User</span>
             </div>
@@ -125,7 +125,7 @@
                 id="userBtn"
                 class="user user-btn circle-element mx-3"
             >
-                <p class="user-name">SH</p>
+                <p class="user-name">{{ $firstStringCharacter = substr(Auth::user()->firstName, 0, 1) }}{{ $firstStringCharacter = substr(Auth::user()->lastName, 0, 1) }}</p>
             </button>
         </div>
         <!-- END RIGHT NAV ITEMS -->
@@ -230,7 +230,18 @@
                             </ul>
                         </div>
                         <div class="pricingTable-signup">
-                            <a href="#">sign up</a>
+                            <form action="{{ route('stripe') }}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <input hidden  type="number" name="credit" value="5000"/>
+                                <input hidden  type="number" name="phoneNumber" value="5000"/>
+                                <input hidden  type="text" name="dataFilter" value="Data Filters"/>
+                                <input hidden  type="text" name="csvExport" value="CSV Export"/>
+                                <input hidden  type="number" name="price" value="100"/>
+                                <input hidden  type="text" name="userId" value="{{ Auth::user()->id }}"/>
+                                <button type="submit">sign up</button>
+                                <a href="#">sign up</a>
+                            </form>
+
                         </div>
                     </div>
                 </div>
