@@ -7,10 +7,10 @@
             <section class="second-navbar">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a href="{{ route('exports') }}" class="nav-link active">CSV Exports</a>
+                        <a href="{{ route('exports') }}" class="nav-link {{  request()->routeIs('exports') ? 'active' : '' }}">CSV Exports</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('csv-export-settings') }}" class="nav-link"
+                        <a href="{{ route('csv-export-settings') }}" class="nav-link{{  request()->routeIs('csv-export-settings') ? 'active' : '' }}"
                         >CSV Export Settings</a>
                     </li>
                 </ul>

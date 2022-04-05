@@ -14,6 +14,7 @@ use Laravel\Socialite\Facades\Socialite;
 
 class GoogleController extends Controller
 {
+    protected $newUser;
     CONST DRIVER_TYPE = 'google';
     public function handleGoogleRedirect()
     {
@@ -32,11 +33,18 @@ class GoogleController extends Controller
 
             if( $userExisted ) {
 
-                return redirect()->route('loggedInUser');
+                //return redirect()->route('loggedInUser');
+                $saveUser = PhoneListUserModel::where('email', $user->email)->first();
 
             }else {
-                return view('user.userGoogleRegister', ['newUserData'=>$user]);
+                //dd($user);
+                $splitName = explode(' ', $user->getName(), 2);
+                $firstname = $splitName[0];
+                $lastname = !empty($splitName[1]) ? $splitName[1] : '';
+                return view('user.userGoogleRegister', ['newUserData'=>$user, 'lastname' => $lastname, 'firstname' => $firstname]);
             }
+            Auth::loginUsingId($saveUser->id);
+            return view('userDashboard.userDashboard');
 
 
         } catch (Exception $e) {

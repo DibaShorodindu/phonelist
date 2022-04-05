@@ -6,18 +6,10 @@
     <section class="second-navbar">
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <form action="{{ route('managePlan') }}" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <input hidden type="text" name="userId" value="{{ Auth::user()->id }}">
-                    <button type="submit" class="nav-link"> Plan Overview </button>
-                </form>
+                <a href="{{ route('managePlan') }}" class="nav-link {{  request()->routeIs('managePlan') ? 'active' : '' }}">Plan Overview</a>
             </li>
             <li class="nav-item">
-                <form action="{{ route('billing') }}" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <input hidden type="text" name="userId" value="{{ Auth::user()->id }}">
-                    <button type="submit" class="nav-link"> Billing </button>
-                </form>
+                <a href="{{ route('billing') }}" class="nav-link {{  request()->routeIs('billing') ? 'active' : '' }}">Billing</a>
             </li>
         </ul>
     </section>

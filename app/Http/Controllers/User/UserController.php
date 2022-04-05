@@ -4,6 +4,8 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Card;
+use App\Models\Credit;
+use App\Models\CreditHistory;
 use App\Models\ExportHistori;
 use App\Models\PhoneList;
 use App\Models\PhoneListUserModel;
@@ -28,11 +30,16 @@ class UserController extends Controller
     protected $id;
     protected $user;
     protected $allData;
+    protected $credit;
+    protected $creditHistory;
+    protected $exportHistory;
 
 
     public function dashboard()
     {
         if(Auth::check()){
+           /* $this->exportHistory = ExportHistori::where('userId',Auth::user()->id);
+            $this->creditHistory = CreditHistory::where('userId',Auth::user()->id);*/
             return view('userDashboard.userDashboard');
         }
         return redirect('/phonelistUserLogin')->with('message','Oppes! You have entered invalid credentials');
@@ -66,20 +73,10 @@ class UserController extends Controller
         } else {
             $check = $this->create($data);
             $newUser = PhoneListUserModel::where('email', $data['email'])->first();
-            $startDate = Carbon::now();
-            $startDate = $startDate->toDateString();
-            //$daysToAdd = 30;
-            $endDate = Carbon::now()->addDays(30);
-            PurchasePlan::create([
+            PurchasePlan::create($newUser);
+            Credit::create([
                 'userId' => $newUser->id,
-                'plan' => 'Free',
-                'price' => 0,
-                'credit' => 20,
-                'phoneNumber'=> 20,
-                'dataFilter' => 'Basic Filters',
-                'csvExport'=> 'CSV Export',
-                'start' => $startDate,
-                'end' => $endDate->format('Y-m-d'),
+                'useableCredit' => 20,
             ]);
             return redirect("loggedInUser")->with('message2', 'data Updated Successfully');
         }
@@ -175,7 +172,7 @@ class UserController extends Controller
             'country' => $request->country,
             'postalCode' => $request->postalCode,
         ]);
-        return redirect()->route('billingRequest',['id' => $request->userId]);
+        return redirect()->route('billing');
     }
     public function updateCardInfo(Request $request)
     {
@@ -192,7 +189,7 @@ class UserController extends Controller
             'country' => $request->country,
             'postalCode' => $request->postalCode,
         ]);
-        return redirect()->route('billingRequest',['id' => $request->userId]);
+        return redirect()->route('billing');
     }
 
     /** end add/updating user billing information*/
@@ -303,35 +300,50 @@ class UserController extends Controller
     {
         return view('userDashboard.settings.account');
     }
-    public function managePlan(Request $request)
+    public function managePlan()
     {
-        $data = PurchasePlan::where('userId', $request->userId)->get();
+        $data = PurchasePlan::where('userId', Auth::user()->id)->get();
+        $this->credit = Credit::where('userId', Auth::user()->id)->first();
         $items[0] = $data->last()->plan;
-        $items[1] = 0;
-        $items[2] = 0;
+        $items[1] = $this->credit->useableCredit;
+
+        $items[2] = $this->credit->useableCredit;
         $items[3] = $data->last()->price;
-        $date = Carbon::createFromFormat('Y-m-d', $data->last()->start);
-        $monthName = $date->format('M'); $year = $date->format('Y'); $day = $date->format('d');
-        $items[4] = $monthName; $items[5] = $year; $items[6] = $day;
-        $date2 = Carbon::createFromFormat('Y-m-d', $data->last()->end);
-        $monthName2 = $date2->format('M'); $year2 = $date2->format('Y'); $day2 = $date2->format('d');
-        $items[7] = $monthName2; $items[8] = $year2; $items[9] = $day2;
-        $items[10] = $data->last()->start;
-        $items[11] = $data->last()->end;
-        foreach($data as $dataPlan) {
-            $items[1] = $items[1] + $dataPlan->credit;
-            $items[2] = $items[2] + $dataPlan->phoneNumber;
+
+        $monthName = Carbon::now()->subMonth()->format('M');
+        if (Carbon::now()->format('M') == 'Jan')
+        {
+            $year = Carbon::now()->subYear()->format('Y');
         }
+        else
+        {
+            $year = Carbon::now()->format('Y');
+        }
+        $day = Carbon::now()->subDays(30)->format('d');
+        $items[4] = $monthName; $items[5] = $year; $items[6] = $day;
+        //$date2 = Carbon::createFromFormat('Y-m-d', $data->last()->end);
+        $monthName2 = Carbon::now()->format('M');
+        $day2 = Carbon::now()->format('d');
+        $items[7] = $monthName2; $items[8] = $day2; $items[9] = Carbon::now()->format('Y');
+
+        $from = Carbon::now()->subDays(30)->format('Y-m-d');
+        $to = Carbon::now()->format('Y-m-d');
+
+        $this->creditHistory = CreditHistory::whereBetween('date', [$from, $to])->get();
+        $items[10] = 0;
+        $items[11] = $this->credit->useableCredit;
+        foreach ($this->creditHistory as $credithistory)
+        {
+            $items[10]= $items[10]+$credithistory->usedCredit;
+        }
+
+
         return view('userDashboard.settings.plans.managePlan', ['userPurchasePlan' => $items]);
     }
-    public function billingRequest($userId)
+
+    public function billing()
     {
-        $data = Card::where('userId', $userId)->get();
-        return view('userDashboard.settings.plans.billing', ['userCardInfo' => $data]);
-    }
-    public function billing(Request $request)
-    {
-        $data = Card::where('userId', $request->userId)->get();
+        $data = Card::where('userId', Auth::user()->id)->get();
         return view('userDashboard.settings.plans.billing', ['userCardInfo' => $data]);
     }
     public function exports()
@@ -350,11 +362,66 @@ class UserController extends Controller
     }
     public function current()
     {
-        return view('userDashboard.settings.credits.current');
+        $this->credit = Credit::where('userId', Auth::user()->id)->first();
+        $monthName = Carbon::now()->subMonth()->format('M');
+        if (Carbon::now()->format('M') == 'Jan')
+        {
+            $year = Carbon::now()->subYear()->format('Y');
+        }
+        else
+        {
+            $year = Carbon::now()->format('Y');
+        }
+        $day = Carbon::now()->subDays(30)->format('d');
+        $items[1] = $monthName; $items[2] = $year; $items[3] = $day;
+        $monthName2 = Carbon::now()->format('M');
+        $day2 = Carbon::now()->format('d');
+        $items[4] = $monthName2; $items[5] = $day2; $items[6] = Carbon::now()->format('Y');
+
+        $from = Carbon::now()->subDays(30)->format('Y-m-d');
+        $to = Carbon::now()->format('Y-m-d');
+
+        $this->creditHistory = CreditHistory::whereBetween('date', [$from, $to])->get();
+        $items[7] = 0;
+        $items[8] = $this->credit->useableCredit;
+        foreach ($this->creditHistory as $credithistory)
+        {
+            $items[7]= $items[7]+$credithistory->usedCredit;
+        }
+
+        return view('userDashboard.settings.credits.current', ['userPurchasePlan' => $items]);
     }
     public function history()
     {
-        return view('userDashboard.settings.credits.history');
+        //$this->creditHistory = ExportHistori::where('userId', Auth::user()->id)->get();
+        //dd($this->creditHistory);
+        $this->credit = Credit::where('userId', Auth::user()->id)->first();
+        $monthName = Carbon::now()->subMonth()->format('M');
+        if (Carbon::now()->format('M') == 'Jan')
+        {
+            $year = Carbon::now()->subYear()->format('Y');
+        }
+        else
+        {
+            $year = Carbon::now()->format('Y');
+        }
+        $day = Carbon::now()->subDays(30)->format('d');
+        $items[1] = $monthName; $items[2] = $year; $items[3] = $day;
+        $monthName2 = Carbon::now()->format('M');
+        $day2 = Carbon::now()->format('d');
+        $items[4] = $monthName2; $items[5] = $day2; $items[6] = Carbon::now()->format('Y');
+
+        $from = Carbon::now()->subDays(30)->format('Y-m-d');
+        $to = Carbon::now()->format('Y-m-d');
+
+        $this->creditHistory = CreditHistory::whereBetween('date', [$from, $to])->get();
+        $items[7] = 0;
+        $items[8] = $this->credit->useableCredit;
+        foreach ($this->creditHistory as $credithistory)
+        {
+            $items[7]= $items[7]+$credithistory->usedCredit;
+        }
+        return view('userDashboard.settings.credits.history', ['userPurchasePlan' => $items]);
     }
 
 

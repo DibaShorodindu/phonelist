@@ -14,26 +14,23 @@
                     <span class="text-uppercase">Personal Profile</span>
                     <a
                         href="{{ route('account') }}"
-                        class="nav-link"
+                        class="nav-link {{  request()->routeIs('account') ? 'active' : '' }}"
                         aria-current="page"
                     >
                         <h2 class="fs-4 m-0 fw-bold">You</h2>
                     </a>
                 </li>
                 <li class="nav-item mt-4">
-                    <form action="{{ route('managePlan') }}" method="post" enctype="multipart/form-data">
-                        @csrf
-                        <span class="text-uppercase">Admin Settings</span>
-                        <input hidden type="text" name="userId" value="{{ Auth::user()->id }}">
-                        <button type="submit" class="nav-link"> Manage Plan </button>
-                    </form>
+                    <a href="{{ route('managePlan') }}" class="nav-link {{  request()->routeIs('managePlan') ? 'active' : '' }} {{  request()->routeIs('billing') ? 'active' : '' }}" >
+                        <h2 class="fs-4 m-0 fw-bold">Manage Plan</h2>
+                    </a>
                 </li>
                 <li class="nav-item mt-4">
                     <span class="text-uppercase">System Activity</span>
-                    <a href="{{ route('exports') }}" class="nav-link">Exports</a>
+                    <a href="{{ route('exports') }}" class="nav-link {{  request()->routeIs('exports') ? 'active' : '' }} {{  request()->routeIs('csv-export-settings') ? 'active' : '' }}">Exports</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('current') }}" class="nav-link"> Credit Usage </a>
+                    <a href="{{ route('current') }}" class="nav-link {{  request()->routeIs('current') ? 'active' : '' }} {{  request()->routeIs('history') ? 'active' : '' }}"> Credit Usage </a>
                 </li>
             </ul>
         </section>

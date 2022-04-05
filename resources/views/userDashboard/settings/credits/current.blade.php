@@ -6,12 +6,12 @@
         <section class="second-navbar">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a href="{{ route('current') }}" class="nav-link active"
+                    <a href="{{ route('current') }}" class="nav-link {{  request()->routeIs('current') ? 'active' : '' }}"
                     >Current Credit Usage</a
                     >
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('history') }}" class="nav-link">Credit Usage History</a>
+                    <a href="{{ route('history') }}" class="nav-link {{  request()->routeIs('history') ? 'active' : '' }}">Credit Usage History</a>
                 </li>
             </ul>
         </section>
@@ -24,10 +24,10 @@
                     class="card-title d-flex justify-content-between align-items-center"
                 >
                     <h3 class="p-4 text-capitalize">
-                        Credits Usage <span> (Jan 21, 2022 - Feb 21, 2022) </span>
+                        Credits Usage <span> {{ $userPurchasePlan[1] }} {{ $userPurchasePlan[3] }} {{ $userPurchasePlan[2] }}  - {{ $userPurchasePlan[4] }} {{ $userPurchasePlan[5] }} {{ $userPurchasePlan[6] }} </span>
                     </h3>
                     <a
-                        href="../upgrade.html"
+                        href="{{route('upgrade')}}"
                         type="button"
                         class="btn btn-access me-4"
                     >
@@ -44,8 +44,8 @@
                                         class="bi bi-question-circle-fill text-secondary"
                                     ></i>
                                     <p class="mt-4">
-                                        You have used <span class="text-primary">0</span> of
-                                        <span class="text-dark">80</span> available email
+                                        You have used <span class="text-primary">{{ $userPurchasePlan[7] }}</span> of
+                                        <span class="text-dark">{{ $userPurchasePlan[8] }}</span> available email
                                         credits this billing cycle.
                                     </p>
                                 </h3>

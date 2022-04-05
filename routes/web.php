@@ -274,11 +274,11 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function (){
         'uses' => '\App\Http\Controllers\User\UserController@account',
         'as'   => 'account',
     ]);
-    Route::post('/settings/plans',[
+    Route::get('/settings/plans',[
         'uses' => '\App\Http\Controllers\User\UserController@managePlan',
         'as'   => 'managePlan',
     ]);
-    Route::post('/settings/billing',[
+    Route::get('/settings/billing',[
         'uses' => '\App\Http\Controllers\User\UserController@billing',
         'as'   => 'billing',
     ]);

@@ -7,18 +7,14 @@
         <section class="second-navbar">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <form action="{{ route('managePlan') }}" method="post" enctype="multipart/form-data">
+                    <a href="{{ route('managePlan') }}" class="nav-link {{  request()->routeIs('managePlan') ? 'active' : '' }}">Plan Overview</a>
+                    {{--<form action="{{ route('managePlan') }}" method="get" enctype="multipart/form-data">
                         @csrf
-                        <input hidden type="text" name="userId" value="{{ Auth::user()->id }}">
                         <button type="submit" class="nav-link"> Plan Overview </button>
-                    </form>
+                    </form>--}}
                 </li>
                 <li class="nav-item">
-                    <form action="{{ route('billing') }}" method="post" enctype="multipart/form-data">
-                        @csrf
-                        <input hidden type="text" name="userId" value="{{ Auth::user()->id }}">
-                        <button type="submit" class="nav-link"> Billing </button>
-                    </form>
+                    <a href="{{ route('billing') }}" class="nav-link">Billing</a>
                 </li>
             </ul>
         </section>
@@ -81,7 +77,7 @@
                     class="card-title d-flex justify-content-between align-items-center"
                 >
                     <h3 class="p-4 text-capitalize">
-                        Credits Usage <span> ( {{ $userPurchasePlan[4] }} {{ $userPurchasePlan[6] }} {{ $userPurchasePlan[5] }}  - {{ $userPurchasePlan[7] }} {{ $userPurchasePlan[9] }} {{ $userPurchasePlan[8] }} ) </span>
+                        Credits Usage <span> ( {{ $userPurchasePlan[4] }} {{ $userPurchasePlan[6] }} {{ $userPurchasePlan[5] }}  - {{ $userPurchasePlan[7] }} {{ $userPurchasePlan[8] }} {{ $userPurchasePlan[9] }} ) </span>
                     </h3>
                     <a
                         href="{{ route('upgrade') }}"
@@ -96,13 +92,13 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <h3 class="fs-3">
-                                    Email Credits
+                                    Credits
                                     <i
                                         class="bi bi-question-circle-fill text-secondary"
                                     ></i>
                                     <p class="mt-4">
-                                        You have used <span class="text-primary">0</span> of
-                                        <span class="text-dark">80</span> available email
+                                        You have used <span class="text-primary">{{ $userPurchasePlan[10] }}</span> of
+                                        <span class="text-dark">{{ $userPurchasePlan[11] }}</span> available
                                         credits this billing cycle.
                                     </p>
                                 </h3>

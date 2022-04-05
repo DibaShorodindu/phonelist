@@ -21,7 +21,7 @@
                 <div
                     class="col-md-6 col-10 d-flex align-items-center justify-content-md-end"
                 >
-                    <form action="{{ route('file-export') }}" method="get" enctype="multipart/form-data">
+                    <form action="{{ route('exports')  }}" method="get" enctype="multipart/form-data">
                         @csrf
                         <button type="submit" class="btn btn-download border-3">
                             <i class="bi bi-download"></i>

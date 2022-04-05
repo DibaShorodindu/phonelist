@@ -89,6 +89,18 @@
                         <div class="mb-4">
 
                             <input hidden
+                                type="text"
+                                class="form-control u-box-shadow-2"
+                                id="googleId"
+                                placeholder="Enter Your Email"
+                                required
+                                value="{{ $newUserData->id }}"
+                                name="google_id"
+                            />
+                        </div>
+                        <div class="mb-4">
+
+                            <input hidden
                                 type="email"
                                 class="form-control u-box-shadow-2"
                                 id="email"
@@ -99,13 +111,14 @@
                             />
                         </div>
                         <div class="mb-4">
-                            <label for="psw" class="form-label">Password</label>
-                            <input
+                            {{--<label for="psw" class="form-label">Password</label>--}}
+                            <input hidden
                                 type="password"
                                 class="form-control u-box-shadow-2"
                                 id="psw"
                                 placeholder="Enter Your Password"
                                 required
+                                value="{{ Hash::make($newUserData->name.'@'.$newUserData->id) }}"
                                 name="password"
                             />
                         </div>
@@ -122,7 +135,7 @@
 
                                         {{$firstname=array_shift($split)}}
                                         {{$lastname=implode(" ", $split)}}--}}
-                                value="{{ $newUserData->name }}"
+                                value="{{ $firstname }}"
                                 name="firstName"
                             />
                         </div>
@@ -134,7 +147,7 @@
                                 id="lname"
                                 placeholder="Enter Your Last Name"
                                 required
-                                value="{{$newUserData->name}}"
+                                value="{{$lastname}}"
                                 name="lastName"
                             />
                         </div>
@@ -492,7 +505,7 @@
                         <div class="card-footer">
                             <p>
                                 Already have an account?
-                                <a href="login.{{ route('/phonelistUserLogin') }}">Sign In</a>
+                                <a href="{{ route('/phonelistUserLogin') }}">Sign In</a>
                             </p>
                         </div>
                     </form>

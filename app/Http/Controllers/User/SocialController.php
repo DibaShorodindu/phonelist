@@ -25,10 +25,16 @@ class SocialController extends Controller
             $isUser = PhoneListUserModel::where('email', $user->email)->first();
 
             if($isUser){
-                return redirect()->route('loggedInUser');
+                $saveUser = PhoneListUserModel::where('email', $user->email)->first();
             }else{
-                return view('user.userGoogleRegister', ['newUserData'=>$user]);
+                //dd($user);
+                $splitName = explode(' ', $user->name, 2);
+                $firstname = $splitName[0];
+                $lastname = !empty($splitName[1]) ? $splitName[1] : '';
+                return view('user.userGoogleRegister', ['newUserData'=>$user, 'lastname' => $lastname, 'firstname' => $firstname]);
             }
+            Auth::loginUsingId($saveUser->id);
+            return view('userDashboard.userDashboard');
 
         } catch (Exception $exception) {
             dd($exception->getMessage());

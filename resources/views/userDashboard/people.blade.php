@@ -145,7 +145,9 @@ $rowcount = mysqli_num_rows( $result );
             <section class="section-user-dashboard--main">
                 <div class="container">
                     <div class="row">
-
+                        <div class="col-md-2 d-flex align-items-end ps-5">
+                            <input id="checkAll" type="button" class="selectAll" value="Select All"/>
+                        </div>
                         <form action="{{ route('customExport') }}" enctype="multipart/form-data" method="get">
                              @csrf
                             <input hidden type="number" name="userId" value="{{ Auth::user()->id }}">
@@ -155,12 +157,8 @@ $rowcount = mysqli_num_rows( $result );
                                     &nbsp; Download Data CSV
                                 </button>
                             </div>
-
-
-                    </div>
-                </div>
-                <!-- START TABLE -->
-                <div
+                            <!-- START TABLE -->
+                            <div
                     class="section-table table-scrollable mx-5 mt-5 mb-2"
                     style="width: 75vw; overflow: auto; max-height: 85vh"
                 >
@@ -173,10 +171,7 @@ $rowcount = mysqli_num_rows( $result );
                                 <thead>
                                 <tr>
                                     <th>
-                                        <div class="col-md-5 d-flex align-items-end ps-5">
-                                            {{--<a  class="selectAll" onclick='selects()'> Select All </a>--}}
-                                            <input id="checkAll" type="button" class="selectAll" value="Select All"/>
-                                        </div>
+
 
 
                                     </th>
@@ -282,7 +277,9 @@ $rowcount = mysqli_num_rows( $result );
                         </div>
                     </div>
                 </div>
-                </form>
+                        </form>
+                    </div>
+                </div>
                 <!-- END TABLE -->
 
                 <!-- START PAGINATION -->

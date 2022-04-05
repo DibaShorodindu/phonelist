@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Exports\CustomExport;
+use App\Models\Credit;
+use App\Models\CreditHistory;
 use App\Models\ExportHistori;
 use App\Models\PurchasePlan;
 use Illuminate\Http\Request;
@@ -63,9 +65,18 @@ class AdminController extends Controller
 
     public function customExport(Request $request)
     {
-        //PurchasePlan::where(user)
-        ExportHistori::newExportHistori($request);
-        return (new CustomExport($request->chk))->download('phoneList.xlsx');
+        $credit=Credit::find($request->userId);
+        if ($credit->useableCredit >= count($request->chk))
+        {
+            ExportHistori::newExportHistori($request);
+            Credit::updateUserCradit($request);
+            CreditHistory::create($request);
+            return (new CustomExport($request->chk))->download('phoneList.xlsx');
+        }
+        else
+        {
+            return redirect('/settings/upgrade');
+        }
     }
 
 
@@ -77,10 +88,6 @@ class AdminController extends Controller
         $this->allData = PhoneList::paginate(10);
         return view('admin.manage-data', ['allData' => $this->allData]);
     }
-    /*public function getData(){
-        $employees = Employee::
-        return view('home', compact('employees'));
-    }*/
     public function editData($id){
         $this->data = PhoneList::find($id);
         //return view('admin.edit-data', ['data'=>$this->data]);
@@ -91,9 +98,6 @@ class AdminController extends Controller
     }
     public function deleteData($id){
         $this->data = PhoneList::find($id);
-        /*if (file_exists($this->data->image)){
-            unlink($this->data->image);
-        }*/
         $this->data->delete();
         return redirect()->back()->with('message', 'data Deleted Successfully');
     }
