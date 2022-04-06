@@ -24,6 +24,11 @@
         </div>
     </div>
     <!-- END BREADCRUMB -->
+    <!-- START HEADING -->
+    <section class="section-legal--title u-padding-lg pb-5">
+        <h1 class="section-title text-center">Terms of Service</h1>
+    </section>
+    <!-- END HEADING -->
     <!-- START TERMS -->
     <section class="section-legal--content u-padding-lg bg-light">
         <div class="container">
