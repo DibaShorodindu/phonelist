@@ -33,14 +33,30 @@ class UserController extends Controller
     protected $credit;
     protected $creditHistory;
     protected $exportHistory;
+    protected $purchasePlan;
 
 
     public function dashboard()
     {
         if(Auth::check()){
-           /* $this->exportHistory = ExportHistori::where('userId',Auth::user()->id);
-            $this->creditHistory = CreditHistory::where('userId',Auth::user()->id);*/
-            return view('userDashboard.userDashboard');
+            $this->creditHistory = CreditHistory::where('userId',Auth::user()->id)->get();
+            $this->purchasePlan = PurchasePlan::where('userId',Auth::user()->id)->get();
+            $i=0;
+            $dataPurchase = [];
+            foreach ($this->creditHistory as $history)
+            {
+                $dataPurchase [$i] = $history->dataPurchase;
+                $i++;
+            }
+            $j=0;
+            $creditPurchase = [];
+            foreach ($this->purchasePlan as $plan)
+            {
+                $creditPurchase [$j] = $plan->credit;
+                $j++;
+            }
+            //dd($arr);
+            return view('userDashboard.userDashboard',['userHistory'=> $this->creditHistory])->with('data',json_encode($dataPurchase,JSON_NUMERIC_CHECK))->with('credit',json_encode($creditPurchase,JSON_NUMERIC_CHECK));
         }
         return redirect('/phonelistUserLogin')->with('message','Oppes! You have entered invalid credentials');
 
@@ -344,7 +360,7 @@ class UserController extends Controller
     public function billing()
     {
         $data = Card::where('userId', Auth::user()->id)->get();
-        return view('userDashboard.settings.plans.billing', ['userCardInfo' => $data]);
+        return view('userDashboard.settings.plans.billing', ['userCardInfo' => $data, 'amount'=>0]);
     }
     public function exports()
     {

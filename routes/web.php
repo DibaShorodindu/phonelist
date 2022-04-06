@@ -364,6 +364,19 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function (){
         'as'   => 'updateCardInfo',
     ]);
 
+    Route::get('handle-payment{price}',[
+        'uses' => '\App\Http\Controllers\Admin\Payment\PayPalPaymentController@handlePayment',
+        'as' => 'make.paypal.payment'
+    ]);
+    Route::get('cancel-payment',[
+        'uses' => '\App\Http\Controllers\Admin\Payment\PayPalPaymentController@paymentCancel',
+        'as' => 'cancel.paypal.payment'
+    ]);
+    Route::get('payment-success',[
+        'uses' => '\App\Http\Controllers\Admin\Payment\PayPalPaymentController@paymentSuccess',
+        'as' => 'success.paypal.payment'
+    ]);
+
 });
 Route::post('/settings/updateUserPassword/{id}',[
     'uses' => '\App\Http\Controllers\User\UserController@updateUserPassword',

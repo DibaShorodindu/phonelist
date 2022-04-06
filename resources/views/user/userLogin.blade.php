@@ -99,7 +99,8 @@
                                 type="checkbox"
                                 class="form-check-input"
                                 id="check"
-                                checked
+                                name="remember"
+                                value="1"
                             />
                             <label class="form-check-label ms-3" for="check"
                             >Keep me signed in</label

@@ -9,6 +9,21 @@
 @endsection
 
 @section('main')
+    <!-- START BREADCRUMB -->
+    <hr class="mt-lg-0 mt-5 text-secondary" />
+    <div class="container">
+        <div class="row">
+            <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('/') }}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        Privacy Policy
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- END BREADCRUMB -->
     <!-- START HEADING GOOGLE API -->
     <section class="section-legal--title u-padding-lg pb-0">
         <h1 class="section-title text-center">Google API Disclosure</h1>

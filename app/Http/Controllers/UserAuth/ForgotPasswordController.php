@@ -13,21 +13,11 @@ use Illuminate\Support\Str;
 
 class ForgotPasswordController extends Controller
 {
-    /**
-     * Write code on Method
-     *
-     * @return response()
-     */
     public function showForgetPasswordForm()
     {
         return view('userAuth.forgetPassword');
     }
 
-    /**
-     * Write code on Method
-     *
-     * @return response()
-     */
     public function submitForgetPasswordForm(Request $request)
     {
         $request->validate([
@@ -49,20 +39,12 @@ class ForgotPasswordController extends Controller
 
         return back()->with('message', 'We have e-mailed your password reset link!');
     }
-    /**
-     * Write code on Method
-     *
-     * @return response()
-     */
+
     public function showResetPasswordForm($token) {
         return view('userAuth.forgetPasswordLink', ['token' => $token]);
     }
 
-    /**
-     * Write code on Method
-     *
-     * @return response()
-     */
+
     public function submitResetPasswordForm(Request $request)
     {
 
@@ -78,7 +60,7 @@ class ForgotPasswordController extends Controller
         }
 
         $user = PhoneListUserModel::where('email', $request->email)
-            ->update(['password' => $request->password]);
+            ->update(['password' => Hash::make($request->password)]);
 
         DB::table('password_resets')->where(['email'=> $request->email])->delete();
 

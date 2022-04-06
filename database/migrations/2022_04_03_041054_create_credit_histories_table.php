@@ -17,6 +17,9 @@ class CreateCreditHistoriesTable extends Migration
             $table->id();
             $table->bigInteger('userId');
             $table->bigInteger('usedCredit');
+            $table->bigInteger('useAbleCredit');
+            $table->bigInteger('prevCredit');
+            $table->bigInteger('dataPurchase');
             $table->date('date');
             $table->timestamps();
         });

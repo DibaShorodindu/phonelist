@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User\Payment;
 use App\Http\Controllers\Controller;
 use App\Models\Card;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Session;
 use Stripe;
 use Stripe\Token;
@@ -24,30 +25,43 @@ class StripeController extends Controller
     /**
      * success response method.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     public function stripeAccess(Request $request)
     {
         $data = Card::where('userId', $request->userId)->first();
-        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-        $stripeToken = Token::create(array(
-            "card" => array(
-                "number"    => $data->creditCardNumber,
-                "exp_month" => 2/*str_before($data->get('expirationDate'), '/')*/,
-                "exp_year"  => 2022/*str_after($data->get('expirationDate'), '/')*/,
-                "cvc"       => $data->cvc,
-                "name"      => $data->firstName . " " . $data->lastName
-            )
-        ));
-        Stripe\Charge::create ([
-            "amount" => 100 * 100,
-            "currency" => "usd",
-            "source" => $stripeToken,
-            "description" => "This payment is tested purpose phpcodingstuff.com"
-        ]);
+        if($data)
+        {
+            Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+            $stripeToken = Token::create(array(
+                "card" => array(
+                    "number"    => $data->creditCardNumber,
+                    "exp_month" => 2/*str_before($data->get('expirationDate'), '/')*/,
+                    "exp_year"  => 2022/*str_after($data->get('expirationDate'), '/')*/,
+                    "cvc"       => $data->cvc,
+                    "name"      => $data->firstName . " " . $data->lastName
+                )
+            ));
+            Stripe\Charge::create ([
+                "amount" => 100 * 100,
+                "currency" => "usd",
+                "source" => $stripeToken,
+                "description" => "This payment is tested purpose phpcodingstuff.com"
+            ]);
+            Session::flash('success', 'Payment successful!');
 
-        Session::flash('success', 'Payment successful!');
+            return back();
+        }
+        else
+        {
+            //return redirect()->route('billing',['amount'=>$request->price]);
+            $data = Card::where('userId', Auth::user()->id)->get();
+            //return view('userDashboard.settings.plans.billing', ['userCardInfo' => $data]);
+            return view('userDashboard.settings.plans.billing',['userCardInfo' => $data,'amount'=>$request->price]);
+            //return redirect('/settings/billing', ['amount'=>$request->price])->with('',);
+        }
 
-        return back();
+
+
     }
 }

@@ -1,5 +1,4 @@
 @extends('userDashboard.settings.master')
-
 @section('main')
 <section class="section-main">
     <!-- START SECOND NAVBAR -->
@@ -26,10 +25,8 @@
                             <h1 class="py-4 text-capitalize fs-2 fw-bold col-5">
                                 Credit Card Information
                             </h1>
-
                             <!-- Button trigger modal -->
                             <div class="col-7">
-
                                 @if( !$userCardInfo->isEmpty() )
                                     <button type="button" class="btn btn-purple col-5" data-bs-toggle="modal"
                                             data-bs-target="#creditCardModalEdit">
@@ -49,7 +46,6 @@
                                             Remove Credit Card
                                      </button>
                                 @endif
-
                             </div>
                         </div>
 
@@ -1558,7 +1554,7 @@
                         </div>
                         <div class="card-body col-12 p-0">
                             <div class="d-flex justify-content-between px-5">
-                                <a href="#" class="col-5">
+                                <a href="{{ route('make.paypal.payment',['price' => $amount]) }}" class="col-5">
                                     <img class="img-fluid" src="{{ asset('/') }}adminAsset/assets/images/paypal.png" alt="paypal logo">
                                 </a>
                                 <a href="#" class="col-5 p-1">
