@@ -55,7 +55,6 @@ class UserController extends Controller
                 $creditPurchase [$j] = $plan->credit;
                 $j++;
             }
-            //dd($arr);
             return view('userDashboard.userDashboard',['userHistory'=> $this->creditHistory])->with('data',json_encode($dataPurchase,JSON_NUMERIC_CHECK))->with('credit',json_encode($creditPurchase,JSON_NUMERIC_CHECK));
         }
         return redirect('/phonelistUserLogin')->with('message','Oppes! You have entered invalid credentials');

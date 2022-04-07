@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\CreditHistory;
 use App\Models\PhoneListUserModel;
+use App\Models\PurchasePlan;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -15,6 +17,8 @@ use Laravel\Socialite\Facades\Socialite;
 class GoogleController extends Controller
 {
     protected $newUser;
+    protected $exportHistory;
+    protected $purchasePlan;
     CONST DRIVER_TYPE = 'google';
     public function handleGoogleRedirect()
     {
@@ -44,7 +48,23 @@ class GoogleController extends Controller
                 return view('user.userGoogleRegister', ['newUserData'=>$user, 'lastname' => $lastname, 'firstname' => $firstname]);
             }
             Auth::loginUsingId($saveUser->id);
-            return view('userDashboard.userDashboard');
+            $this->creditHistory = CreditHistory::where('userId',Auth::user()->id)->get();
+            $this->purchasePlan = PurchasePlan::where('userId',Auth::user()->id)->get();
+            $i=0;
+            $dataPurchase = [];
+            foreach ($this->creditHistory as $history)
+            {
+                $dataPurchase [$i] = $history->dataPurchase;
+                $i++;
+            }
+            $j=0;
+            $creditPurchase = [];
+            foreach ($this->purchasePlan as $plan)
+            {
+                $creditPurchase [$j] = $plan->credit;
+                $j++;
+            }
+            return view('userDashboard.userDashboard',['userHistory'=> $this->creditHistory])->with('data',json_encode($dataPurchase,JSON_NUMERIC_CHECK))->with('credit',json_encode($creditPurchase,JSON_NUMERIC_CHECK));
 
 
         } catch (Exception $e) {
