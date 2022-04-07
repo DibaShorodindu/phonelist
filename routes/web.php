@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Payment\PayPalPaymentController;
 use App\Http\Controllers\UserAuth\ForgotPasswordController;
 use App\Http\Controllers\User\Searching\TypeaheadController;
 use App\Http\Controllers\User\SocialController;
@@ -364,18 +365,11 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function (){
         'as'   => 'updateCardInfo',
     ]);
 
-    Route::get('handle-payment{price}',[
-        'uses' => '\App\Http\Controllers\Admin\Payment\PayPalPaymentController@handlePayment',
-        'as' => 'make.paypal.payment'
-    ]);
-    Route::get('cancel-payment',[
-        'uses' => '\App\Http\Controllers\Admin\Payment\PayPalPaymentController@paymentCancel',
-        'as' => 'cancel.paypal.payment'
-    ]);
-    Route::get('payment-success',[
-        'uses' => '\App\Http\Controllers\Admin\Payment\PayPalPaymentController@paymentSuccess',
-        'as' => 'success.paypal.payment'
-    ]);
+    // route for processing payment
+    Route::get('/paypal{price}', [PayPalPaymentController::class, 'payWithpaypal'])->name('paypal');
+
+    // route for check status of the payment
+    Route::get('/status', [PayPalPaymentController::class, 'getPaymentStatus'])->name('status');
 
 });
 Route::post('/settings/updateUserPassword/{id}',[

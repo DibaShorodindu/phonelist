@@ -26,7 +26,7 @@ class CreditHistory extends Model
         $usableCredit = self::$credit->useableCredit;
         self::$creditHistory->userId         = $request->userId;
         self::$creditHistory->usedCredit  = count($request->chk);
-        self::$creditHistory->useAbleCredit  = $usableCredit-count($request->chk);
+        self::$creditHistory->useAbleCredit  = $usableCredit;
         self::$creditHistory->prevCredit  = $usableCredit;
         self::$creditHistory->dataPurchase  = count($request->chk);
         self::$creditHistory->date  = Carbon::now();
