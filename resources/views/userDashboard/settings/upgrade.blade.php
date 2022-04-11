@@ -239,14 +239,15 @@
                             </ul>
                         </div>
                         <div class="pricingTable-signup">
-                            <form action="{{ route('stripe') }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('billingRequest') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <input hidden  type="number" name="credit" value="5000"/>
                                 <input hidden  type="number" name="phoneNumber" value="5000"/>
                                 <input hidden  type="text" name="dataFilter" value="Data Filters"/>
                                 <input hidden  type="text" name="csvExport" value="CSV Export"/>
                                 <input hidden  type="number" name="price" value="100"/>
-                                <input hidden  type="text" name="userId" value="{{ Auth::user()->id }}"/>
+                                <input hidden  type="number" name="userId" value="{{ Auth::user()->id }}"/>
+                                <input hidden  type="text" name="plan" value="Basic"/>
                                 <div class="pricingTable-signup">
                                     <button type="submit" class="btn btn-default">sign up</button>
                                 </div>
@@ -273,7 +274,7 @@
                             </ul>
                         </div>
                         <div class="pricingTable-signup">
-                            <form action="{{ route('stripe') }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('billingRequest') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <input hidden  type="number" name="credit" value="10000"/>
                                 <input hidden  type="number" name="phoneNumber" value="10000"/>
@@ -281,6 +282,7 @@
                                 <input hidden  type="text" name="csvExport" value="CSV Export"/>
                                 <input hidden  type="number" name="price" value="190"/>
                                 <input hidden  type="text" name="userId" value="{{ Auth::user()->id }}"/>
+                                <input hidden  type="text" name="plan" value="Professional"/>
                                 <div class="pricingTable-signup">
                                     <button type="submit" class="btn btn-default">sign up</button>
                                 </div>
@@ -309,7 +311,7 @@
                             </ul>
                         </div>
                         <div class="pricingTable-signup">
-                            <form action="{{ route('stripe') }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('billingRequest') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <input hidden  type="number" name="credit" value="50000"/>
                                 <input hidden  type="number" name="phoneNumber" value="50000"/>
@@ -317,6 +319,7 @@
                                 <input hidden  type="text" name="csvExport" value="CSV Export"/>
                                 <input hidden  type="number" name="price" value="400"/>
                                 <input hidden  type="text" name="userId" value="{{ Auth::user()->id }}"/>
+                                <input hidden  type="text" name="plan" value="Business"/>
                                 <div class="pricingTable-signup">
                                     <button type="submit" class="btn btn-default">sign up</button>
                                 </div>
@@ -343,7 +346,7 @@
                             </ul>
                         </div>
                         <div class="pricingTable-signup">
-                            <form action="{{ route('stripe') }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('billingRequest') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <input hidden  type="number" name="credit" value="300000"/>
                                 <input hidden  type="number" name="phoneNumber" value="300000"/>
@@ -351,6 +354,7 @@
                                 <input hidden  type="text" name="csvExport" value="CSV Export"/>
                                 <input hidden  type="number" name="price" value="1000"/>
                                 <input hidden  type="text" name="userId" value="{{ Auth::user()->id }}"/>
+                                <input hidden  type="text" name="plan" value="Business Pro"/>
                                 <div class="pricingTable-signup">
                                     <button type="submit" class="btn btn-default">sign up</button>
                                 </div>
@@ -377,7 +381,7 @@
                             </ul>
                         </div>
                         <div class="pricingTable-signup">
-                            <form action="{{ route('stripe') }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('billingRequest') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <input hidden  type="number" name="credit" value="10000000"/>
                                 <input hidden  type="number" name="phoneNumber" value="10000"/>
@@ -385,6 +389,7 @@
                                 <input hidden  type="text" name="csvExport" value="CSV Export"/>
                                 <input hidden  type="number" name="price" value="1500"/>
                                 <input hidden  type="text" name="userId" value="{{ Auth::user()->id }}"/>
+                                <input hidden  type="text" name="plan" value="Enterprise"/>
                                 <div class="pricingTable-signup">
                                     <button type="submit" class="btn btn-default">sign up</button>
                                 </div>

@@ -32,4 +32,18 @@ class CreditHistory extends Model
         self::$creditHistory->date  = Carbon::now();
         self::$creditHistory->save();
     }
+    /*public static function updateUseableCredit($request)
+    {
+        self::$purchagePlan = PurchasePlan::where('userId', $request->userId)->update([
+            'useAbleCredit'       => $request->userId,
+            'plan'         => $request->plan,
+            'price'        => $request->price,
+            'credit'       => $request->credit,
+            'phoneNumber'  => $request->phoneNumber,
+            'dataFilter'   => $request->dataFilter,
+            'csvExport'    => $request->csvExport,
+            'start'        => Carbon::now()->toDateString(),
+            'end'          => Carbon::now()->addDays(29)->format('Y-m-d'),
+        ]);
+    }*/
 }

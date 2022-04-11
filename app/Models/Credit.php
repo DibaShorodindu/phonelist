@@ -22,4 +22,12 @@ class Credit extends Model
         self::$credit->useableCredit  = $usableCredit-count($request->chk);
         self::$credit->save();
     }
+    public static function updateCradit($request)
+    {
+        self::$credit = Credit::find($request->userId);
+        $usableCredit = self::$credit->useableCredit;
+        self::$credit->userId         = $request->userId;
+        self::$credit->useableCredit  = $usableCredit+$request->credit;
+        self::$credit->save();
+    }
 }

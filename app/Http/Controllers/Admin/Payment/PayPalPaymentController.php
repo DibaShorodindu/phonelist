@@ -3,8 +3,16 @@
 namespace App\Http\Controllers\Admin\Payment;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\User\Payment\StripeController;
+use App\Models\Card;
+use App\Models\Credit;
+use App\Models\PhoneListUserModel;
+use App\Models\PurchasePlan;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Mail;
 use PayPal\Api\Amount;
 use PayPal\Api\Details;
 use PayPal\Api\Item;
@@ -26,6 +34,9 @@ use Notification;
 
 class PayPalPaymentController extends Controller
 {
+    protected static $user;
+    protected static $card;
+    private $purchaseValue;
     public function handlePayment($price)
     {
 
@@ -48,31 +59,32 @@ class PayPalPaymentController extends Controller
         $this->_api_context->setConfig($paypal_conf['settings']);
 
     }
-    public function payWithpaypal($price)
+    public function payWithpaypal(Request $request)
     {
 
-        if ($price == 0)
+        if ($request->price == 0)
         {
             return redirect('/settings/upgrade')->with('message','please choose your plan first');
         }
         else
         {
+            $this->purchaseValue = $request;
             $payer = new Payer();
             $payer->setPaymentMethod('paypal');
 
             $item_1 = new Item();
 
-            $item_1->setName('Item 1') /** item name **/
+            $item_1->setName("$request->plan") /** item name **/
             ->setCurrency('USD')
                 ->setQuantity(1)
-                ->setPrice($price); /** unit price **/
+                ->setPrice($request->price); /** unit price **/
 
             $item_list = new ItemList();
             $item_list->setItems(array($item_1));
 
             $amount = new Amount();
             $amount->setCurrency('USD')
-                ->setTotal($price);
+                ->setTotal($request->price);
 
             $transaction = new Transaction();
             $transaction->setAmount($amount)
@@ -82,6 +94,7 @@ class PayPalPaymentController extends Controller
             $redirect_urls = new RedirectUrls();
             $redirect_urls->setReturnUrl(URL::to('status')) /** Specify return URL **/
             ->setCancelUrl(URL::to('status'));
+
 
             $payment = new Payment();
             $payment->setIntent('Sale')
@@ -166,12 +179,55 @@ class PayPalPaymentController extends Controller
 
             Session::put('success', 'Payment success');
             //add update record for cart
-            return view('success');  //back to product page
+            PurchasePlan::createNew($this->purchaseValue);
+            Credit::updateCradit($this->purchaseValue);
+
+            self::invoice($request);
+
+            return redirect('/settings/plans'); //back to product page
 
         }
 
         Session::put('error', 'Payment failed');
         return Redirect::to('/settings/billing');
 
+    }
+
+    public static function invoice($request)
+    {
+        self::$user = PhoneListUserModel::where('id',$request->userId)->get();
+        self::$card = Card::where('userId', $request->userId)->last();
+        foreach (self::$user as $userInfo){
+            $data["email"] = $userInfo->email;
+        }
+
+        if (self::$card)
+        {
+            $data["address"]= self::$card->address;
+            $data["city"]= self::$card->city;
+            $data["state"]= self::$card->state;
+        }
+        $data["country"]= self::$user->country;
+        $data["date"]= Carbon::now()->toString();
+        $data["paidBy"]= $request->paidBy;
+        $data["amount"]= $request->price;
+        $data["credit"]= $request->credit;
+        $data["phoneNumber"]= $request->phoneNumber;
+        $data["dataFilter"]= $request->dataFilter;
+        $data["csvExport"]= $request->csvExport;
+
+
+        $data["total"]= $request->price;
+
+        $data["title"] = "From phonelist.io";
+        $data["body"] = "This is Demo";
+
+        $pdf = PDF::loadView('myTestMail', $data);
+
+        Mail::send('myTestMail', $data, function($message)use($data, $pdf) {
+            $message->to($data["email"], $data["email"])
+                ->subject($data["title"])
+                ->attachData($pdf->output(), "invoice.pdf");
+        });
     }
 }

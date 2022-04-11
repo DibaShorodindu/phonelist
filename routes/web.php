@@ -283,7 +283,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function (){
         'uses' => '\App\Http\Controllers\User\UserController@billing',
         'as'   => 'billing',
     ]);
-    Route::get('/settings/billing/{id}',[
+    Route::post('/settings/billing/request',[
         'uses' => '\App\Http\Controllers\User\UserController@billingRequest',
         'as'   => 'billingRequest',
     ]);
@@ -366,7 +366,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function (){
     ]);
 
     // route for processing payment
-    Route::get('/paypal{price}', [PayPalPaymentController::class, 'payWithpaypal'])->name('paypal');
+    Route::post('/paypal', [PayPalPaymentController::class, 'payWithpaypal'])->name('paypal');
 
     // route for check status of the payment
     Route::get('/status', [PayPalPaymentController::class, 'getPaymentStatus'])->name('status');

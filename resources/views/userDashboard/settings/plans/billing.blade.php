@@ -1554,7 +1554,7 @@
                         </div>
                         <div class="card-body col-12 p-0">
                             <div class="d-flex justify-content-between px-5">
-                                <a href="{{ route('paypal',['price' => $amount]) }}" class="col-5">
+                                <a href="{{ route('upgrade') }}" class="col-5">
                                     <img class="img-fluid" src="{{ asset('/') }}adminAsset/assets/images/paypal.png" alt="paypal logo">
                                 </a>
                                 <a href="#" class="col-5 p-1">

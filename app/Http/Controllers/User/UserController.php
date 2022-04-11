@@ -39,7 +39,7 @@ class UserController extends Controller
     public function dashboard()
     {
         if(Auth::check()){
-            $this->creditHistory = CreditHistory::where('userId',Auth::user()->id)->get();
+            $this->creditHistory = CreditHistory::where('userId',Auth::user()->id)->orderBy('date', 'desc')->get();
             $this->purchasePlan = PurchasePlan::where('userId',Auth::user()->id)->get();
             $i=0;
             $dataPurchase = [];
@@ -259,7 +259,7 @@ class UserController extends Controller
     {
         $result = $request->name;
         $this->allData = DB::table('phone_lists')
-            ->where('name', 'like', $result.'%')
+            ->where('name', 'like', '%'.$result.'%')
             ->paginate(15);
         return view('userDashboard.peopleSearch', ['allData' => $this->allData]);
     }
@@ -267,7 +267,7 @@ class UserController extends Controller
     {
         $result = $request->gender;
         $this->allData = DB::table('phone_lists')
-            ->where('gender', 'like', $result.'%')
+            ->where('gender', 'like', '%'.$result.'%')
             ->paginate(15);
 
         return view('userDashboard.genderSearch', ['allData' => $this->allData]);
@@ -277,7 +277,7 @@ class UserController extends Controller
     {
         $result = $request->relationship;
         $this->allData = DB::table('phone_lists')
-            ->where('relationship_status', 'like', $result.'%')
+            ->where('relationship_status', 'like', '%'.$result.'%')
             ->paginate(15);
 
         return view('userDashboard.genderSearch', ['allData' => $this->allData]);
@@ -286,7 +286,7 @@ class UserController extends Controller
     {
         $result = $request->location;
         $this->allData = DB::table('phone_lists')
-            ->where('location', 'like', $result.'%')
+            ->where('location', 'like', '%'.$result.'%')
             ->paginate(15);
 
         return view('userDashboard.genderSearch', ['allData' => $this->allData]);
@@ -295,7 +295,7 @@ class UserController extends Controller
     {
         $result = $request->hometown;
         $this->allData = DB::table('phone_lists')
-            ->where('hometown', 'like', $result.'%')
+            ->where('hometown', 'like', '%'.$result.'%')
             ->paginate(15);
 
         return view('userDashboard.genderSearch', ['allData' => $this->allData]);
@@ -304,7 +304,7 @@ class UserController extends Controller
     {
         $result = $request->country;
         $this->allData = DB::table('phone_lists')
-            ->where('country', 'like', $result.'%')
+            ->where('country', 'like', '%'.$result.'%')
             ->paginate(15);
 
         return view('userDashboard.genderSearch', ['allData' => $this->allData]);
@@ -360,6 +360,11 @@ class UserController extends Controller
     {
         $data = Card::where('userId', Auth::user()->id)->get();
         return view('userDashboard.settings.plans.billing', ['userCardInfo' => $data, 'amount'=>0]);
+    }
+    public function billingRequest(Request $request)
+    {
+        $data = Card::where('userId', Auth::user()->id)->get();
+        return view('userDashboard.settings.plans.billingRequest', ['userCardInfo' => $data, 'purchasePlan'=>$request]);
     }
     public function exports()
     {

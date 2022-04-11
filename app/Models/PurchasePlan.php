@@ -36,4 +36,19 @@ class PurchasePlan extends Model
         self::$purchagePlan->end         = Carbon::now()->addDays(29)->format('Y-m-d');
         self::$purchagePlan->save();
     }
+    public static function createNew($request)
+    {
+        self::$purchagePlan = new PurchasePlan();
+        self::$purchagePlan->userId       = $request->userId;
+        self::$purchagePlan->plan         = $request->plan;
+        self::$purchagePlan->price        = $request->price;
+        self::$purchagePlan->credit       = $request->credit;
+        self::$purchagePlan->phoneNumber  = $request->phoneNumber;
+        self::$purchagePlan->dataFilter   = $request->dataFilter;
+        self::$purchagePlan->csvExport    = $request->csvExport;
+        self::$purchagePlan->start        = Carbon::now()->toDateString();
+        self::$purchagePlan->end         = Carbon::now()->addDays(29)->format('Y-m-d');
+        self::$purchagePlan->save();
+
+    }
 }
