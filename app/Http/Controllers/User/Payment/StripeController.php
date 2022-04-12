@@ -108,7 +108,7 @@ class StripeController extends Controller
         $data["title"] = "From phonelist.io";
         $data["body"] = "This is Demo";
 
-        $pdf = PDF::loadView('myTestMail', $data);
+        $pdf = PDF::loadView('myTestMail', $data)->setOptions(['defaultFont' => 'sans-serif']);
 
         Mail::send('myTestMail', $data, function($message)use($data, $pdf) {
             $message->to($data["email"], $data["email"])

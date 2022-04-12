@@ -37,15 +37,17 @@
                                         <button type="button" class="btn btn-purple col-5" data-bs-toggle="modal"
                                                 data-bs-target="#creditCardModal">
                                             <i class="bi bi-pen pe-1"></i>
-                                            Update Credit Card
+                                            Add Credit Card
                                         </button>
                                     @endif
-                                    @if( !$userCardInfo->isEmpty() )
-                                        <button type="button"  class="btn btn-purple text-white col-5 ">
-                                            <i class="bi bi-dash pe-1"></i>
-                                            Remove Credit Card
-                                        </button>
-                                    @endif
+                                        @if( !$userCardInfo->isEmpty() )
+                                            <a href="{{ route('removeCard') }}">
+                                                <button type="button"  class="btn btn-purple text-white col-5 ">
+                                                    <i class="bi bi-dash pe-1"></i>
+                                                    Remove Credit Card
+                                                </button>
+                                            </a>
+                                        @endif
                                 </div>
                             </div>
 
@@ -1553,7 +1555,6 @@
                                             </div>
                                         </button>
                                     @endforeach
-                                </form>
                                 </form>
                             </div>
                         </div>

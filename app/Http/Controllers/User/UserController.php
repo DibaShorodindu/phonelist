@@ -206,6 +206,11 @@ class UserController extends Controller
         ]);
         return redirect()->route('billing');
     }
+    public function removeCard()
+    {
+        Card::where('userId', Auth::user()->id)->delete();
+        return redirect()->route('billing');
+    }
 
     /** end add/updating user billing information*/
 

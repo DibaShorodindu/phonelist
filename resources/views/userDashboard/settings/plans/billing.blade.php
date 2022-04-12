@@ -37,14 +37,16 @@
                                     <button type="button" class="btn btn-purple col-5" data-bs-toggle="modal"
                                             data-bs-target="#creditCardModal">
                                         <i class="bi bi-pen pe-1"></i>
-                                        Update Credit Card
+                                        Add Credit Card
                                     </button>
                                 @endif
                                 @if( !$userCardInfo->isEmpty() )
-                                     <button type="button"  class="btn btn-purple text-white col-5 ">
-                                         <i class="bi bi-dash pe-1"></i>
+                                    <a href="{{ route('removeCard') }}">
+                                        <button type="button"  class="btn btn-purple text-white col-5 ">
+                                            <i class="bi bi-dash pe-1"></i>
                                             Remove Credit Card
-                                     </button>
+                                        </button>
+                                    </a>
                                 @endif
                             </div>
                         </div>
@@ -1530,15 +1532,20 @@
 
                         <!-- WHEN CREDIT CARD INFO FOUND -->
                         <div class="credit-card-info u-box-shadow-2 mt-4">
-                            @foreach($userCardInfo as $card)
-                                <div class="card-body p-4">
-                                    <h4 class="card-title py-3 mb-3">Card Information</h4>
-                                    <p class="card-text">Card Number: </p>
-                                    <p class="card-text">**** **** **** {{ substr($card->creditCardNumber, 12, 15) }}</p>
-                                    <p class="card-text">Expiration Date:</p>
-                                    <p class="card-text">{{ $card->expirationDate }}</p>
-                                </div>
-                            @endforeach
+                            <form action="{{ route('upgrade') }}" enctype="multipart/form-data" method="get">
+                                @csrf
+                                @foreach($userCardInfo as $card)
+                                    <button type="submit" class="credit-card-info u-box-shadow-2 mt-4 bg-white text-start">
+                                        <div class="card-body p-4">
+                                            <h4 class="card-title py-3 mb-3">Card Information</h4>
+                                            <p class="card-text">Card Number: </p>
+                                            <p class="card-text">**** **** **** {{ substr($card->creditCardNumber, 12, 15) }}</p>
+                                            <p class="card-text">Expiration Date:</p>
+                                            <p class="card-text">{{ $card->expirationDate }}</p>
+                                        </div>
+                                    </button>
+                                @endforeach
+                            </form>
                         </div>
                     </div>
                     <!-- END Credit Card Information -->

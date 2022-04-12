@@ -364,6 +364,10 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function (){
         'uses' => '\App\Http\Controllers\User\UserController@updateCardInfo',
         'as'   => 'updateCardInfo',
     ]);
+    Route::get('removeCard',[
+        'uses' => '\App\Http\Controllers\User\UserController@removeCard',
+        'as'   => 'removeCard',
+    ]);
 
     // route for processing payment
     Route::post('/paypal', [PayPalPaymentController::class, 'payWithpaypal'])->name('paypal');
